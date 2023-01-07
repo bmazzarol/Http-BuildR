@@ -1,0 +1,30 @@
+{
+    "tasks": [
+        {
+            "name": "Format C# Code",
+            "command": "dotnet",
+            "args": [
+                "csharpier",
+                "."
+            ]
+        },
+        {
+            "name": "Lint Markdown",
+            "command": "npx",
+            "args": [
+                "markdownlint-cli2",
+                "HttpBuildR*/**/*.md",
+                "Docs/**/*.md",
+                "*.md",
+                "!LICENSE.md"
+            ]
+        },
+        {
+            "name": "Test C# Code",
+            "command": "dotnet",
+            "args": [
+                "test"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,6 @@
+﻿is_global = true
+
+dotnet_diagnostic.MA0048.severity = none
+dotnet_diagnostic.MA0004.severity = none
+# logging performance
+dotnet_diagnostic.CA1848.severity = none

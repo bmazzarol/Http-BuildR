@@ -1,0 +1,17 @@
+﻿name: "Test Reporter"
+
+on:
+  workflow_run:
+    workflows: [ 'CI Build' ]
+    types: [ 'completed' ]
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dorny/test-reporter@v1
+        with:
+          artifact: '/test-results-(.*)/'
+          name: 'Test Results $1'
+          path: '**/*.trx'
+          reporter: dotnet-trx
