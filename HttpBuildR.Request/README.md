@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD013 -->
 
-# ![Http BuildR Request](https://raw.githubusercontent.com/bmazzarol/Http-BuildR/main/construction-icon-small.png) Http BuildR Request
+# ![HTTP BuildR Request](https://raw.githubusercontent.com/bmazzarol/Http-BuildR/main/construction-icon-small.png) HTTP BuildR Request
 
 <!-- markdownlint-enable MD013 -->
 

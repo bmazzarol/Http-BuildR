@@ -1,3 +1,5 @@
+using System.Net;
+
 namespace HttpBuildR.Request.Tests;
 
 using Req = HttpMethod;
@@ -9,12 +11,58 @@ public static class RequestTests
         Req.Get
             .To("Http://some-host")
             .Should()
-            .BeEquivalentTo(new { Method = Req.Get, RequestUri = new Uri("Http://some-host") });
+            .BeEquivalentTo(
+                new
+                {
+                    Method = Req.Get,
+                    RequestUri = new Uri("Http://some-host"),
+                    Version = HttpVersion.Version20
+                }
+            );
 
     [Fact(DisplayName = "A HttpMethod can start building a HttpRequestMessage with a Uri uri")]
     public static void Case2() =>
         Req.Get
             .To(new Uri("Http://some-host"))
             .Should()
-            .BeEquivalentTo(new { Method = Req.Get, RequestUri = new Uri("Http://some-host") });
+            .BeEquivalentTo(
+                new
+                {
+                    Method = Req.Get,
+                    RequestUri = new Uri("Http://some-host"),
+                    Version = HttpVersion.Version20
+                }
+            );
+
+    [Fact(
+        DisplayName = "A HttpMethod can start building a HttpRequestMessage with a string uri, at version 1.1"
+    )]
+    public static void Case3() =>
+        Req.Get
+            .To("Http://some-host", HttpVersion.Version11)
+            .Should()
+            .BeEquivalentTo(
+                new
+                {
+                    Method = Req.Get,
+                    RequestUri = new Uri("Http://some-host"),
+                    Version = HttpVersion.Version11
+                }
+            );
+
+    [Fact(
+        DisplayName = "A HttpMethod can start building a HttpRequestMessage with a Uri uri, at version 1.1"
+    )]
+    public static void Case4() =>
+        Req.Get
+            .To(new Uri("Http://some-host"), HttpVersion.Version11)
+            .Should()
+            .BeEquivalentTo(
+                new
+                {
+                    Method = Req.Get,
+                    RequestUri = new Uri("Http://some-host"),
+                    Version = HttpVersion.Version11
+                }
+            );
 }

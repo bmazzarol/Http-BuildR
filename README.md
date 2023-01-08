@@ -1,10 +1,10 @@
 ﻿<!-- markdownlint-disable MD033 -->
 
-# <img height="50" src="construction-icon.png" width="50"/> Http BuildR
+# <img height="50" src="construction-icon.png" width="50"/> HTTP BuildR
 
 <!-- markdownlint-enabled MD033 -->
 
-[![Coverage Status](https://coveralls.io/repos/github/bmazzarol/Http-BuildR/badge.svg?branch=main)](https://coveralls.io/github/bmazzarol/Http-BuildR?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/bmazzarol/Http-BuildR/badge.svg?branch=main&kill_cache=1)](https://coveralls.io/github/bmazzarol/Http-BuildR?branch=main&kill_cache=1)
 [![CodeQL](https://github.com/bmazzarol/Http-BuildR/actions/workflows/codeql.yml/badge.svg)](https://github.com/bmazzarol/Http-BuildR/actions/workflows/codeql.yml)
 [![CD Build](https://github.com/bmazzarol/Http-BuildR/actions/workflows/cd-build.yml/badge.svg)](https://github.com/bmazzarol/Http-BuildR/actions/workflows/cd-build.yml)
 [![Check Markdown](https://github.com/bmazzarol/Http-BuildR/actions/workflows/check-markdown.yml/badge.svg)](https://github.com/bmazzarol/Http-BuildR/actions/workflows/check-markdown.yml)
