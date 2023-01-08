@@ -1,7 +1,11 @@
 ﻿using System.Net.Http.Headers;
 
+// ReSharper disable once CheckNamespace
 namespace HttpBuildR;
 
+/// <summary>
+/// Extension methods for modifying headers
+/// </summary>
 public static partial class Request
 {
     /// <summary>
