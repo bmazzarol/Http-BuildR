@@ -17,14 +17,14 @@ it from [NuGet](https://www.nuget.org/packages/HttpBuildR.Request/), and add
 this to the top of each `.cs` file that needs it:
 
 ```C#
-using static HttpBuildR.Request;
+using HttpBuildR;
 using Req = HttpMethod;
 ```
 
 Then get building!,
 
 ```c#
-using static HttpBuildR.Request;
+using HttpBuildR;
 
 // its helpful to alias this for readability
 using Req = HttpMethod;

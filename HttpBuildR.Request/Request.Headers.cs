@@ -14,6 +14,7 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="action">header modification action</param>
     /// <returns>request</returns>
+    [Pure]
     public static HttpRequestMessage WithHeaderModifications(
         this HttpRequestMessage request,
         Action<HttpRequestHeaders> action
@@ -26,6 +27,7 @@ public static partial class Request
     /// <param name="name">header name</param>
     /// <param name="value">value</param>
     /// <returns>request</returns>
+    [Pure]
     public static HttpRequestMessage WithHeader(
         this HttpRequestMessage request,
         string name,
@@ -39,6 +41,7 @@ public static partial class Request
     /// <param name="name">header name</param>
     /// <param name="values">values</param>
     /// <returns>request</returns>
+    [Pure]
     public static HttpRequestMessage WithHeader(
         this HttpRequestMessage request,
         string name,
@@ -52,6 +55,7 @@ public static partial class Request
     /// <param name="scheme">authentication scheme</param>
     /// <param name="parameter">authentication parameter</param>
     /// <returns>request</returns>
+    [Pure]
     public static HttpRequestMessage WithAuthorization(
         this HttpRequestMessage request,
         string scheme,
@@ -68,6 +72,7 @@ public static partial class Request
     /// <param name="scheme">authentication scheme</param>
     /// <param name="parameter">authentication parameter</param>
     /// <returns>request</returns>
+    [Pure]
     public static HttpRequestMessage WithProxyAuthorization(
         this HttpRequestMessage request,
         string scheme,
@@ -83,6 +88,7 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="token">bearer token</param>
     /// <returns>request</returns>
+    [Pure]
     public static HttpRequestMessage WithBearerToken(
         this HttpRequestMessage request,
         string token
@@ -94,6 +100,7 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="token">basic token</param>
     /// <returns>request</returns>
+    [Pure]
     public static HttpRequestMessage WithBasicToken(
         this HttpRequestMessage request,
         string token
@@ -105,6 +112,7 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="value">cache control value</param>
     /// <returns>request</returns>
+    [Pure]
     public static HttpRequestMessage WithCacheControl(
         this HttpRequestMessage request,
         CacheControlHeaderValue value
@@ -116,6 +124,7 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="value">value</param>
     /// <returns>request</returns>
+    [Pure]
     public static HttpRequestMessage WithConnectionClose(
         this HttpRequestMessage request,
         bool? value
@@ -127,6 +136,7 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="value">value</param>
     /// <returns>request</returns>
+    [Pure]
     public static HttpRequestMessage WithDate(
         this HttpRequestMessage request,
         DateTimeOffset? value
@@ -139,6 +149,7 @@ public static partial class Request
     /// <param name="value">value</param>
     /// <param name="quality">quality</param>
     /// <returns>request</returns>
+    [Pure]
     public static HttpRequestMessage WithAccept(
         this HttpRequestMessage request,
         string value,
@@ -159,6 +170,7 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="value">value</param>
     /// <returns>request</returns>
+    [Pure]
     public static HttpRequestMessage WithIfModifiedSince(
         this HttpRequestMessage request,
         DateTimeOffset? value
@@ -170,6 +182,7 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="value">value</param>
     /// <returns>request</returns>
+    [Pure]
     public static HttpRequestMessage WithIfRange(
         this HttpRequestMessage request,
         DateTimeOffset value
@@ -181,6 +194,7 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="value">value</param>
     /// <returns>request</returns>
+    [Pure]
     public static HttpRequestMessage WithIfRange(
         this HttpRequestMessage request,
         EntityTagHeaderValue value
@@ -192,6 +206,7 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="value">value</param>
     /// <returns>request</returns>
+    [Pure]
     public static HttpRequestMessage WithIfUnmodifiedSince(
         this HttpRequestMessage request,
         DateTimeOffset? value
@@ -203,6 +218,7 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="value">value</param>
     /// <returns>request</returns>
+    [Pure]
     public static HttpRequestMessage WithMaxForwards(this HttpRequestMessage request, int? value) =>
         request.WithHeaderModifications(x => x.MaxForwards = value);
 
@@ -213,6 +229,7 @@ public static partial class Request
     /// <param name="from">The position at which to start sending data.</param>
     /// <param name="to">The position at which to stop sending data.</param>
     /// <returns>request</returns>
+    [Pure]
     public static HttpRequestMessage WithRange(
         this HttpRequestMessage request,
         long? from,
@@ -225,6 +242,7 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="value">value</param>
     /// <returns>request</returns>
+    [Pure]
     public static HttpRequestMessage WithReferrer(this HttpRequestMessage request, string value) =>
         request.WithReferrer(new Uri(value));
 
@@ -234,6 +252,7 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="value">value</param>
     /// <returns>request</returns>
+    [Pure]
     public static HttpRequestMessage WithReferrer(this HttpRequestMessage request, Uri value) =>
         request.WithHeaderModifications(x => x.Referrer = value);
 
@@ -243,6 +262,7 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="value">value</param>
     /// <returns>request</returns>
+    [Pure]
     public static HttpRequestMessage WithTransferEncodingChunked(
         this HttpRequestMessage request,
         bool? value
