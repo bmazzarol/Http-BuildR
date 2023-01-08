@@ -40,7 +40,7 @@ HttpRequestMessage request =
      .To("http://some-url/some-part") 
      // add some headers
      .WithBearerToken(token)
-     .WithContentType("application/json")
+     .WithAccept("application/json")
      .WithHeader("x-custom-header", "a","b","c")
      // with some content, they are all supported!
      .WithJsonContent(new {Name = "John", Age = 36});

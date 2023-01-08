@@ -93,6 +93,13 @@ public static class RequestTests
             .Headers.Accept.Should()
             .Contain(x => x.MediaType == "text/json" && x.Quality == 0.20);
 
+    [Fact(DisplayName = "Accept headers can be set without quality")]
+    public static void Case11_2() =>
+        new HttpRequestMessage()
+            .WithAccept("text/json2")
+            .Headers.Accept.Should()
+            .Contain(x => x.MediaType == "text/json2" && !x.Quality.HasValue);
+
     [Fact(DisplayName = "If-Modified-Since header can be set")]
     public static void Case12() =>
         new HttpRequestMessage()

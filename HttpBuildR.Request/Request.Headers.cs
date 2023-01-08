@@ -138,7 +138,7 @@ public static partial class Request
     public static HttpRequestMessage WithAccept(
         this HttpRequestMessage request,
         string value,
-        double? quality
+        double? quality = default
     ) =>
         request.WithHeaderModifications(
             x =>
