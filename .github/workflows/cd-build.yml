@@ -20,6 +20,7 @@ jobs:
       matrix:
         project-name:
           - HttpBuildR.Request
+          - HttpBuildR.Response
     steps:
       - uses: actions/checkout@v3
       - name: Setup .NET

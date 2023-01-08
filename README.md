@@ -21,7 +21,7 @@ Simple request response builders in C# without all the fancy frameworks.
 * Does only what it says on the tin, builds requests and responses :hammer:
 
 ```c#
-using static HttpBuildR.Request;
+using HttpBuildR;
 
 // its helpful to alias this for readability
 using Req = HttpMethod;
@@ -53,7 +53,7 @@ it from [NuGet](https://www.nuget.org/packages/HttpBuildR.Request/), and add
 this to the top of each `.cs` file that needs it:
 
 ```C#
-using static HttpBuildR.Request;
+using HttpBuildR;
 using Req = HttpMethod;
 ```
 

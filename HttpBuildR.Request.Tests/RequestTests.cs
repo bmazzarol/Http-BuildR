@@ -65,4 +65,14 @@ public static class RequestTests
                     Version = HttpVersion.Version11
                 }
             );
+
+    [Fact(DisplayName = "2 builders can be run one after the other, with independent results")]
+    public static void Case5()
+    {
+        var req1 = Req.Get.To(new Uri("Http://some-host")).WithHeader("a", "1");
+        var req2 = req1.WithHeader("b", "2");
+
+        req1.Headers.Should().HaveCount(1);
+        req2.Headers.Should().HaveCount(2);
+    }
 }
