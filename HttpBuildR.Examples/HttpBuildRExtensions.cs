@@ -1,8 +1,6 @@
 ﻿using System.Net.Mime;
 using System.Text.Json;
 using Newtonsoft.Json;
-using JsonConverter = System.Text.Json.Serialization.JsonConverter;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace HttpBuildR.Examples;
 

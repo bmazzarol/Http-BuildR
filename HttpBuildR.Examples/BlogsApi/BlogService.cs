@@ -1,5 +1,4 @@
 ﻿using System.Net.Mime;
-using Newtonsoft.Json;
 using static HttpBuildR.Examples.BlogsApi.RequestResponseSchema;
 using static HttpBuildR.Examples.HttpBuildRExtensions;
 
