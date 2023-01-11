@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Blogs.Api.Models;
 using Blogs.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 using Req = System.Net.Http.HttpMethod;
@@ -33,6 +34,17 @@ public class BlogsController : ControllerBase
                     StatusCode = (int)(HttpStatusCode.InternalServerError)
                 };
             }
+        );
+    }
+
+    [HttpPost("CreateBlogPost")]
+    public async Task<IActionResult> CreateBlogPost([FromBody] CreateBlogPostRequest request)
+    {
+        var operation = await _blogService.CreatePostAsync(request);
+        return operation.Match<IActionResult>(
+            response => Ok(response),
+            error =>
+                new ObjectResult(error) { StatusCode = (int)(HttpStatusCode.InternalServerError) }
         );
     }
 }
