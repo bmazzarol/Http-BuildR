@@ -34,10 +34,6 @@ public static class HttpOperations
         where TResponse : notnull =>
         SendJson<TResponse>(httpClientName, Req.Post.To(url).WithJsonData(request), settings);
 
-    private static Eff<HttpRunTime, IHttpBuilderRunTime> GetBootstrapper() =>
-        EffMaybe<HttpRunTime, IHttpBuilderRunTime>(_ => Bootstrapper.New(new ServiceCollection()))
-            .MapFail(error => error);
-
     private static Aff<HttpRunTime, TResponse> SendJson<TResponse>(
         string httpClientName,
         HttpRequestMessage request,
