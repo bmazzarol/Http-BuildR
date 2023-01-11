@@ -28,7 +28,7 @@ public static class BootstrapperExtensions
         return Bootstrapper.New(services);
     }
 
-    public static IServiceCollection WithHttpClient(
+    public static IHttpBuilderRunTime WithHttpClient(
         this IHttpBuilderRunTime runTime,
         string httpClientName,
         Func<IServiceProvider, HttpClient>? configuration = null
@@ -37,10 +37,10 @@ public static class BootstrapperExtensions
         if (configuration == null)
         {
             runTime.Services.AddHttpClient(httpClientName);
-            return runTime.Services;
+            return runTime;
         }
 
         runTime.Services.AddHttpClient(httpClientName, (provider, _) => configuration(provider));
-        return runTime.Services;
+        return runTime;
     }
 }
