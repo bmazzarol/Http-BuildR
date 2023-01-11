@@ -12,10 +12,7 @@ internal class Bootstrapper : IHttpBuilderRunTime
 {
     public readonly IServiceCollection _services;
 
-    private Bootstrapper(IServiceCollection services)
-    {
-        _services = services;
-    }
+    private Bootstrapper(IServiceCollection services) => _services = services;
 
     public static Bootstrapper New(IServiceCollection services) => new(services);
 
