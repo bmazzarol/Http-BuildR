@@ -9,7 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="BunsenBurner" Version="5.3.1" />
+        <PackageReference Include="BunsenBurner" Version="6.1.0" />
         <PackageReference Include="FluentAssertions" Version="6.8.0" />
         <PackageReference Include="HttpBuildR.Request" Version="1.0.0" />
         <PackageReference Include="HttpBuildR.Response" Version="1.0.0" />
