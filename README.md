@@ -11,7 +11,7 @@
 [![Check Markdown](https://github.com/bmazzarol/Http-BuildR/actions/workflows/check-markdown.yml/badge.svg)](https://github.com/bmazzarol/Http-BuildR/actions/workflows/check-markdown.yml)
 [![CodeQL](https://github.com/bmazzarol/Http-BuildR/actions/workflows/codeql.yml/badge.svg)](https://github.com/bmazzarol/Http-BuildR/actions/workflows/codeql.yml)
 
-Simple :wrench: Http Builders :hammer: using vanilla dotnet!
+Simple C# functions for building :hammer: requests and responses using only the core System.Net.Http!
 
 </div>
 
