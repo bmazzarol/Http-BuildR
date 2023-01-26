@@ -1,17 +1,21 @@
-﻿<!-- markdownlint-disable MD033 -->
+﻿<!-- markdownlint-disable MD033 MD041 -->
+<div align="center">
 
-# <img height="50" src="construction-icon.png" width="50"/> HTTP BuildR
+<img src="construction-icon.png" alt="HTTP BuildR" width="150px"/>
 
-<!-- markdownlint-enabled MD033 -->
+# HTTP BuildR
 
+[![Nuget](https://img.shields.io/nuget/v/HttpBuildR.Request)](https://www.nuget.org/packages/HttpBuildR.Request/)
 [![Coverage Status](https://coveralls.io/repos/github/bmazzarol/Http-BuildR/badge.svg?branch=main&kill_cache=1)](https://coveralls.io/github/bmazzarol/Http-BuildR?branch=main&kill_cache=1)
-[![CodeQL](https://github.com/bmazzarol/Http-BuildR/actions/workflows/codeql.yml/badge.svg)](https://github.com/bmazzarol/Http-BuildR/actions/workflows/codeql.yml)
 [![CD Build](https://github.com/bmazzarol/Http-BuildR/actions/workflows/cd-build.yml/badge.svg)](https://github.com/bmazzarol/Http-BuildR/actions/workflows/cd-build.yml)
 [![Check Markdown](https://github.com/bmazzarol/Http-BuildR/actions/workflows/check-markdown.yml/badge.svg)](https://github.com/bmazzarol/Http-BuildR/actions/workflows/check-markdown.yml)
-[![Nuget](https://img.shields.io/nuget/v/HttpBuildR.Request)](https://www.nuget.org/packages/HttpBuildR.Request/)
+[![CodeQL](https://github.com/bmazzarol/Http-BuildR/actions/workflows/codeql.yml/badge.svg)](https://github.com/bmazzarol/Http-BuildR/actions/workflows/codeql.yml)
 
-> Simple :wrench: Http Builders :hammer: using vanilla dotnet!
----
+Simple :wrench: Http Builders :hammer: using vanilla dotnet!
+
+</div>
+
+## Features
 
 Simple request response builders in C# without all the fancy frameworks.
 
