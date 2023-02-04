@@ -12,6 +12,7 @@ module.exports = {
                 "core",
                 "request",
                 "response",
+                "action-result"
             ]
         ]
     }
