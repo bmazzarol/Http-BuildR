@@ -21,6 +21,7 @@ jobs:
         project-name:
           - HttpBuildR.Request
           - HttpBuildR.Response
+          - HttpBuildR.ActionResult
     steps:
       - uses: actions/checkout@v3
       - name: Setup .NET

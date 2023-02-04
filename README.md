@@ -65,10 +65,11 @@ using Req = HttpMethod;
 Click through to the links bellow for further details.
 <!-- markdownlint-disable MD013 -->
 
-| Library                                     | Description                                                  | Nu-Get                                                                                                              |
-|---------------------------------------------|--------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
-| [Request](./HttpBuildR.Request/README.md)   | Simple request builder functions on top of System.Net.Http!  | [![Nuget](https://img.shields.io/nuget/v/HttpBuildR.Request)](https://www.nuget.org/packages/HttpBuildR.Request/)   |
-| [Response](./HttpBuildR.Response/README.md) | Simple response builder functions on top of System.Net.Http! | [![Nuget](https://img.shields.io/nuget/v/HttpBuildR.Response)](https://www.nuget.org/packages/HttpBuildR.Response/) |
+| Library                                             | Description                                                                    | Nu-Get                                                                                                                      |
+|-----------------------------------------------------|--------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| [Request](./HttpBuildR.Request/README.md)           | Simple request builder functions on top of System.Net.Http!                    | [![Nuget](https://img.shields.io/nuget/v/HttpBuildR.Request)](https://www.nuget.org/packages/HttpBuildR.Request/)           |
+| [Response](./HttpBuildR.Response/README.md)         | Simple response builder functions on top of System.Net.Http!                   | [![Nuget](https://img.shields.io/nuget/v/HttpBuildR.Response)](https://www.nuget.org/packages/HttpBuildR.Response/)         |
+| [ActionResult](./HttpBuildR.ActionResult/README.md) | Simple ActionResult builder functions, building on-top of HttpBuildR.Response! | [![Nuget](https://img.shields.io/nuget/v/HttpBuildR.ActionResult)](https://www.nuget.org/packages/HttpBuildR.ActionResult/) |
 
 <!-- markdownlint-enable MD013 -->
 
