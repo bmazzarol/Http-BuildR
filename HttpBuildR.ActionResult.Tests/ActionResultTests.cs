@@ -57,4 +57,16 @@ public static class ActionResultTests
                             "{\"type\":\"a\",\"title\":\"a\",\"status\":400,\"detail\":\"a\",\"instance\":\"A\"}"
                         )
             );
+
+    [Fact(DisplayName = "A response can be converted to an action response with no content")]
+    public static async Task Case4() =>
+        await Resp.NotAcceptable
+            .Result()
+            .WithHeader("a", "b")
+            .AsAction<string>()
+            .AsResponse()
+            .Assert(r => r.StatusCode.Should().Be((int)HttpStatusCode.NotAcceptable))
+            .And(r => r.Headers.Should().ContainKey("a").And.ContainValue("b"))
+            .And(r => r.ContentType.Should().BeNullOrEmpty())
+            .And(r => r.ContentLength.Should().Be(0L));
 }
