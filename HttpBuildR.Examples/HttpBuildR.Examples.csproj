@@ -32,7 +32,7 @@
         <PackageReference Include="BunsenBurner" Version="6.2.0"/>
         <PackageReference Include="FluentAssertions" Version="6.10.0"/>
         <PackageReference Include="HttpBuildR.Request" Version="1.1.0"/>
-        <PackageReference Include="HttpBuildR.Response" Version="1.1.0"/>
+        <PackageReference Include="HttpBuildR.Response" Version="1.1.1"/>
         <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0"/>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0"/>
         <PackageReference Include="Moq" Version="4.18.4"/>
