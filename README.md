@@ -7,6 +7,7 @@
 
 [![Nuget](https://img.shields.io/nuget/v/HttpBuildR.Request)](https://www.nuget.org/packages/HttpBuildR.Request/)
 [![Coverage Status](https://coveralls.io/repos/github/bmazzarol/Http-BuildR/badge.svg?branch=main&kill_cache=1)](https://coveralls.io/github/bmazzarol/Http-BuildR?branch=main&kill_cache=1)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bmazzarol_Http-BuildR&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bmazzarol_Http-BuildR)
 [![CD Build](https://github.com/bmazzarol/Http-BuildR/actions/workflows/cd-build.yml/badge.svg)](https://github.com/bmazzarol/Http-BuildR/actions/workflows/cd-build.yml)
 [![Check Markdown](https://github.com/bmazzarol/Http-BuildR/actions/workflows/check-markdown.yml/badge.svg)](https://github.com/bmazzarol/Http-BuildR/actions/workflows/check-markdown.yml)
 [![CodeQL](https://github.com/bmazzarol/Http-BuildR/actions/workflows/codeql.yml/badge.svg)](https://github.com/bmazzarol/Http-BuildR/actions/workflows/codeql.yml)
