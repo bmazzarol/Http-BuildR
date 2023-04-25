@@ -36,7 +36,8 @@ public static partial class Request
         this HttpRequestMessage request,
         T content,
         JsonSerializerOptions? options = null
-    ) where T : notnull =>
+    )
+        where T : notnull =>
         request.WithContent(
             new StringContent(
                 JsonSerializer.Serialize(content, options),
@@ -55,7 +56,8 @@ public static partial class Request
         this XmlSerializer serializer,
         T content,
         XmlWriterSettings? settings = null
-    ) where T : notnull
+    )
+        where T : notnull
     {
         using var stringWriter = new Utf8StringWriter();
         using var writer = XmlWriter.Create(stringWriter, settings);
@@ -77,7 +79,8 @@ public static partial class Request
         T content,
         XmlSerializer serializer,
         XmlWriterSettings? settings = null
-    ) where T : notnull =>
+    )
+        where T : notnull =>
         request.WithContent(
             new StringContent(
                 serializer.SerializeToXml(content, settings),
@@ -100,7 +103,8 @@ public static partial class Request
         T content,
         XmlWriterSettings? settings = null,
         string? defaultNamespace = null
-    ) where T : notnull =>
+    )
+        where T : notnull =>
         request.WithXmlContent(content, new XmlSerializer(typeof(T), defaultNamespace), settings);
 
     /// <summary>

@@ -13,7 +13,8 @@ public static class HttpBuildRExtensions
         this HttpRequestMessage request,
         TData data,
         JsonSerializerOptions? options = null
-    ) where TData : notnull =>
+    )
+        where TData : notnull =>
         request
             .WithAccept(MediaTypeNames.Application.Json)
             .WithJsonContent(data, options ?? JsonSerializerOptions.Default);

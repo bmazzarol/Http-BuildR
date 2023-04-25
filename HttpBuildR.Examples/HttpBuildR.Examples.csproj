@@ -14,29 +14,29 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Meziantou.Analyzer" Version="2.0.34">
+        <PackageReference Include="Meziantou.Analyzer" Version="2.0.37">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Roslynator.Analyzers" Version="4.2.0">
+        <PackageReference Include="Roslynator.Analyzers" Version="4.3.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="SonarAnalyzer.CSharp" Version="8.55.0.65544">
+        <PackageReference Include="SonarAnalyzer.CSharp" Version="8.56.0.67649">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="BunsenBurner" Version="6.2.1"/>
-        <PackageReference Include="FluentAssertions" Version="6.10.0"/>
-        <PackageReference Include="HttpBuildR.Request" Version="1.1.1"/>
-        <PackageReference Include="HttpBuildR.Response" Version="1.1.1"/>
-        <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0"/>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0"/>
-        <PackageReference Include="Moq" Version="4.18.4"/>
-        <PackageReference Include="xunit" Version="2.4.2"/>
+        <PackageReference Include="BunsenBurner" Version="6.2.1" />
+        <PackageReference Include="FluentAssertions" Version="6.11.0" />
+        <PackageReference Include="HttpBuildR.Request" Version="1.1.1" />
+        <PackageReference Include="HttpBuildR.Response" Version="1.1.1" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+        <PackageReference Include="Moq" Version="4.18.4" />
+        <PackageReference Include="xunit" Version="2.4.2" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -48,7 +48,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute"/>
+        <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" />
     </ItemGroup>
     
 </Project>

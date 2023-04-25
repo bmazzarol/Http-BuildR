@@ -45,7 +45,14 @@ public class BlogService : IBlogService
             await _client.SendAsync(
                 Req.Post
                     .To($"{_config.BaseUrl}/posts")
-                    .WithJsonData(new { request.Title, Body = request.Content, request.UserId })
+                    .WithJsonData(
+                        new
+                        {
+                            request.Title,
+                            Body = request.Content,
+                            request.UserId
+                        }
+                    )
             )
         ).ToModelAsync(new BlogPost(), DefaultSerializerSettings);
         return new GetPostResponse(post);
