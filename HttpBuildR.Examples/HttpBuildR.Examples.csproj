@@ -31,7 +31,7 @@
     <ItemGroup>
         <PackageReference Include="BunsenBurner" Version="6.2.2" />
         <PackageReference Include="FluentAssertions" Version="6.11.0" />
-        <PackageReference Include="HttpBuildR.Request" Version="1.1.1" />
+        <PackageReference Include="HttpBuildR.Request" Version="1.1.2" />
         <PackageReference Include="HttpBuildR.Response" Version="1.1.2" />
         <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
