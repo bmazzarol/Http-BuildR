@@ -31,8 +31,6 @@
     <ItemGroup>
         <PackageReference Include="BunsenBurner" Version="6.2.2" />
         <PackageReference Include="FluentAssertions" Version="6.11.0" />
-        <PackageReference Include="HttpBuildR.Request" Version="1.1.2" />
-        <PackageReference Include="HttpBuildR.Response" Version="1.1.2" />
         <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
         <PackageReference Include="Moq" Version="4.18.4" />
@@ -49,6 +47,11 @@
 
     <ItemGroup>
         <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\HttpBuildR.Request\HttpBuildR.Request.csproj" />
+      <ProjectReference Include="..\HttpBuildR.Response\HttpBuildR.Response.csproj" />
     </ItemGroup>
     
 </Project>
