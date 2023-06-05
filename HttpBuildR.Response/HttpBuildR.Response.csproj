@@ -32,6 +32,7 @@
         <AnalysisMode>Recommended</AnalysisMode>
         <OutputType>library</OutputType>
         <LangVersion>latest</LangVersion>
+        <SonarQubeTestProject>false</SonarQubeTestProject>
     </PropertyGroup>
 
     <ItemGroup>
