@@ -14,7 +14,6 @@
             "args": [
                 "markdownlint-cli2",
                 "HttpBuildR*/**/*.md",
-                "Docs/**/*.md",
                 "*.md",
                 "!LICENSE.md"
             ]
