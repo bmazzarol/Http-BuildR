@@ -58,7 +58,7 @@
         "output": "_site",
         "globalMetadata": {
             "_appName": "HttpBuildR",
-            "_appLogoPath": "images/construction-icon-small.png",
+            "_appLogoPath": "images/construction-icon.png",
             "_appFaviconPath": "images/favicon.ico",
             "_appFooter": "Created By <a href='https://github.com/bmazzarol' target='blank'>Ben Mazzarol</a>"
         }
