@@ -5,8 +5,8 @@
 
 # HTTP BuildR
 
-[:running: **_Getting Started_**](https://bmazzarol.github.io/HttpBuildR/articles/getting-started.html)
-[:books: **_Documentation_**](https://bmazzarol.github.io/HttpBuildR)
+[:running: **_Getting Started_**](https://bmazzarol.github.io/Http-BuildR/articles/getting-started.html)
+[:books: **_Documentation_**](https://bmazzarol.github.io/Http-BuildR)
 
 [![Nuget](https://img.shields.io/nuget/v/HttpBuildR.Request)](https://www.nuget.org/packages/HttpBuildR.Request/)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=bmazzarol_Http-BuildR&metric=coverage)](https://sonarcloud.io/summary/new_code?id=bmazzarol_Http-BuildR)
