@@ -18,7 +18,7 @@
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
-        <IsPackable>True</IsPackable>
+        <IsPackable>true</IsPackable>
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageIcon>construction-icon.png</PackageIcon>
@@ -36,7 +36,7 @@
 
     <ItemGroup>
         <None Include="README.md" Pack="true" PackagePath="\" />
-        <None Include="..\construction-icon.png" Pack="true" PackagePath="\" />
+        <None Include="..\..\..\construction-icon.png" Pack="true" PackagePath="\" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
     </ItemGroup>
 
@@ -45,15 +45,15 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Meziantou.Analyzer" Version="2.0.84">
+        <PackageReference Include="Meziantou.Analyzer" Version="2.0.87">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Roslynator.Analyzers" Version="4.4.0">
+        <PackageReference Include="Roslynator.Analyzers" Version="4.5.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="SonarAnalyzer.CSharp" Version="9.7.0.75501">
+        <PackageReference Include="SonarAnalyzer.CSharp" Version="9.11.0.78383">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>

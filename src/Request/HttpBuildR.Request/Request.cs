@@ -2,12 +2,13 @@
 namespace HttpBuildR;
 
 /// <summary>
-/// Builders for HttpRequestMessage
+/// Builders for <see cref="HttpRequestMessage"/>
 /// </summary>
 public static partial class Request
 {
     /// <summary>
-    /// Starts a builder from the given http method
+    /// Starts the creation of a new <see cref="HttpRequestMessage"/> from the
+    /// given <see cref="HttpMethod"/> and <see cref="Uri"/>
     /// </summary>
     /// <param name="method">http method</param>
     /// <param name="uri">uri</param>
@@ -21,7 +22,8 @@ public static partial class Request
     ) => new(method, uri) { Version = version ?? new Version(2, 0) };
 
     /// <summary>
-    /// Starts a builder from the given http method
+    /// Starts the creation of a new <see cref="HttpRequestMessage"/> from the
+    /// given <see cref="HttpMethod"/> and <see cref="Uri"/>
     /// </summary>
     /// <param name="method">http method</param>
     /// <param name="uri">uri</param>
@@ -34,30 +36,28 @@ public static partial class Request
         Version? version = default
     ) => new(method, uri) { Version = version ?? new Version(2, 0) };
 
+    /// <summary>
+    /// Clones the <see cref="HttpRequestMessage"/> returning a new <see cref="HttpRequestMessage"/>
+    /// </summary>
+    /// <param name="request">existing <see cref="HttpRequestMessage"/></param>
+    /// <returns>clone of the <see cref="HttpRequestMessage"/></returns>
     [Pure]
-    private static HttpRequestMessage Clone(this HttpRequestMessage request)
+    public static async ValueTask<HttpRequestMessage> Clone(this HttpRequestMessage request)
     {
         HttpRequestMessage clone =
-            new(request.Method, request.RequestUri)
-            {
-                Version = request.Version,
-                Content = request.Content // without async cloning content will not work
-            };
+            new(request.Method, request.RequestUri) { Version = request.Version };
+
+        var ms = new MemoryStream();
+        if (request.Content != null)
+        {
+            await request.Content.CopyToAsync(ms);
+            ms.Position = 0;
+            clone.Content = new StreamContent(ms);
+        }
 
         foreach (var kvp in request.Headers)
             clone.Headers.TryAddWithoutValidation(kvp.Key, kvp.Value);
 
-        return clone;
-    }
-
-    [Pure]
-    private static HttpRequestMessage Modify(
-        this HttpRequestMessage request,
-        Action<HttpRequestMessage> modifyAction
-    )
-    {
-        var clone = request.Clone();
-        modifyAction(clone);
         return clone;
     }
 }

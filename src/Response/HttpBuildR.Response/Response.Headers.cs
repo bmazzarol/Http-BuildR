@@ -3,9 +3,6 @@
 // ReSharper disable once CheckNamespace
 namespace HttpBuildR;
 
-/// <summary>
-/// Extension methods for modifying headers
-/// </summary>
 public static partial class Response
 {
     /// <summary>
@@ -14,11 +11,14 @@ public static partial class Response
     /// <param name="response">response</param>
     /// <param name="action">header modification action</param>
     /// <returns>response</returns>
-    [Pure]
     public static HttpResponseMessage WithHeaderModifications(
         this HttpResponseMessage response,
         Action<HttpResponseHeaders> action
-    ) => response.Modify(x => action(x.Headers));
+    )
+    {
+        action(response.Headers);
+        return response;
+    }
 
     /// <summary>
     /// Adds a header to the response
@@ -27,12 +27,15 @@ public static partial class Response
     /// <param name="name">header name</param>
     /// <param name="value">value</param>
     /// <returns>response</returns>
-    [Pure]
     public static HttpResponseMessage WithHeader(
         this HttpResponseMessage response,
         string name,
         string? value
-    ) => response.WithHeaderModifications(x => x.Add(name, value));
+    )
+    {
+        response.Headers.Add(name, value);
+        return response;
+    }
 
     /// <summary>
     /// Adds a header to the response
@@ -41,12 +44,15 @@ public static partial class Response
     /// <param name="name">header name</param>
     /// <param name="values">values</param>
     /// <returns>response</returns>
-    [Pure]
     public static HttpResponseMessage WithHeader(
         this HttpResponseMessage response,
         string name,
         params string[] values
-    ) => response.WithHeaderModifications(x => x.Add(name, values));
+    )
+    {
+        response.Headers.Add(name, values);
+        return response;
+    }
 
     /// <summary>
     /// Adds a age response header
@@ -54,9 +60,11 @@ public static partial class Response
     /// <param name="response">response</param>
     /// <param name="value">value</param>
     /// <returns>response</returns>
-    [Pure]
-    public static HttpResponseMessage WithAge(this HttpResponseMessage response, TimeSpan? value) =>
-        response.WithHeaderModifications(x => x.Age = value);
+    public static HttpResponseMessage WithAge(this HttpResponseMessage response, TimeSpan? value)
+    {
+        response.Headers.Age = value;
+        return response;
+    }
 
     /// <summary>
     /// Adds a ETag response header
@@ -64,11 +72,14 @@ public static partial class Response
     /// <param name="response">response</param>
     /// <param name="value">value</param>
     /// <returns>response</returns>
-    [Pure]
     public static HttpResponseMessage WithETag(
         this HttpResponseMessage response,
         EntityTagHeaderValue value
-    ) => response.WithHeaderModifications(x => x.ETag = value);
+    )
+    {
+        response.Headers.ETag = value;
+        return response;
+    }
 
     /// <summary>
     /// Adds a Location response header
@@ -76,9 +87,11 @@ public static partial class Response
     /// <param name="response">response</param>
     /// <param name="value">value</param>
     /// <returns>response</returns>
-    [Pure]
-    public static HttpResponseMessage WithLocation(this HttpResponseMessage response, Uri value) =>
-        response.WithHeaderModifications(x => x.Location = value);
+    public static HttpResponseMessage WithLocation(this HttpResponseMessage response, Uri value)
+    {
+        response.Headers.Location = value;
+        return response;
+    }
 
     /// <summary>
     /// Adds a Location response header
@@ -86,7 +99,6 @@ public static partial class Response
     /// <param name="response">response</param>
     /// <param name="value">value</param>
     /// <returns>response</returns>
-    [Pure]
     public static HttpResponseMessage WithLocation(
         this HttpResponseMessage response,
         string value
@@ -98,11 +110,14 @@ public static partial class Response
     /// <param name="response">response</param>
     /// <param name="value">value</param>
     /// <returns>response</returns>
-    [Pure]
     public static HttpResponseMessage WithRetryAfter(
         this HttpResponseMessage response,
         DateTimeOffset value
-    ) => response.WithHeaderModifications(x => x.RetryAfter = new RetryConditionHeaderValue(value));
+    )
+    {
+        response.Headers.RetryAfter = new RetryConditionHeaderValue(value);
+        return response;
+    }
 
     /// <summary>
     /// Adds a RetryAfter response header
@@ -110,11 +125,14 @@ public static partial class Response
     /// <param name="response">response</param>
     /// <param name="value">value</param>
     /// <returns>response</returns>
-    [Pure]
     public static HttpResponseMessage WithRetryAfter(
         this HttpResponseMessage response,
         TimeSpan value
-    ) => response.WithHeaderModifications(x => x.RetryAfter = new RetryConditionHeaderValue(value));
+    )
+    {
+        response.Headers.RetryAfter = new RetryConditionHeaderValue(value);
+        return response;
+    }
 
     /// <summary>
     /// Adds a cache control response header
@@ -122,11 +140,14 @@ public static partial class Response
     /// <param name="response">response</param>
     /// <param name="value">cache control value</param>
     /// <returns>response</returns>
-    [Pure]
     public static HttpResponseMessage WithCacheControl(
         this HttpResponseMessage response,
         CacheControlHeaderValue value
-    ) => response.WithHeaderModifications(x => x.CacheControl = value);
+    )
+    {
+        response.Headers.CacheControl = value;
+        return response;
+    }
 
     /// <summary>
     /// Adds a connection closed response header
@@ -134,11 +155,14 @@ public static partial class Response
     /// <param name="response">response</param>
     /// <param name="value">value</param>
     /// <returns>response</returns>
-    [Pure]
     public static HttpResponseMessage WithConnectionClose(
         this HttpResponseMessage response,
         bool? value
-    ) => response.WithHeaderModifications(x => x.ConnectionClose = value);
+    )
+    {
+        response.Headers.ConnectionClose = value;
+        return response;
+    }
 
     /// <summary>
     /// Adds a date response header
@@ -146,11 +170,14 @@ public static partial class Response
     /// <param name="response">response</param>
     /// <param name="value">value</param>
     /// <returns>response</returns>
-    [Pure]
     public static HttpResponseMessage WithDate(
         this HttpResponseMessage response,
         DateTimeOffset? value
-    ) => response.WithHeaderModifications(x => x.Date = value);
+    )
+    {
+        response.Headers.Date = value;
+        return response;
+    }
 
     /// <summary>
     /// Adds a Transfer-Encoding response header
@@ -158,9 +185,12 @@ public static partial class Response
     /// <param name="response">response</param>
     /// <param name="value">value</param>
     /// <returns>response</returns>
-    [Pure]
     public static HttpResponseMessage WithTransferEncodingChunked(
         this HttpResponseMessage response,
         bool? value
-    ) => response.WithHeaderModifications(x => x.TransferEncodingChunked = value);
+    )
+    {
+        response.Headers.TransferEncodingChunked = value;
+        return response;
+    }
 }

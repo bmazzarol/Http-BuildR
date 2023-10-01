@@ -27,6 +27,7 @@ Simple request response builders in C# without all the fancy frameworks.
 * Just System.Net.Http
 * Zero dependencies
 * Easy to use and understand
+* No additional allocations
 * Does only what it says on the tin, builds requests and responses :hammer:
 
 ```c#

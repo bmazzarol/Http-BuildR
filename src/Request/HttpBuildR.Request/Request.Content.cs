@@ -1,49 +1,66 @@
 ﻿using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 using System.Xml;
 using System.Xml.Serialization;
 
 // ReSharper disable once CheckNamespace
 namespace HttpBuildR;
 
-/// <summary>
-/// Extension methods for modifying content
-/// </summary>
 public static partial class Request
 {
     /// <summary>
-    /// Modifies the request content
+    /// Modifies the <see cref="HttpContent"/>
     /// </summary>
     /// <param name="request">request</param>
     /// <param name="content">request content</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithContent(
         this HttpRequestMessage request,
         HttpContent content
-    ) => request.Modify(x => x.Content = content);
+    )
+    {
+        request.Content = content;
+        return request;
+    }
 
     /// <summary>
-    /// Modifies the request with json content
+    /// Modifies the <see cref="HttpRequestMessage"/> with json <see cref="StringContent"/>
     /// </summary>
     /// <param name="request">request</param>
     /// <param name="content">request content</param>
-    /// <param name="options">json serializer options</param>
+    /// <param name="options">optional <see cref="JsonSerializerOptions"/></param>
+    /// <param name="mediaType">media type to use, default is `application/json`</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithJsonContent<T>(
         this HttpRequestMessage request,
         T content,
-        JsonSerializerOptions? options = null
+        JsonSerializerOptions? options = null,
+        string mediaType = "application/json"
     )
         where T : notnull =>
         request.WithContent(
-            new StringContent(
-                JsonSerializer.Serialize(content, options),
-                Encoding.UTF8,
-                "application/json"
-            )
+            new StringContent(JsonSerializer.Serialize(content, options), Encoding.UTF8, mediaType)
+        );
+
+    /// <summary>
+    /// Modifies the <see cref="HttpRequestMessage"/> with json <see cref="StringContent"/>
+    /// </summary>
+    /// <param name="request">request</param>
+    /// <param name="content">request content</param>
+    /// <param name="typeInfo">json <see cref="JsonTypeInfo{T}"/> for the T</param>
+    /// <param name="mediaType">media type to use, default is `application/json`</param>
+    /// <returns>request</returns>
+    public static HttpRequestMessage WithJsonContent<T>(
+        this HttpRequestMessage request,
+        T content,
+        JsonTypeInfo<T> typeInfo,
+        string mediaType = "application/json"
+    )
+        where T : notnull =>
+        request.WithContent(
+            new StringContent(JsonSerializer.Serialize(content, typeInfo), Encoding.UTF8, mediaType)
         );
 
     private sealed class Utf8StringWriter : StringWriter
@@ -51,70 +68,48 @@ public static partial class Request
         public override Encoding Encoding => Encoding.UTF8;
     }
 
-    [Pure]
-    private static string SerializeToXml<T>(
-        this XmlSerializer serializer,
-        T content,
-        XmlWriterSettings? settings = null
-    )
-        where T : notnull
+    private static class XmlSerializerFactory<T>
     {
-        using var stringWriter = new Utf8StringWriter();
-        using var writer = XmlWriter.Create(stringWriter, settings);
-        serializer.Serialize(writer, content);
-        return stringWriter.ToString();
+        public static readonly XmlSerializer Instance = new(typeof(T));
     }
 
     /// <summary>
-    /// Modifies the request with xml content
-    /// </summary>
-    /// <param name="request">request</param>
-    /// <param name="content">request content</param>
-    /// <param name="serializer">xml serializer to use</param>
-    /// <param name="settings">optional settings</param>
-    /// <returns>request</returns>
-    [Pure]
-    public static HttpRequestMessage WithXmlContent<T>(
-        this HttpRequestMessage request,
-        T content,
-        XmlSerializer serializer,
-        XmlWriterSettings? settings = null
-    )
-        where T : notnull =>
-        request.WithContent(
-            new StringContent(
-                serializer.SerializeToXml(content, settings),
-                Encoding.UTF8,
-                MediaTypeNames.Text.Xml
-            )
-        );
-
-    /// <summary>
-    /// Modifies the request with xml content
+    /// Modifies the <see cref="HttpRequestMessage"/> with XML <see cref="StringContent"/>
     /// </summary>
     /// <param name="request">request</param>
     /// <param name="content">request content</param>
     /// <param name="settings">optional settings</param>
-    /// <param name="defaultNamespace">default namespace</param>
+    /// <param name="modifyWriterFunc">optional <see cref="Func{TResult}"/> that can be
+    /// used to modify the <see cref="XmlWriter"/></param>
+    /// <param name="mediaType">media type to use, default is `text/xml`</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithXmlContent<T>(
         this HttpRequestMessage request,
         T content,
         XmlWriterSettings? settings = null,
-        string? defaultNamespace = null
+        Func<XmlWriter, XmlWriter>? modifyWriterFunc = null,
+        string mediaType = "text/xml"
     )
-        where T : notnull =>
-        request.WithXmlContent(content, new XmlSerializer(typeof(T), defaultNamespace), settings);
+        where T : class
+    {
+        using var stringWriter = new Utf8StringWriter();
+        using var writer =
+            modifyWriterFunc != null
+                ? modifyWriterFunc(XmlWriter.Create(stringWriter, settings))
+                : XmlWriter.Create(stringWriter, settings);
+        XmlSerializerFactory<T>.Instance.Serialize(writer, content);
+        return request.WithContent(
+            new StringContent(stringWriter.ToString(), Encoding.UTF8, mediaType)
+        );
+    }
 
     /// <summary>
-    /// Modifies the request with text content
+    /// Modifies the <see cref="HttpRequestMessage"/> with text <see cref="StringContent"/>
     /// </summary>
     /// <param name="request">request</param>
     /// <param name="content">request content</param>
     /// <param name="mediaTypeName">media type of the text content, defaults to text/plain</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithTextContent(
         this HttpRequestMessage request,
         string content,
@@ -125,26 +120,24 @@ public static partial class Request
         );
 
     /// <summary>
-    /// Modifies the request with from url encoded content
+    /// Modifies the <see cref="HttpRequestMessage"/> with <see cref="FormUrlEncodedContent"/> content
     /// </summary>
     /// <param name="request">request</param>
     /// <param name="content">request content</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithFormUrlContent(
         this HttpRequestMessage request,
         params KeyValuePair<string, string>[] content
     ) => request.WithContent(new FormUrlEncodedContent(content));
 
     /// <summary>
-    /// Modifies the request with from url encoded content
+    /// Modifies the <see cref="HttpRequestMessage"/> with <see cref="FormUrlEncodedContent"/> content
     /// </summary>
     /// <param name="request">request</param>
     /// <param name="content">request content</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithFormUrlContent(
         this HttpRequestMessage request,
-        IDictionary<string, string> content
-    ) => request.WithFormUrlContent(content.AsEnumerable().ToArray());
+        IEnumerable<KeyValuePair<string, string>> content
+    ) => request.WithContent(new FormUrlEncodedContent(content));
 }
