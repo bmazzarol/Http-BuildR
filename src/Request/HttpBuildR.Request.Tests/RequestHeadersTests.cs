@@ -101,14 +101,14 @@ public static class RequestHeadersTests
     public static void Case13() =>
         new HttpRequestMessage()
             .WithIfRange(DateTimeOffset.Now)
-            .Headers.IfRange?.Date.Should()
+            .Headers.IfRange!.Date.Should()
             .BeCloseTo(DateTimeOffset.Now, TimeSpan.FromSeconds(1));
 
     [Fact(DisplayName = "If-Range header can be set using e-tag")]
     public static void Case14() =>
         new HttpRequestMessage()
             .WithIfRange(new EntityTagHeaderValue("\"a\""))
-            .Headers.IfRange?.EntityTag.Should()
+            .Headers.IfRange!.EntityTag.Should()
             .BeEquivalentTo(new EntityTagHeaderValue("\"a\""));
 
     [Fact(DisplayName = "If-Unmodified-Since header can be set")]
@@ -135,4 +135,23 @@ public static class RequestHeadersTests
             .WithTransferEncodingChunked(true)
             .Headers.TransferEncodingChunked.Should()
             .BeTrue();
+
+    [Fact(DisplayName = "Headers can be modified using an action")]
+    public static void Case19() =>
+        new HttpRequestMessage()
+            .WithHeaderModifications(h =>
+            {
+                h.Add("a", "1");
+                h.Add("b", "2");
+                h.Add("c", "3");
+            })
+            .Headers.Should()
+            .BeEquivalentTo(
+                new[]
+                {
+                    KeyValuePair.Create("a", new[] { "1" }),
+                    KeyValuePair.Create("b", new[] { "2" }),
+                    KeyValuePair.Create("c", new[] { "3" })
+                }
+            );
 }

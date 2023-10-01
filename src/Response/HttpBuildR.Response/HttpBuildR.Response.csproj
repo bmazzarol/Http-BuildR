@@ -5,27 +5,27 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <PackageId>HttpBuildR.ActionResult</PackageId>
-        <Title>Http BuildR ActionResult</Title>
-        <Description>Simple respones builder functions on top of ActionResult!</Description>
-        <PackageTags>C#, Functional, Fluent, Builder, Response, ActionResult</PackageTags>
+        <PackageId>HttpBuildR.Response</PackageId>
+        <Title>Http BuildR Response</Title>
+        <Description>Simple response builder functions on top of System.Net.Http!</Description>
+        <PackageTags>C#, Functional, Fluent, Builder, System.Net.Http, Response, HttpResponseMessage</PackageTags>
         <PackageProjectUrl>https://bmazzarol.github.io/Http-BuildR</PackageProjectUrl>
         <RepositoryUrl>https://github.com/bmazzarol/Http-BuildR</RepositoryUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <Copyright>Copyright (c) Ben Mazzarol. All rights reserved.</Copyright>
-        <ProjectGuid>d4e22a46-f2cd-400e-85bb-f849038bb67b</ProjectGuid>
+        <ProjectGuid>d4e22a46-f4cd-400e-85bb-f849038bb67b</ProjectGuid>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
-        <IsPackable>True</IsPackable>
+        <IsPackable>true</IsPackable>
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageIcon>construction-icon.png</PackageIcon>
     </PropertyGroup>
 
     <PropertyGroup>
-        <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+        <TargetFramework>netstandard2.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -36,7 +36,7 @@
 
     <ItemGroup>
         <None Include="README.md" Pack="true" PackagePath="\" />
-        <None Include="..\construction-icon.png" Pack="true" PackagePath="\" />
+        <None Include="..\..\..\construction-icon.png" Pack="true" PackagePath="\" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
     </ItemGroup>
 
@@ -58,13 +58,8 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
     </ItemGroup>
-   
-    <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\HttpBuildR.Response\HttpBuildR.Response.csproj" />
+        <PackageReference Include="System.Text.Json" Version="7.0.3" />
     </ItemGroup>
-    
 </Project>

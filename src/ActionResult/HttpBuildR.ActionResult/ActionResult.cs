@@ -15,9 +15,9 @@ public static class ActionResult
     private sealed class HttpResponseMessageAction : Microsoft.AspNetCore.Mvc.ActionResult
     {
         private readonly HttpResponseMessage _response;
-        private readonly IEnumerable<Cookie> _cookies;
+        private readonly Cookie[] _cookies;
 
-        public HttpResponseMessageAction(HttpResponseMessage response, IEnumerable<Cookie> cookies)
+        public HttpResponseMessageAction(HttpResponseMessage response, Cookie[] cookies)
         {
             _response = response;
             _cookies = cookies;
@@ -28,14 +28,20 @@ public static class ActionResult
             var resp = context.HttpContext.Response;
             resp.StatusCode = (int)_response.StatusCode;
             foreach (var kvp in _response.Headers.Concat(_response.Content.Headers))
+            {
                 resp.Headers.Add(kvp.Key, new StringValues(kvp.Value.ToArray()));
+            }
+
             resp.Body = await _response.Content.ReadAsStreamAsync(
                 context.HttpContext.RequestAborted
             );
             resp.ContentType = _response.Content.Headers.ContentType?.ToString() ?? string.Empty;
             resp.ContentLength = _response.Content.Headers.ContentLength;
-            foreach (var cookie in _cookies)
-                resp.Cookies.Append(cookie.Key, cookie.Value, cookie.Options);
+
+            for (var i = 0; i < _cookies.Length; i++)
+            {
+                resp.Cookies.Append(_cookies[i].Key, _cookies[i].Value, _cookies[i].Options);
+            }
         }
     }
 

@@ -3,9 +3,6 @@
 // ReSharper disable once CheckNamespace
 namespace HttpBuildR;
 
-/// <summary>
-/// Extension methods for modifying headers
-/// </summary>
 public static partial class Request
 {
     /// <summary>
@@ -14,11 +11,14 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="action">header modification action</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithHeaderModifications(
         this HttpRequestMessage request,
         Action<HttpRequestHeaders> action
-    ) => request.Modify(x => action(x.Headers));
+    )
+    {
+        action(request.Headers);
+        return request;
+    }
 
     /// <summary>
     /// Adds a header to the request
@@ -27,12 +27,15 @@ public static partial class Request
     /// <param name="name">header name</param>
     /// <param name="value">value</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithHeader(
         this HttpRequestMessage request,
         string name,
         string? value
-    ) => request.WithHeaderModifications(x => x.Add(name, value));
+    )
+    {
+        request.Headers.Add(name, value);
+        return request;
+    }
 
     /// <summary>
     /// Adds a header to the request
@@ -41,12 +44,15 @@ public static partial class Request
     /// <param name="name">header name</param>
     /// <param name="values">values</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithHeader(
         this HttpRequestMessage request,
         string name,
         params string[] values
-    ) => request.WithHeaderModifications(x => x.Add(name, values));
+    )
+    {
+        request.Headers.Add(name, values);
+        return request;
+    }
 
     /// <summary>
     /// Adds a authentication header
@@ -55,15 +61,15 @@ public static partial class Request
     /// <param name="scheme">authentication scheme</param>
     /// <param name="parameter">authentication parameter</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithAuthorization(
         this HttpRequestMessage request,
         string scheme,
         string parameter
-    ) =>
-        request.WithHeaderModifications(
-            x => x.Authorization = new AuthenticationHeaderValue(scheme, parameter)
-        );
+    )
+    {
+        request.Headers.Authorization = new AuthenticationHeaderValue(scheme, parameter);
+        return request;
+    }
 
     /// <summary>
     /// Adds a Proxy-Authorization header
@@ -72,15 +78,15 @@ public static partial class Request
     /// <param name="scheme">authentication scheme</param>
     /// <param name="parameter">authentication parameter</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithProxyAuthorization(
         this HttpRequestMessage request,
         string scheme,
         string parameter
-    ) =>
-        request.WithHeaderModifications(
-            x => x.ProxyAuthorization = new AuthenticationHeaderValue(scheme, parameter)
-        );
+    )
+    {
+        request.Headers.ProxyAuthorization = new AuthenticationHeaderValue(scheme, parameter);
+        return request;
+    }
 
     /// <summary>
     /// Adds a Bearer authentication token header
@@ -88,7 +94,6 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="token">bearer token</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithBearerToken(
         this HttpRequestMessage request,
         string token
@@ -100,7 +105,6 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="token">basic token</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithBasicToken(
         this HttpRequestMessage request,
         string token
@@ -112,11 +116,14 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="value">cache control value</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithCacheControl(
         this HttpRequestMessage request,
         CacheControlHeaderValue value
-    ) => request.WithHeaderModifications(x => x.CacheControl = value);
+    )
+    {
+        request.Headers.CacheControl = value;
+        return request;
+    }
 
     /// <summary>
     /// Adds a connection closed header
@@ -124,11 +131,14 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="value">value</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithConnectionClose(
         this HttpRequestMessage request,
         bool? value
-    ) => request.WithHeaderModifications(x => x.ConnectionClose = value);
+    )
+    {
+        request.Headers.ConnectionClose = value;
+        return request;
+    }
 
     /// <summary>
     /// Adds a date header
@@ -136,11 +146,14 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="value">value</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithDate(
         this HttpRequestMessage request,
         DateTimeOffset? value
-    ) => request.WithHeaderModifications(x => x.Date = value);
+    )
+    {
+        request.Headers.Date = value;
+        return request;
+    }
 
     /// <summary>
     /// Add to the accept content type header
@@ -149,20 +162,19 @@ public static partial class Request
     /// <param name="value">value</param>
     /// <param name="quality">quality</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithAccept(
         this HttpRequestMessage request,
         string value,
         double? quality = default
-    ) =>
-        request.WithHeaderModifications(
-            x =>
-                x.Accept.Add(
-                    quality.HasValue
-                        ? new MediaTypeWithQualityHeaderValue(value, quality.Value)
-                        : new MediaTypeWithQualityHeaderValue(value)
-                )
+    )
+    {
+        request.Headers.Accept.Add(
+            quality.HasValue
+                ? new MediaTypeWithQualityHeaderValue(value, quality.Value)
+                : new MediaTypeWithQualityHeaderValue(value)
         );
+        return request;
+    }
 
     /// <summary>
     /// Adds a If-Modified-Since header
@@ -170,11 +182,14 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="value">value</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithIfModifiedSince(
         this HttpRequestMessage request,
         DateTimeOffset? value
-    ) => request.WithHeaderModifications(x => x.IfModifiedSince = value);
+    )
+    {
+        request.Headers.IfModifiedSince = value;
+        return request;
+    }
 
     /// <summary>
     /// Adds a If-Range header
@@ -182,11 +197,14 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="value">value</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithIfRange(
         this HttpRequestMessage request,
         DateTimeOffset value
-    ) => request.WithHeaderModifications(x => x.IfRange = new RangeConditionHeaderValue(value));
+    )
+    {
+        request.Headers.IfRange = new RangeConditionHeaderValue(value);
+        return request;
+    }
 
     /// <summary>
     /// Adds a If-Range header
@@ -194,11 +212,14 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="value">value</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithIfRange(
         this HttpRequestMessage request,
         EntityTagHeaderValue value
-    ) => request.WithHeaderModifications(x => x.IfRange = new RangeConditionHeaderValue(value));
+    )
+    {
+        request.Headers.IfRange = new RangeConditionHeaderValue(value);
+        return request;
+    }
 
     /// <summary>
     /// Adds a If-Unmodified-Since header
@@ -206,11 +227,14 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="value">value</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithIfUnmodifiedSince(
         this HttpRequestMessage request,
         DateTimeOffset? value
-    ) => request.WithHeaderModifications(x => x.IfUnmodifiedSince = value);
+    )
+    {
+        request.Headers.IfUnmodifiedSince = value;
+        return request;
+    }
 
     /// <summary>
     /// Adds a Max-Forwards header
@@ -218,9 +242,11 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="value">value</param>
     /// <returns>request</returns>
-    [Pure]
-    public static HttpRequestMessage WithMaxForwards(this HttpRequestMessage request, int? value) =>
-        request.WithHeaderModifications(x => x.MaxForwards = value);
+    public static HttpRequestMessage WithMaxForwards(this HttpRequestMessage request, int? value)
+    {
+        request.Headers.MaxForwards = value;
+        return request;
+    }
 
     /// <summary>
     /// Adds a Range header
@@ -229,12 +255,15 @@ public static partial class Request
     /// <param name="from">The position at which to start sending data.</param>
     /// <param name="to">The position at which to stop sending data.</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithRange(
         this HttpRequestMessage request,
         long? from,
         long? to
-    ) => request.WithHeaderModifications(x => x.Range = new RangeHeaderValue(from, to));
+    )
+    {
+        request.Headers.Range = new RangeHeaderValue(from, to);
+        return request;
+    }
 
     /// <summary>
     /// Adds a Referer header
@@ -242,7 +271,6 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="value">value</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithReferrer(this HttpRequestMessage request, string value) =>
         request.WithReferrer(new Uri(value));
 
@@ -252,9 +280,11 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="value">value</param>
     /// <returns>request</returns>
-    [Pure]
-    public static HttpRequestMessage WithReferrer(this HttpRequestMessage request, Uri value) =>
-        request.WithHeaderModifications(x => x.Referrer = value);
+    public static HttpRequestMessage WithReferrer(this HttpRequestMessage request, Uri value)
+    {
+        request.Headers.Referrer = value;
+        return request;
+    }
 
     /// <summary>
     /// Adds a Transfer-Encoding header
@@ -262,9 +292,12 @@ public static partial class Request
     /// <param name="request">request</param>
     /// <param name="value">value</param>
     /// <returns>request</returns>
-    [Pure]
     public static HttpRequestMessage WithTransferEncodingChunked(
         this HttpRequestMessage request,
         bool? value
-    ) => request.WithHeaderModifications(x => x.TransferEncodingChunked = value);
+    )
+    {
+        request.Headers.TransferEncodingChunked = value;
+        return request;
+    }
 }

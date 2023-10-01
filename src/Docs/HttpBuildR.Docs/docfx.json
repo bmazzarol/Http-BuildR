@@ -8,7 +8,7 @@
                         "**/HttpBuildR.Response.csproj",
                         "**/HttpBuildR.ActionResult.csproj"
                     ],
-                    "src": "../"
+                    "src": "../../"
                 }
             ],
             "dest": "api",

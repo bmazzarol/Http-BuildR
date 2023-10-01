@@ -1,19 +1,17 @@
 ﻿using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 using System.Xml;
 using System.Xml.Serialization;
 
 // ReSharper disable once CheckNamespace
 namespace HttpBuildR;
 
-/// <summary>
-/// Extension methods for modifying content
-/// </summary>
 public static partial class Response
 {
     /// <summary>
-    /// Modifies the response content
+    /// Modifies the <see cref="HttpContent"/>
     /// </summary>
     /// <param name="response">response</param>
     /// <param name="content">response content</param>
@@ -22,28 +20,48 @@ public static partial class Response
     public static HttpResponseMessage WithContent(
         this HttpResponseMessage response,
         HttpContent content
-    ) => response.Modify(x => x.Content = content);
+    )
+    {
+        response.Content = content;
+        return response;
+    }
 
     /// <summary>
-    /// Modifies the response with json content
+    /// Modifies the <see cref="HttpResponseMessage"/> with json <see cref="StringContent"/>
     /// </summary>
     /// <param name="response">response</param>
     /// <param name="content">response content</param>
-    /// <param name="options">json serializer options</param>
+    /// <param name="options">optional <see cref="JsonSerializerOptions"/></param>
+    /// <param name="mediaType">media type to use, default is `application/json`</param>
     /// <returns>response</returns>
-    [Pure]
     public static HttpResponseMessage WithJsonContent<T>(
         this HttpResponseMessage response,
         T content,
-        JsonSerializerOptions? options = null
+        JsonSerializerOptions? options = null,
+        string mediaType = "application/json"
     )
         where T : notnull =>
         response.WithContent(
-            new StringContent(
-                JsonSerializer.Serialize(content, options),
-                Encoding.UTF8,
-                "application/json"
-            )
+            new StringContent(JsonSerializer.Serialize(content, options), Encoding.UTF8, mediaType)
+        );
+
+    /// <summary>
+    /// Modifies the <see cref="HttpResponseMessage"/> with json <see cref="StringContent"/>
+    /// </summary>
+    /// <param name="response">response</param>
+    /// <param name="content">response content</param>
+    /// <param name="typeInfo">json <see cref="JsonTypeInfo"/> for the T</param>
+    /// <param name="mediaType">media type to use, default is `application/json`</param>
+    /// <returns>response</returns>
+    public static HttpResponseMessage WithJsonContent<T>(
+        this HttpResponseMessage response,
+        T content,
+        JsonTypeInfo<T> typeInfo,
+        string mediaType = "application/json"
+    )
+        where T : notnull =>
+        response.WithContent(
+            new StringContent(JsonSerializer.Serialize(content, typeInfo), Encoding.UTF8, mediaType)
         );
 
     private sealed class Utf8StringWriter : StringWriter
@@ -51,69 +69,48 @@ public static partial class Response
         public override Encoding Encoding => Encoding.UTF8;
     }
 
-    private static string SerializeToXml<T>(
-        this XmlSerializer serializer,
-        T content,
-        XmlWriterSettings? settings = null
-    )
-        where T : notnull
+    private static class XmlSerializerFactory<T>
     {
-        using var stringWriter = new Utf8StringWriter();
-        using var writer = XmlWriter.Create(stringWriter, settings);
-        serializer.Serialize(writer, content);
-        return stringWriter.ToString();
+        public static readonly XmlSerializer Instance = new(typeof(T));
     }
 
     /// <summary>
-    /// Modifies the response with xml content
-    /// </summary>
-    /// <param name="response">response</param>
-    /// <param name="content">response content</param>
-    /// <param name="serializer">xml serializer to use</param>
-    /// <param name="settings">optional settings</param>
-    /// <returns>response</returns>
-    [Pure]
-    public static HttpResponseMessage WithXmlContent<T>(
-        this HttpResponseMessage response,
-        T content,
-        XmlSerializer serializer,
-        XmlWriterSettings? settings = null
-    )
-        where T : notnull =>
-        response.WithContent(
-            new StringContent(
-                serializer.SerializeToXml(content, settings),
-                Encoding.UTF8,
-                MediaTypeNames.Text.Xml
-            )
-        );
-
-    /// <summary>
-    /// Modifies the response with xml content
+    /// Modifies the <see cref="HttpResponseMessage"/> with XML <see cref="StringContent"/>
     /// </summary>
     /// <param name="response">response</param>
     /// <param name="content">response content</param>
     /// <param name="settings">optional settings</param>
-    /// <param name="defaultNamespace">default namespace</param>
+    /// <param name="modifyWriterFunc">optional <see cref="Func{TResult}"/> that can be
+    /// used to modify the <see cref="XmlWriter"/></param>
+    /// <param name="mediaType">media type to use, default is `text/xml`</param>
     /// <returns>response</returns>
-    [Pure]
     public static HttpResponseMessage WithXmlContent<T>(
         this HttpResponseMessage response,
         T content,
         XmlWriterSettings? settings = null,
-        string? defaultNamespace = null
+        Func<XmlWriter, XmlWriter>? modifyWriterFunc = null,
+        string mediaType = "text/xml"
     )
-        where T : notnull =>
-        response.WithXmlContent(content, new XmlSerializer(typeof(T), defaultNamespace), settings);
+        where T : class
+    {
+        using var stringWriter = new Utf8StringWriter();
+        using var writer =
+            modifyWriterFunc != null
+                ? modifyWriterFunc(XmlWriter.Create(stringWriter, settings))
+                : XmlWriter.Create(stringWriter, settings);
+        XmlSerializerFactory<T>.Instance.Serialize(writer, content);
+        return response.WithContent(
+            new StringContent(stringWriter.ToString(), Encoding.UTF8, mediaType)
+        );
+    }
 
     /// <summary>
-    /// Modifies the response with text content
+    /// Modifies the <see cref="HttpResponseMessage"/> with text <see cref="StringContent"/>
     /// </summary>
     /// <param name="response">response</param>
     /// <param name="content">response content</param>
     /// <param name="mediaTypeName">media type of the text content, defaults to text/plain</param>
     /// <returns>response</returns>
-    [Pure]
     public static HttpResponseMessage WithTextContent(
         this HttpResponseMessage response,
         string content,
@@ -124,26 +121,24 @@ public static partial class Response
         );
 
     /// <summary>
-    /// Modifies the response with from url encoded content
+    /// Modifies the <see cref="HttpResponseMessage"/> with <see cref="FormUrlEncodedContent"/> content
     /// </summary>
     /// <param name="response">response</param>
     /// <param name="content">response content</param>
     /// <returns>response</returns>
-    [Pure]
     public static HttpResponseMessage WithFormUrlContent(
         this HttpResponseMessage response,
         params KeyValuePair<string, string>[] content
     ) => response.WithContent(new FormUrlEncodedContent(content));
 
     /// <summary>
-    /// Modifies the response with from url encoded content
+    /// Modifies the request with from url encoded content
     /// </summary>
     /// <param name="response">response</param>
     /// <param name="content">response content</param>
     /// <returns>response</returns>
-    [Pure]
     public static HttpResponseMessage WithFormUrlContent(
         this HttpResponseMessage response,
-        IDictionary<string, string> content
-    ) => response.WithFormUrlContent(content.AsEnumerable().ToArray());
+        IEnumerable<KeyValuePair<string, string>> content
+    ) => response.WithContent(new FormUrlEncodedContent(content));
 }

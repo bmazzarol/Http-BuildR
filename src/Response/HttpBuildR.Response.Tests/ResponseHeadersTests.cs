@@ -80,13 +80,32 @@ public static class ResponseHeadersTests
     public static void Case10() =>
         new HttpResponseMessage()
             .WithRetryAfter(TimeSpan.FromMinutes(1))
-            .Headers.RetryAfter?.Delta.Should()
+            .Headers.RetryAfter!.Delta.Should()
             .Be(TimeSpan.FromMinutes(1));
 
     [Fact(DisplayName = "RetryAfter header can be set using a date time")]
     public static void Case11() =>
         new HttpResponseMessage()
             .WithRetryAfter(DateTimeOffset.UtcNow)
-            .Headers.RetryAfter?.Date.Should()
+            .Headers.RetryAfter!.Date.Should()
             .BeCloseTo(DateTimeOffset.UtcNow, TimeSpan.FromSeconds(1));
+
+    [Fact(DisplayName = "Headers can be modified using an action")]
+    public static void Case19() =>
+        new HttpResponseMessage()
+            .WithHeaderModifications(h =>
+            {
+                h.Add("a", "1");
+                h.Add("b", "2");
+                h.Add("c", "3");
+            })
+            .Headers.Should()
+            .BeEquivalentTo(
+                new[]
+                {
+                    KeyValuePair.Create("a", new[] { "1" }),
+                    KeyValuePair.Create("b", new[] { "2" }),
+                    KeyValuePair.Create("c", new[] { "3" })
+                }
+            );
 }

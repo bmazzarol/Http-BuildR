@@ -30,10 +30,10 @@ public static class ResponseTests
             );
 
     [Fact(DisplayName = "2 builders can be run one after the other, with independent results")]
-    public static void Case3()
+    public static async Task Case3()
     {
-        var req1 = Resp.OK.Result().WithHeader("a", "1");
-        var req2 = req1.WithHeader("b", "2");
+        var req1 = Resp.OK.Result().WithHeader("a", "1").WithTextContent("test");
+        var req2 = (await req1.Clone()).WithHeader("b", "2");
 
         req1.Headers.Should().HaveCount(1);
         req2.Headers.Should().HaveCount(2);

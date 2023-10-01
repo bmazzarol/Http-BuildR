@@ -37,7 +37,12 @@ public static class ActionResultTests
             .AsResponse()
             .Assert(r => r.StatusCode.Should().Be((int)HttpStatusCode.OK))
             .And(r => r.Headers.Should().ContainKey("Set-Cookie").And.ContainValue("a=c; path=/"))
-            .And(r => new StreamReader(r.Body).ReadToEnd().Should().Be("\"this is a test\""));
+            .And(
+                async r =>
+                    (await new StreamReader(r.Body).ReadToEndAsync())
+                        .Should()
+                        .Be("\"this is a test\"")
+            );
 
     [Fact(DisplayName = "A response can be converted to an action response")]
     public static async Task Case3() =>
@@ -49,9 +54,8 @@ public static class ActionResultTests
             .Assert(r => r.StatusCode.Should().Be((int)HttpStatusCode.BadRequest))
             .And(r => r.Headers.Should().ContainKey("Set-Cookie").And.ContainValue("a=b; path=/"))
             .And(
-                r =>
-                    new StreamReader(r.Body)
-                        .ReadToEnd()
+                async r =>
+                    (await new StreamReader(r.Body).ReadToEndAsync())
                         .Should()
                         .Be(
                             "{\"type\":\"a\",\"title\":\"a\",\"status\":400,\"detail\":\"a\",\"instance\":\"A\"}"

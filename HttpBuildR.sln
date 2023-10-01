@@ -1,24 +1,26 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpBuildR.Request", "HttpBuildR.Request\HttpBuildR.Request.csproj", "{61CE6240-3E7E-4B10-BC4C-EF85279D8C2E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpBuildR.Request", "src\Request\HttpBuildR.Request\HttpBuildR.Request.csproj", "{61CE6240-3E7E-4B10-BC4C-EF85279D8C2E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Request", "Request", "{FA48C77B-4391-41AE-AAEC-700E9A604EB8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Request", "src\Request", "{FA48C77B-4391-41AE-AAEC-700E9A604EB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpBuildR.Request.Tests", "HttpBuildR.Request.Tests\HttpBuildR.Request.Tests.csproj", "{9412BE51-D6D8-4B2A-8829-8BF41866D889}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpBuildR.Request.Tests", "src\Request\HttpBuildR.Request.Tests\HttpBuildR.Request.Tests.csproj", "{9412BE51-D6D8-4B2A-8829-8BF41866D889}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Response", "Response", "{F76B1F76-02E5-4450-84CE-EEBD516E7EE4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Response", "src\Response", "{F76B1F76-02E5-4450-84CE-EEBD516E7EE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpBuildR.Response", "HttpBuildR.Response\HttpBuildR.Response.csproj", "{D4E22A46-F7CD-400E-85BB-F849038BB67B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpBuildR.Response", "src\Response\HttpBuildR.Response\HttpBuildR.Response.csproj", "{D4E22A46-F7CD-400E-85BB-F849038BB67B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpBuildR.Response.Tests", "HttpBuildR.Response.Tests\HttpBuildR.Response.Tests.csproj", "{6292139B-E4A6-416D-A4B9-00CF9F63C623}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpBuildR.Response.Tests", "src\Response\HttpBuildR.Response.Tests\HttpBuildR.Response.Tests.csproj", "{6292139B-E4A6-416D-A4B9-00CF9F63C623}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ActionResult", "ActionResult", "{12E1AA92-ED42-412F-8127-ADA13DF0BE13}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ActionResult", "src\ActionResult", "{12E1AA92-ED42-412F-8127-ADA13DF0BE13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpBuildR.ActionResult", "HttpBuildR.ActionResult\HttpBuildR.ActionResult.csproj", "{465EA923-9A48-4BAC-A3A5-16078CC39F22}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpBuildR.ActionResult", "src\ActionResult\HttpBuildR.ActionResult\HttpBuildR.ActionResult.csproj", "{465EA923-9A48-4BAC-A3A5-16078CC39F22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpBuildR.ActionResult.Tests", "HttpBuildR.ActionResult.Tests\HttpBuildR.ActionResult.Tests.csproj", "{75745822-A329-4B41-BF0E-E6B7ED790FD1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpBuildR.ActionResult.Tests", "src\ActionResult\HttpBuildR.ActionResult.Tests\HttpBuildR.ActionResult.Tests.csproj", "{75745822-A329-4B41-BF0E-E6B7ED790FD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpBuildR.Docs", "HttpBuildR.Docs\HttpBuildR.Docs.csproj", "{8349C6B3-EB22-4DED-A8DE-4A30A5E7E735}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpBuildR.Docs", "src\Docs\HttpBuildR.Docs\HttpBuildR.Docs.csproj", "{080E4DC9-3ACE-4F00-84E6-2CE1405DFFDC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "src\Docs", "{7BF52925-6B7A-494B-A781-D54994E0FB9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,10 +52,10 @@ Global
 		{75745822-A329-4B41-BF0E-E6B7ED790FD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75745822-A329-4B41-BF0E-E6B7ED790FD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75745822-A329-4B41-BF0E-E6B7ED790FD1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8349C6B3-EB22-4DED-A8DE-4A30A5E7E735}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8349C6B3-EB22-4DED-A8DE-4A30A5E7E735}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8349C6B3-EB22-4DED-A8DE-4A30A5E7E735}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8349C6B3-EB22-4DED-A8DE-4A30A5E7E735}.Release|Any CPU.Build.0 = Release|Any CPU
+		{080E4DC9-3ACE-4F00-84E6-2CE1405DFFDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{080E4DC9-3ACE-4F00-84E6-2CE1405DFFDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{080E4DC9-3ACE-4F00-84E6-2CE1405DFFDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{080E4DC9-3ACE-4F00-84E6-2CE1405DFFDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{61CE6240-3E7E-4B10-BC4C-EF85279D8C2E} = {FA48C77B-4391-41AE-AAEC-700E9A604EB8}
@@ -62,5 +64,6 @@ Global
 		{6292139B-E4A6-416D-A4B9-00CF9F63C623} = {F76B1F76-02E5-4450-84CE-EEBD516E7EE4}
 		{465EA923-9A48-4BAC-A3A5-16078CC39F22} = {12E1AA92-ED42-412F-8127-ADA13DF0BE13}
 		{75745822-A329-4B41-BF0E-E6B7ED790FD1} = {12E1AA92-ED42-412F-8127-ADA13DF0BE13}
+		{080E4DC9-3ACE-4F00-84E6-2CE1405DFFDC} = {7BF52925-6B7A-494B-A781-D54994E0FB9B}
 	EndGlobalSection
 EndGlobal

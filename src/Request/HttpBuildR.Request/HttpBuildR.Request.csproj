@@ -18,7 +18,7 @@
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
-        <IsPackable>True</IsPackable>
+        <IsPackable>true</IsPackable>
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageIcon>construction-icon.png</PackageIcon>
@@ -36,7 +36,7 @@
 
     <ItemGroup>
         <None Include="README.md" Pack="true" PackagePath="\" />
-        <None Include="..\construction-icon.png" Pack="true" PackagePath="\" />
+        <None Include="..\..\..\construction-icon.png" Pack="true" PackagePath="\" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
     </ItemGroup>
 

@@ -1,6 +1,7 @@
 ﻿using System.Net.Mime;
 using System.Text.Json;
 using System.Xml;
+using HttpBuildR.Tests;
 
 namespace HttpBuildR.Request.Tests;
 
@@ -21,7 +22,7 @@ public static class RequestContentTests
             )
             .Assert(async content =>
             {
-                content.Headers.ContentType?.MediaType.Should().Be("application/json");
+                content.Headers.ContentType!.MediaType.Should().Be("application/json");
                 var result = await content.ReadAsStringAsync();
                 result.Should().BeEquivalentTo(@"{""A"":1,""B"":""2""}");
             });
@@ -31,7 +32,7 @@ public static class RequestContentTests
         await ArrangeAndAct(x => x.WithJsonContent(new { A = 1, B = "2" }))
             .Assert(async content =>
             {
-                content.Headers.ContentType?.MediaType.Should().Be("application/json");
+                content.Headers.ContentType!.MediaType.Should().Be("application/json");
                 var result = await content.ReadAsStringAsync();
                 result.Should().BeEquivalentTo(@"{""A"":1,""B"":""2""}");
             });
@@ -53,7 +54,7 @@ public static class RequestContentTests
             )
             .Assert(async content =>
             {
-                content.Headers.ContentType?.MediaType.Should().Be(MediaTypeNames.Text.Xml);
+                content.Headers.ContentType!.MediaType.Should().Be(MediaTypeNames.Text.Xml);
                 var result = await content.ReadAsStringAsync();
                 result
                     .Should()
@@ -62,23 +63,23 @@ public static class RequestContentTests
                     );
             });
 
-    [Fact(DisplayName = "Xml content can be added to a request without settings")]
+    [Fact(DisplayName = "Xml content can be added and the writer customized")]
     public static async Task Case4() =>
         await ArrangeAndAct(
                 x =>
                     x.WithXmlContent(
                         new Person { Name = "John", Age = 36 },
-                        defaultNamespace: "test/content"
+                        modifyWriterFunc: w => w
                     )
             )
             .Assert(async content =>
             {
-                content.Headers.ContentType?.MediaType.Should().Be(MediaTypeNames.Text.Xml);
+                content.Headers.ContentType!.MediaType.Should().Be(MediaTypeNames.Text.Xml);
                 var result = await content.ReadAsStringAsync();
                 result
                     .Should()
                     .BeEquivalentTo(
-                        @"<?xml version=""1.0"" encoding=""utf-8""?><Person xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""test/content""><Name>John</Name><Age>36</Age></Person>"
+                        @"<?xml version=""1.0"" encoding=""utf-8""?><Person xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema""><Name>John</Name><Age>36</Age></Person>"
                     );
             });
 
@@ -87,7 +88,7 @@ public static class RequestContentTests
         await ArrangeAndAct(x => x.WithTextContent("<div>some text</div>", "text/html"))
             .Assert(async content =>
             {
-                content.Headers.ContentType?.MediaType.Should().Be(MediaTypeNames.Text.Html);
+                content.Headers.ContentType!.MediaType.Should().Be(MediaTypeNames.Text.Html);
                 var result = await content.ReadAsStringAsync();
                 result.Should().BeEquivalentTo("<div>some text</div>");
             });
@@ -97,7 +98,7 @@ public static class RequestContentTests
         await ArrangeAndAct(x => x.WithTextContent("hello world"))
             .Assert(async content =>
             {
-                content.Headers.ContentType?.MediaType.Should().Be(MediaTypeNames.Text.Plain);
+                content.Headers.ContentType!.MediaType.Should().Be(MediaTypeNames.Text.Plain);
                 var result = await content.ReadAsStringAsync();
                 result.Should().BeEquivalentTo("hello world");
             });
@@ -107,15 +108,53 @@ public static class RequestContentTests
         await ArrangeAndAct(
                 x =>
                     x.WithFormUrlContent(
-                        new Dictionary<string, string> { ["A"] = "1", ["B"] = "2" }
+                        new Dictionary<string, string>(StringComparer.Ordinal)
+                        {
+                            ["A"] = "1",
+                            ["B"] = "2"
+                        }
                     )
             )
             .Assert(async content =>
             {
-                content.Headers.ContentType?.MediaType
+                content.Headers.ContentType!.MediaType
                     .Should()
                     .Be("application/x-www-form-urlencoded");
                 var result = await content.ReadAsStringAsync();
                 result.Should().BeEquivalentTo("A=1&B=2");
+            });
+
+    [Fact(DisplayName = "Form url encoded content can be added to a request")]
+    public static async Task Case7b() =>
+        await ArrangeAndAct(
+                x =>
+                    x.WithFormUrlContent(
+                        KeyValuePair.Create("A", "1"),
+                        KeyValuePair.Create("B", "2")
+                    )
+            )
+            .Assert(async content =>
+            {
+                content.Headers.ContentType!.MediaType
+                    .Should()
+                    .Be("application/x-www-form-urlencoded");
+                var result = await content.ReadAsStringAsync();
+                result.Should().BeEquivalentTo("A=1&B=2");
+            });
+
+    [Fact(DisplayName = "Json content can be added to a request using a source generator")]
+    public static async Task Case8() =>
+        await ArrangeAndAct(
+                x =>
+                    x.WithJsonContent(
+                        new Widget("Test", 123.50),
+                        ExampleJsonSourceGenerator.Default.Widget
+                    )
+            )
+            .Assert(async content =>
+            {
+                content.Headers.ContentType!.MediaType.Should().Be("application/json");
+                var result = await content.ReadAsStringAsync();
+                result.Should().BeEquivalentTo(@"{""Name"":""Test"",""Cost"":123.5}");
             });
 }

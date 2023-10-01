@@ -2,12 +2,13 @@
 namespace HttpBuildR;
 
 /// <summary>
-/// Builders for HttpResponseMessage
+/// Builders for <see cref="HttpResponseMessage"/>
 /// </summary>
 public static partial class Response
 {
     /// <summary>
-    /// Starts a builder from the given http status code
+    /// Starts the creation of a new <see cref="HttpResponseMessage"/> from the
+    /// given <see cref="HttpStatusCode"/>
     /// </summary>
     /// <param name="code">http status code</param>
     /// <param name="reasonPhrase">response reason phrase</param>
@@ -28,31 +29,32 @@ public static partial class Response
             Version = version ?? new Version(2, 0)
         };
 
+    /// <summary>
+    /// Clones the <see cref="HttpResponseMessage"/> returning a new <see cref="HttpResponseMessage"/>
+    /// </summary>
+    /// <param name="response">existing <see cref="HttpResponseMessage"/></param>
+    /// <returns>clone of the <see cref="HttpResponseMessage"/></returns>
     [Pure]
-    private static HttpResponseMessage Clone(this HttpResponseMessage response)
+    public static async ValueTask<HttpResponseMessage> Clone(this HttpResponseMessage response)
     {
         HttpResponseMessage clone =
             new(response.StatusCode)
             {
                 Version = response.Version,
-                ReasonPhrase = response.ReasonPhrase,
-                Content = response.Content // without async cloning content will not work
+                ReasonPhrase = response.ReasonPhrase
             };
+
+        var ms = new MemoryStream();
+        if (response.Content != null)
+        {
+            await response.Content.CopyToAsync(ms);
+            ms.Position = 0;
+            clone.Content = new StreamContent(ms);
+        }
 
         foreach (var kvp in response.Headers)
             clone.Headers.TryAddWithoutValidation(kvp.Key, kvp.Value);
 
-        return clone;
-    }
-
-    [Pure]
-    private static HttpResponseMessage Modify(
-        this HttpResponseMessage response,
-        Action<HttpResponseMessage> modifyAction
-    )
-    {
-        var clone = response.Clone();
-        modifyAction(clone);
         return clone;
     }
 }
