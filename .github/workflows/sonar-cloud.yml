@@ -53,7 +53,7 @@ jobs:
           ./.sonar/scanner/dotnet-sonarscanner begin `
             /k:"bmazzarol_Http-BuildR" `
             /o:"bmazzarol" `
-            /d:sonar.login="${{ secrets.SONAR_TOKEN }}" `
+            /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
             /d:sonar.host.url="https://sonarcloud.io" `
             /d:sonar.cs.vstest.reportsPaths=/**/TestResults/*.trx `
             /d:sonar.cs.opencover.reportsPaths=/**/TestResults/**/coverage.opencover.xml `
@@ -69,4 +69,4 @@ jobs:
             -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
           
           ./.sonar/scanner/dotnet-sonarscanner end `
-            /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+            /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
