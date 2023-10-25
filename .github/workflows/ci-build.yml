@@ -57,6 +57,7 @@ jobs:
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
             /d:sonar.host.url="https://sonarcloud.io" `
             /d:sonar.cs.dotcover.reportsPaths=dotCover.Output.html `
+            /d:sonar.cs.vstest.reportsPaths=TestResults/*.trx
           
           dotnet dotcover test `
             --dcReportType=HTML `
@@ -66,15 +67,9 @@ jobs:
           
           ./.sonar/scanner/dotnet-sonarscanner end `
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-      - name: Upload Test Results
-        uses: actions/upload-artifact@v2
-        if: always()
-        with:
-          name: test-results
-          path: '**/test-results.trx'
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
           files: |
-            test-results/**/*.trx
+            TestResults/*.trx
