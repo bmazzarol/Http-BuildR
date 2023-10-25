@@ -45,7 +45,7 @@ jobs:
           New-Item -Path ./.sonar/scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
           dotnet tool install JetBrains.dotCover.GlobalTool
-      - name: Build and analyze
+      - name: Build test and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -57,7 +57,7 @@ jobs:
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
             /d:sonar.host.url="https://sonarcloud.io" `
             /d:sonar.cs.dotcover.reportsPaths=dotCover.Output.html `
-            /d:sonar.cs.vstest.reportsPaths=TestResults/*.trx
+            /d:sonar.cs.vstest.reportsPaths=**/TestResults/*.trx
           
           dotnet dotcover test `
             --dcReportType=HTML `
@@ -72,4 +72,4 @@ jobs:
         if: always()
         with:
           files: |
-            TestResults/*.trx
+            **/TestResults/*.trx
