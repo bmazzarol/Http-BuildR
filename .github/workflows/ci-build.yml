@@ -68,7 +68,7 @@ jobs:
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
       - name: Upload Test Results
         uses: actions/upload-artifact@v2
-        if: ${{ always() }}
+        if: always()
         with:
           name: test-results
           path: '**/test-results.trx'
