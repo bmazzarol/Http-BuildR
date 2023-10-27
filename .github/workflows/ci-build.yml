@@ -69,13 +69,13 @@ jobs:
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
       - name: Upload Test Results
         uses: actions/upload-artifact@v2
-        if: always()
+        if: ${{ always() && github.event_name == 'pull_request' }}
         with:
           name: test-results
           path: '**/test-results.trx'
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always()
+        if: ${{ always() && github.event_name == 'pull_request' }}
         with:
           files: |
             **/test-results.trx
