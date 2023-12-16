@@ -36,7 +36,7 @@ using Resp = HttpStatusCode;
 
 ...
 // all types can be converted to ok responses
-ActionResult<string> result = "some content".AsOk();
+ActionResult<string> result = ActionResultBuilder.Ok("some content");
 // non-ok responses can be built from response status codes
 ActionResult<string> result = Resp.BadRequest
                  .Result()
@@ -45,7 +45,7 @@ ActionResult<string> result = Resp.BadRequest
                   // with some content, they are all supported!
                  .WithProblemDetails(new ProblemDetails(){...})
                  // only typed action results are supported
-                 .AsAction<string>();
+                 .ToActionResult<string>();
 ...
 ```
 
