@@ -1,40 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
+    
+    <Import Project="$([MSBuild]::GetPathOfFileAbove('Common.Release.targets', '$(MSBuildThisFileDirectory)'))"/>
+    
     <PropertyGroup>
-        <Authors>Ben Mazzarol</Authors>
-    </PropertyGroup>
-
-    <PropertyGroup>
+        <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
         <PackageId>HttpBuildR.ActionResult</PackageId>
         <Title>Http BuildR ActionResult</Title>
         <Description>Simple respones builder functions on top of ActionResult!</Description>
         <PackageTags>C#, Functional, Fluent, Builder, Response, ActionResult</PackageTags>
-        <PackageProjectUrl>https://bmazzarol.github.io/Http-BuildR</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/bmazzarol/Http-BuildR</RepositoryUrl>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <Copyright>Copyright (c) Ben Mazzarol. All rights reserved.</Copyright>
         <ProjectGuid>d4e22a46-f2cd-400e-85bb-f849038bb67b</ProjectGuid>
-        <IncludeSymbols>true</IncludeSymbols>
-        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-        <PublishRepositoryUrl>true</PublishRepositoryUrl>
-        <EmbedUntrackedSources>true</EmbedUntrackedSources>
-        <IsPackable>true</IsPackable>
-        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageIcon>construction-icon.png</PackageIcon>
     </PropertyGroup>
-
-    <PropertyGroup>
-        <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
-        <OutputType>library</OutputType>
-        <LangVersion>latest</LangVersion>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <None Include="README.md" Pack="true" PackagePath="\"/>
-        <None Include="..\..\..\construction-icon.png" Pack="true" PackagePath="\"/>
-        <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All"/>
-    </ItemGroup>
 
     <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App"/>

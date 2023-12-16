@@ -1,4 +1,4 @@
-<Project>
+﻿<Project>
     <PropertyGroup>
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
         <Nullable>enable</Nullable>
@@ -8,22 +8,17 @@
     </PropertyGroup>
     <!-- Project packages -->
     <ItemGroup>
-        <PackageVersion Include="Microsoft.CodeCoverage" Version="17.7.2"/>
-        <PackageVersion Include="Microsoft.NETCore.Platforms" Version="7.0.4"/>
-        <PackageVersion Include="Microsoft.TestPlatform.ObjectModel" Version="17.7.2"/>
-        <PackageVersion Include="Microsoft.TestPlatform.TestHost" Version="17.7.2"/>
-        <PackageVersion Include="NuGet.Frameworks" Version="6.7.0"/>
-        <PackageVersion Include="System.Text.Json" Version="7.0.3"/>
-        <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="1.1.1"/>
+        <PackageVersion Include="System.Text.Json" Version="8.0.0"/>
+        <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0"/>
     </ItemGroup>
     <!-- Test packages -->
     <ItemGroup>
         <PackageVersion Include="BunsenBurner" Version="6.2.4"/>
         <PackageVersion Include="FluentAssertions" Version="6.12.0"/>
         <PackageVersion Include="Meziantou.Xunit.ParallelTestFramework" Version="2.1.0"/>
-        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.7.2"/>
-        <PackageVersion Include="xunit" Version="2.6.0"/>
-        <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.3"/>
+        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
+        <PackageVersion Include="xunit" Version="2.6.3"/>
+        <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.5"/>
     </ItemGroup>
     <!-- Shared analysers -->
     <ItemGroup>
@@ -31,19 +26,19 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </GlobalPackageReference>
-        <GlobalPackageReference Include="Meziantou.Analyzer" Version="2.0.103">
+        <GlobalPackageReference Include="Meziantou.Analyzer" Version="2.0.122">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </GlobalPackageReference>
-        <GlobalPackageReference Include="Roslynator.Analyzers" Version="4.6.1">
+        <GlobalPackageReference Include="Roslynator.Analyzers" Version="4.7.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </GlobalPackageReference>
-        <GlobalPackageReference Include="SonarAnalyzer.CSharp" Version="9.12.0.78982">
+        <GlobalPackageReference Include="SonarAnalyzer.CSharp" Version="9.15.0.81779">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </GlobalPackageReference>
-        <GlobalPackageReference Include="FluentAssertions.Analyzers" Version="0.26.0">
+        <GlobalPackageReference Include="FluentAssertions.Analyzers" Version="0.27.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </GlobalPackageReference>

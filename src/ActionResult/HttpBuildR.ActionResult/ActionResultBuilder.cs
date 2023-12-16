@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.Contracts;
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 
@@ -10,37 +11,29 @@ using Resp = System.Net.HttpStatusCode;
 /// <summary>
 /// ActionResult builders
 /// </summary>
-public static class ActionResult
+public static class ActionResultBuilder
 {
-    private sealed class HttpResponseMessageAction : Microsoft.AspNetCore.Mvc.ActionResult
+    private sealed class HttpResponseMessageAction(HttpResponseMessage response, Cookie[] cookies)
+        : Microsoft.AspNetCore.Mvc.ActionResult
     {
-        private readonly HttpResponseMessage _response;
-        private readonly Cookie[] _cookies;
-
-        public HttpResponseMessageAction(HttpResponseMessage response, Cookie[] cookies)
-        {
-            _response = response;
-            _cookies = cookies;
-        }
-
         public override async Task ExecuteResultAsync(ActionContext context)
         {
             var resp = context.HttpContext.Response;
-            resp.StatusCode = (int)_response.StatusCode;
-            foreach (var kvp in _response.Headers.Concat(_response.Content.Headers))
+            resp.StatusCode = (int)response.StatusCode;
+            foreach (var kvp in response.Headers.Concat(response.Content.Headers))
             {
-                resp.Headers.Add(kvp.Key, new StringValues(kvp.Value.ToArray()));
+                resp.Headers[kvp.Key] = new StringValues(kvp.Value.ToArray());
             }
 
-            resp.Body = await _response.Content.ReadAsStreamAsync(
+            resp.Body = await response.Content.ReadAsStreamAsync(
                 context.HttpContext.RequestAborted
             );
-            resp.ContentType = _response.Content.Headers.ContentType?.ToString() ?? string.Empty;
-            resp.ContentLength = _response.Content.Headers.ContentLength;
+            resp.ContentType = response.Content.Headers.ContentType?.ToString() ?? string.Empty;
+            resp.ContentLength = response.Content.Headers.ContentLength;
 
-            for (var i = 0; i < _cookies.Length; i++)
+            for (var i = 0; i < cookies.Length; i++)
             {
-                resp.Cookies.Append(_cookies[i].Key, _cookies[i].Value, _cookies[i].Options);
+                resp.Cookies.Append(cookies[i].Key, cookies[i].Value, cookies[i].Options);
             }
         }
     }
@@ -53,11 +46,11 @@ public static class ActionResult
     /// <typeparam name="T">some T</typeparam>
     /// <returns>action result of T</returns>
     [Pure]
-    public static ActionResult<T> AsOk<T>(this T result, params Cookie[] cookies)
+    public static ActionResult<T> Ok<T>(T result, params Cookie[] cookies)
         where T : notnull =>
         cookies.Length == 0
             ? new(result)
-            : Resp.OK.Result().WithJsonContent(result).AsAction<T>(cookies);
+            : Resp.OK.Result().WithJsonContent(result).ToActionResult<T>(cookies);
 
     /// <summary>
     /// Converts a HttpResponseMessage to an ActionResult of T
@@ -67,7 +60,7 @@ public static class ActionResult
     /// <typeparam name="T">some T</typeparam>
     /// <returns>action result of T</returns>
     [Pure]
-    public static ActionResult<T> AsAction<T>(
+    public static ActionResult<T> ToActionResult<T>(
         this HttpResponseMessage response,
         params Cookie[] cookies
     ) => new HttpResponseMessageAction(response, cookies);
@@ -77,12 +70,14 @@ public static class ActionResult
     /// </summary>
     /// <param name="response">response</param>
     /// <param name="details">problem details</param>
+    /// <param name="options">optional <see cref="JsonSerializerOptions"/></param>
     /// <returns>response</returns>
     [Pure]
     public static HttpResponseMessage WithProblemDetails(
         this HttpResponseMessage response,
-        ProblemDetails details
-    ) => response.WithJsonContent(details);
+        ProblemDetails details,
+        JsonSerializerOptions? options = null
+    ) => response.WithJsonContent(details, options);
 
     /// <summary>
     /// Adds problem details as a json response body
@@ -92,6 +87,7 @@ public static class ActionResult
     /// <param name="title">A short, human-readable summary of the problem type</param>
     /// <param name="detail">A human-readable explanation specific to this occurrence of the problem</param>
     /// <param name="instance">A URI reference that identifies the specific occurrence of the problem</param>
+    /// <param name="options">optional <see cref="JsonSerializerOptions"/></param>
     /// <returns>response</returns>
     [Pure]
     public static HttpResponseMessage WithProblemDetails(
@@ -99,7 +95,8 @@ public static class ActionResult
         string? type,
         string? title,
         string? detail,
-        string? instance
+        string? instance,
+        JsonSerializerOptions? options = null
     ) =>
         response.WithProblemDetails(
             new ProblemDetails
@@ -109,6 +106,7 @@ public static class ActionResult
                 Detail = detail,
                 Status = (int)response.StatusCode,
                 Instance = instance
-            }
+            },
+            options
         );
 }
