@@ -117,7 +117,10 @@ public static class ResponseContentTests
             )
             .Assert(async content =>
             {
-                content.Headers.ContentType!.MediaType
+                content
+                    .Headers
+                    .ContentType!
+                    .MediaType
                     .Should()
                     .Be("application/x-www-form-urlencoded");
                 var result = await content.ReadAsStringAsync();
@@ -135,7 +138,10 @@ public static class ResponseContentTests
             )
             .Assert(async content =>
             {
-                content.Headers.ContentType!.MediaType
+                content
+                    .Headers
+                    .ContentType!
+                    .MediaType
                     .Should()
                     .Be("application/x-www-form-urlencoded");
                 var result = await content.ReadAsStringAsync();

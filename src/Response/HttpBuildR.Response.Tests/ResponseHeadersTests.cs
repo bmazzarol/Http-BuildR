@@ -8,14 +8,16 @@ public static class ResponseHeadersTests
     public static void Case1() =>
         new HttpResponseMessage()
             .WithHeader("a", "1")
-            .Headers.Should()
+            .Headers
+            .Should()
             .Contain(x => x.Key == "a" && x.Value.Count() == 1 && x.Value.First() == "1");
 
     [Fact(DisplayName = "Custom header can be set with multiple values")]
     public static void Case2() =>
         new HttpResponseMessage()
             .WithHeader("a", "1", "2", "3")
-            .Headers.Should()
+            .Headers
+            .Should()
             .Contain(
                 x =>
                     x.Key == "a"
@@ -31,63 +33,83 @@ public static class ResponseHeadersTests
             .WithCacheControl(
                 new CacheControlHeaderValue { MaxAge = TimeSpan.FromSeconds(20), NoStore = true }
             )
-            .Headers.CacheControl.Should()
+            .Headers
+            .CacheControl
+            .Should()
             .BeEquivalentTo(new { MaxAge = TimeSpan.FromSeconds(20), NoStore = true });
 
     [Fact(DisplayName = "Connection close header can be set")]
     public static void Case4() =>
         new HttpResponseMessage()
             .WithConnectionClose(true)
-            .Headers.ConnectionClose.Should()
+            .Headers
+            .ConnectionClose
+            .Should()
             .BeTrue();
 
     [Fact(DisplayName = "Date header can be set")]
     public static void Case5() =>
         new HttpResponseMessage()
             .WithDate(DateTimeOffset.UtcNow)
-            .Headers.Date.Should()
+            .Headers
+            .Date
+            .Should()
             .BeCloseTo(DateTimeOffset.Now, TimeSpan.FromSeconds(1));
 
     [Fact(DisplayName = "Transfer-Encoding header can be set")]
     public static void Case6() =>
         new HttpResponseMessage()
             .WithTransferEncodingChunked(true)
-            .Headers.TransferEncodingChunked.Should()
+            .Headers
+            .TransferEncodingChunked
+            .Should()
             .BeTrue();
 
     [Fact(DisplayName = "Age header can be set")]
     public static void Case7() =>
         new HttpResponseMessage()
             .WithAge(TimeSpan.FromDays(1))
-            .Headers.Age.Should()
+            .Headers
+            .Age
+            .Should()
             .Be(TimeSpan.FromDays(1));
 
     [Fact(DisplayName = "ETag header can be set")]
     public static void Case8() =>
         new HttpResponseMessage()
             .WithETag(EntityTagHeaderValue.Any)
-            .Headers.ETag.Should()
+            .Headers
+            .ETag
+            .Should()
             .Be(EntityTagHeaderValue.Any);
 
     [Fact(DisplayName = "Location header can be set")]
     public static void Case9() =>
         new HttpResponseMessage()
             .WithLocation("https://some-host")
-            .Headers.Location.Should()
+            .Headers
+            .Location
+            .Should()
             .Be(new Uri("https://some-host"));
 
     [Fact(DisplayName = "RetryAfter header can be set")]
     public static void Case10() =>
         new HttpResponseMessage()
             .WithRetryAfter(TimeSpan.FromMinutes(1))
-            .Headers.RetryAfter!.Delta.Should()
+            .Headers
+            .RetryAfter!
+            .Delta
+            .Should()
             .Be(TimeSpan.FromMinutes(1));
 
     [Fact(DisplayName = "RetryAfter header can be set using a date time")]
     public static void Case11() =>
         new HttpResponseMessage()
             .WithRetryAfter(DateTimeOffset.UtcNow)
-            .Headers.RetryAfter!.Date.Should()
+            .Headers
+            .RetryAfter!
+            .Date
+            .Should()
             .BeCloseTo(DateTimeOffset.UtcNow, TimeSpan.FromSeconds(1));
 
     [Fact(DisplayName = "Headers can be modified using an action")]
@@ -99,7 +121,8 @@ public static class ResponseHeadersTests
                 h.Add("b", "2");
                 h.Add("c", "3");
             })
-            .Headers.Should()
+            .Headers
+            .Should()
             .BeEquivalentTo(
                 new[]
                 {

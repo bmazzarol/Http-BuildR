@@ -25,9 +25,9 @@ public static class ActionResultBuilder
                 resp.Headers[kvp.Key] = new StringValues(kvp.Value.ToArray());
             }
 
-            resp.Body = await response.Content.ReadAsStreamAsync(
-                context.HttpContext.RequestAborted
-            );
+            resp.Body = await response
+                .Content
+                .ReadAsStreamAsync(context.HttpContext.RequestAborted);
             resp.ContentType = response.Content.Headers.ContentType?.ToString() ?? string.Empty;
             resp.ContentLength = response.Content.Headers.ContentLength;
 
