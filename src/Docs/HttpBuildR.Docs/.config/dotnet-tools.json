@@ -3,15 +3,9 @@
     "isRoot": true,
     "tools": {
         "docfx": {
-            "version": "2.67.0",
+            "version": "2.75.1",
             "commands": [
                 "docfx"
-            ]
-        },
-        "DoctestCsharp": {
-            "version": "2.0.0",
-            "commands": [
-                "doctest-csharp"
             ]
         }
     }

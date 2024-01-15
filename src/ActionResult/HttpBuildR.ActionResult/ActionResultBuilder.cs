@@ -14,7 +14,7 @@ using Resp = System.Net.HttpStatusCode;
 public static class ActionResultBuilder
 {
     private sealed class HttpResponseMessageAction(HttpResponseMessage response, Cookie[] cookies)
-        : Microsoft.AspNetCore.Mvc.ActionResult
+        : ActionResult
     {
         public override async Task ExecuteResultAsync(ActionContext context)
         {
