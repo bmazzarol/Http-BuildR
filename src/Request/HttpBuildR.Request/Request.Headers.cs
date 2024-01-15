@@ -168,14 +168,11 @@ public static partial class Request
         double? quality = default
     )
     {
-        request
-            .Headers
-            .Accept
-            .Add(
-                quality.HasValue
-                    ? new MediaTypeWithQualityHeaderValue(value, quality.Value)
-                    : new MediaTypeWithQualityHeaderValue(value)
-            );
+        request.Headers.Accept.Add(
+            quality.HasValue
+                ? new MediaTypeWithQualityHeaderValue(value, quality.Value)
+                : new MediaTypeWithQualityHeaderValue(value)
+        );
         return request;
     }
 

@@ -118,10 +118,7 @@ public static class RequestContentTests
             .Assert(async content =>
             {
                 content
-                    .Headers
-                    .ContentType!
-                    .MediaType
-                    .Should()
+                    .Headers.ContentType!.MediaType.Should()
                     .Be("application/x-www-form-urlencoded");
                 var result = await content.ReadAsStringAsync();
                 result.Should().BeEquivalentTo("A=1&B=2");
@@ -139,10 +136,7 @@ public static class RequestContentTests
             .Assert(async content =>
             {
                 content
-                    .Headers
-                    .ContentType!
-                    .MediaType
-                    .Should()
+                    .Headers.ContentType!.MediaType.Should()
                     .Be("application/x-www-form-urlencoded");
                 var result = await content.ReadAsStringAsync();
                 result.Should().BeEquivalentTo("A=1&B=2");

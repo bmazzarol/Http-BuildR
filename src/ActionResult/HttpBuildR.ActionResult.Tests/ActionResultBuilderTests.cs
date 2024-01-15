@@ -43,8 +43,7 @@ public static class ActionResultBuilderTests
 
     [Fact(DisplayName = "A response can be converted to an action response")]
     public static async Task Case3() =>
-        await Resp.BadRequest
-            .Result()
+        await Resp.BadRequest.Result()
             .WithProblemDetails(
                 "a",
                 "a",
@@ -68,8 +67,7 @@ public static class ActionResultBuilderTests
 
     [Fact(DisplayName = "A response can be converted to an action response with no content")]
     public static async Task Case4() =>
-        await Resp.NotAcceptable
-            .Result()
+        await Resp.NotAcceptable.Result()
             .WithHeader("a", "b")
             .ToActionResult<string>()
             .ArrangeData()
