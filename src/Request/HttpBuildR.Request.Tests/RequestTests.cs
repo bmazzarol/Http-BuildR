@@ -8,7 +8,8 @@ public static class RequestTests
 {
     [Fact(DisplayName = "A HttpMethod can start building a HttpRequestMessage with a string uri")]
     public static void Case1() =>
-        Req.Get.To("Http://some-host")
+        Req
+            .Get.To("Http://some-host")
             .Should()
             .BeEquivalentTo(
                 new
@@ -21,7 +22,8 @@ public static class RequestTests
 
     [Fact(DisplayName = "A HttpMethod can start building a HttpRequestMessage with a Uri uri")]
     public static void Case2() =>
-        Req.Get.To(new Uri("Http://some-host"))
+        Req
+            .Get.To(new Uri("Http://some-host"))
             .Should()
             .BeEquivalentTo(
                 new
@@ -36,7 +38,8 @@ public static class RequestTests
         DisplayName = "A HttpMethod can start building a HttpRequestMessage with a string uri, at version 1.1"
     )]
     public static void Case3() =>
-        Req.Get.To("Http://some-host", HttpVersion.Version11)
+        Req
+            .Get.To("Http://some-host", HttpVersion.Version11)
             .Should()
             .BeEquivalentTo(
                 new
@@ -51,7 +54,8 @@ public static class RequestTests
         DisplayName = "A HttpMethod can start building a HttpRequestMessage with a Uri uri, at version 1.1"
     )]
     public static void Case4() =>
-        Req.Get.To(new Uri("Http://some-host"), HttpVersion.Version11)
+        Req
+            .Get.To(new Uri("Http://some-host"), HttpVersion.Version11)
             .Should()
             .BeEquivalentTo(
                 new
@@ -65,7 +69,8 @@ public static class RequestTests
     [Fact(DisplayName = "2 builders can be run one after the other, with independent results")]
     public static async Task Case5()
     {
-        var req1 = Req.Get.To(new Uri("Http://some-host"))
+        var req1 = Req
+            .Get.To(new Uri("Http://some-host"))
             .WithHeader("a", "1")
             .WithTextContent("test");
         var req2 = (await req1.Clone()).WithHeader("b", "2");

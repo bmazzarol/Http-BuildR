@@ -8,7 +8,8 @@ public static class ResponseTests
 {
     [Fact(DisplayName = "A HttpStatusCode can start building a HttpResponseMessage")]
     public static void Case1() =>
-        Resp.OK.Result()
+        Resp
+            .OK.Result()
             .Should()
             .BeEquivalentTo(new { StatusCode = Resp.OK, Version = HttpVersion.Version20 });
 
@@ -16,7 +17,8 @@ public static class ResponseTests
         DisplayName = "A HttpStatusCode can start building a HttpResponseMessage with a reason phrase, at version 1.1"
     )]
     public static void Case2() =>
-        Resp.Accepted.Result("some reason phrase", new HttpRequestMessage(), HttpVersion.Version11)
+        Resp
+            .Accepted.Result("some reason phrase", new HttpRequestMessage(), HttpVersion.Version11)
             .Should()
             .BeEquivalentTo(
                 new

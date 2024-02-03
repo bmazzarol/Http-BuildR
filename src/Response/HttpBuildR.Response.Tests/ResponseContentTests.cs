@@ -17,8 +17,8 @@ public static class ResponseContentTests
 
     [Fact(DisplayName = "Json content can be added to a response")]
     public static async Task Case1() =>
-        await ArrangeAndAct(
-                x => x.WithJsonContent(new { A = 1, B = "2" }, JsonSerializerOptions.Default)
+        await ArrangeAndAct(x =>
+                x.WithJsonContent(new { A = 1, B = "2" }, JsonSerializerOptions.Default)
             )
             .Assert(async content =>
             {
@@ -45,12 +45,11 @@ public static class ResponseContentTests
 
     [Fact(DisplayName = "Xml content can be added to a response")]
     public static async Task Case3() =>
-        await ArrangeAndAct(
-                x =>
-                    x.WithXmlContent(
-                        new Person { Name = "John", Age = 36 },
-                        new XmlWriterSettings { Indent = false }
-                    )
+        await ArrangeAndAct(x =>
+                x.WithXmlContent(
+                    new Person { Name = "John", Age = 36 },
+                    new XmlWriterSettings { Indent = false }
+                )
             )
             .Assert(async content =>
             {
@@ -65,12 +64,11 @@ public static class ResponseContentTests
 
     [Fact(DisplayName = "Xml content can be added to a response without settings")]
     public static async Task Case4() =>
-        await ArrangeAndAct(
-                x =>
-                    x.WithXmlContent(
-                        new Person { Name = "John", Age = 36 },
-                        modifyWriterFunc: writer => writer
-                    )
+        await ArrangeAndAct(x =>
+                x.WithXmlContent(
+                    new Person { Name = "John", Age = 36 },
+                    modifyWriterFunc: writer => writer
+                )
             )
             .Assert(async content =>
             {
@@ -105,15 +103,14 @@ public static class ResponseContentTests
 
     [Fact(DisplayName = "Form url encoded content can be added to a response")]
     public static async Task Case7() =>
-        await ArrangeAndAct(
-                x =>
-                    x.WithFormUrlContent(
-                        new Dictionary<string, string>(StringComparer.Ordinal)
-                        {
-                            ["A"] = "1",
-                            ["B"] = "2"
-                        }
-                    )
+        await ArrangeAndAct(x =>
+                x.WithFormUrlContent(
+                    new Dictionary<string, string>(StringComparer.Ordinal)
+                    {
+                        ["A"] = "1",
+                        ["B"] = "2"
+                    }
+                )
             )
             .Assert(async content =>
             {
@@ -126,12 +123,8 @@ public static class ResponseContentTests
 
     [Fact(DisplayName = "Form url encoded content can be added to a request")]
     public static async Task Case7b() =>
-        await ArrangeAndAct(
-                x =>
-                    x.WithFormUrlContent(
-                        KeyValuePair.Create("A", "1"),
-                        KeyValuePair.Create("B", "2")
-                    )
+        await ArrangeAndAct(x =>
+                x.WithFormUrlContent(KeyValuePair.Create("A", "1"), KeyValuePair.Create("B", "2"))
             )
             .Assert(async content =>
             {
@@ -144,12 +137,11 @@ public static class ResponseContentTests
 
     [Fact(DisplayName = "Json content can be added to a request using a source generator")]
     public static async Task Case8() =>
-        await ArrangeAndAct(
-                x =>
-                    x.WithJsonContent(
-                        new Widget("Test", 123.50),
-                        ExampleJsonSourceGenerator.Default.Widget
-                    )
+        await ArrangeAndAct(x =>
+                x.WithJsonContent(
+                    new Widget("Test", 123.50),
+                    ExampleJsonSourceGenerator.Default.Widget
+                )
             )
             .Assert(async content =>
             {

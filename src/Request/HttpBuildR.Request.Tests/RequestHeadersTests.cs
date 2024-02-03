@@ -30,13 +30,12 @@ public static class RequestHeadersTests
         new HttpRequestMessage()
             .WithHeader("a", "1", "2", "3")
             .Headers.Should()
-            .Contain(
-                x =>
-                    x.Key == "a"
-                    && x.Value.Count() == 3
-                    && x.Value.Contains("1")
-                    && x.Value.Contains("2")
-                    && x.Value.Contains("3")
+            .Contain(x =>
+                x.Key == "a"
+                && x.Value.Count() == 3
+                && x.Value.Contains("1")
+                && x.Value.Contains("2")
+                && x.Value.Contains("3")
             );
 
     [Fact(DisplayName = "Proxy authorization header can be set")]

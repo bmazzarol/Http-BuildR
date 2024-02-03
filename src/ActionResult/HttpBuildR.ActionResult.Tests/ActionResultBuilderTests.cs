@@ -34,16 +34,14 @@ public static class ActionResultBuilderTests
             .Act(ConvertToResponse)
             .Assert(r => r.StatusCode.Should().Be((int)HttpStatusCode.OK))
             .And(r => r.Headers.Should().ContainKey("Set-Cookie").And.ContainValue("a=c; path=/"))
-            .And(
-                async r =>
-                    (await new StreamReader(r.Body).ReadToEndAsync())
-                        .Should()
-                        .Be("\"this is a test\"")
+            .And(async r =>
+                (await new StreamReader(r.Body).ReadToEndAsync()).Should().Be("\"this is a test\"")
             );
 
     [Fact(DisplayName = "A response can be converted to an action response")]
     public static async Task Case3() =>
-        await Resp.BadRequest.Result()
+        await Resp
+            .BadRequest.Result()
             .WithProblemDetails(
                 "a",
                 "a",
@@ -56,18 +54,18 @@ public static class ActionResultBuilderTests
             .Act(ConvertToResponse)
             .Assert(r => r.StatusCode.Should().Be((int)HttpStatusCode.BadRequest))
             .And(r => r.Headers.Should().ContainKey("Set-Cookie").And.ContainValue("a=b; path=/"))
-            .And(
-                async r =>
-                    (await new StreamReader(r.Body).ReadToEndAsync())
-                        .Should()
-                        .Be(
-                            "{\"type\":\"a\",\"title\":\"a\",\"status\":400,\"detail\":\"a\",\"instance\":\"A\"}"
-                        )
+            .And(async r =>
+                (await new StreamReader(r.Body).ReadToEndAsync())
+                    .Should()
+                    .Be(
+                        "{\"type\":\"a\",\"title\":\"a\",\"status\":400,\"detail\":\"a\",\"instance\":\"A\"}"
+                    )
             );
 
     [Fact(DisplayName = "A response can be converted to an action response with no content")]
     public static async Task Case4() =>
-        await Resp.NotAcceptable.Result()
+        await Resp
+            .NotAcceptable.Result()
             .WithHeader("a", "b")
             .ToActionResult<string>()
             .ArrangeData()
