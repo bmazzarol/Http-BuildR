@@ -29,8 +29,6 @@ that was just simple extensions to the core System.Net.Http classes.
 I want the request and response building code to be,
 
 * Declarative, it needs to flow and read as well as possible
-* Simple, usage should be trivial and leaning curve as flat as possible
+* Simple, usage should be trivial and learning curve as flat as possible
 * Complete, anything you can do with the core class can be done in a fluent
   declarative style
-
-For more details/information have a look the test projects or create an issue.
