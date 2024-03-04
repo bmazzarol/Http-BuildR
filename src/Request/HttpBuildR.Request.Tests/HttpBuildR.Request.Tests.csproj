@@ -10,4 +10,8 @@
         <ProjectReference Include="..\HttpBuildR.Request\HttpBuildR.Request.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Docfx.ResultSnippets" />
+    </ItemGroup>
+
 </Project>

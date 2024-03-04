@@ -6,6 +6,8 @@ namespace HttpBuildR;
 /// </summary>
 public static partial class Request
 {
+    private static readonly Version V2 = new(2, 0);
+
     /// <summary>
     /// Starts the creation of a new <see cref="HttpRequestMessage"/> from the
     /// given <see cref="HttpMethod"/> and <see cref="Uri"/>
@@ -19,7 +21,7 @@ public static partial class Request
         this HttpMethod method,
         string uri,
         Version? version = default
-    ) => new(method, uri) { Version = version ?? new Version(2, 0) };
+    ) => new(method, uri) { Version = version ?? V2 };
 
     /// <summary>
     /// Starts the creation of a new <see cref="HttpRequestMessage"/> from the
@@ -34,7 +36,7 @@ public static partial class Request
         this HttpMethod method,
         Uri uri,
         Version? version = default
-    ) => new(method, uri) { Version = version ?? new Version(2, 0) };
+    ) => new(method, uri) { Version = version ?? V2 };
 
     /// <summary>
     /// Clones the <see cref="HttpRequestMessage"/> returning a new <see cref="HttpRequestMessage"/>

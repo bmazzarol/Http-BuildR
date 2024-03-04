@@ -1,8 +1,22 @@
 items:
   - name: About
     href: index.md
-  - name: Getting Started
-    href: articles/getting-started.md
+  - name: Request
+    items:
+      - name: Overview
+        href: articles/request/request-overview.md
+      - name: Headers
+        href: articles/request/request-headers.md
+      - name: Content
+        href: articles/request/request-content.md
+  - name: Response
+    items:
+      - name: Overview
+        href: articles/response/response-overview.md
+      - name: Headers
+        href: articles/response/response-headers.md
+      - name: Content
+        href: articles/response/response-content.md
   - name: .NET API Docs
     href: api/toc.yml
     expanded: true

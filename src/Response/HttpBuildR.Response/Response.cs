@@ -6,6 +6,8 @@ namespace HttpBuildR;
 /// </summary>
 public static partial class Response
 {
+    private static readonly Version V2 = new(2, 0);
+
     /// <summary>
     /// Starts the creation of a new <see cref="HttpResponseMessage"/> from the
     /// given <see cref="HttpStatusCode"/>
@@ -26,7 +28,7 @@ public static partial class Response
         {
             ReasonPhrase = reasonPhrase,
             RequestMessage = request,
-            Version = version ?? new Version(2, 0)
+            Version = version ?? V2
         };
 
     /// <summary>

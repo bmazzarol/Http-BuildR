@@ -14,6 +14,7 @@
   <!-- Test packages -->
   <ItemGroup>
     <PackageVersion Include="BunsenBurner" Version="6.2.4" />
+    <PackageVersion Include="Docfx.ResultSnippets" Version="2.0.0" />
     <PackageVersion Include="FluentAssertions" Version="6.12.0" />
     <PackageVersion Include="Meziantou.Xunit.ParallelTestFramework" Version="2.1.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
