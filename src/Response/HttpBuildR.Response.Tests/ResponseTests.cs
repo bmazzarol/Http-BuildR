@@ -2,8 +2,6 @@ using System.Net;
 
 namespace HttpBuildR.Response.Tests;
 
-using Resp = HttpStatusCode;
-
 public static class ResponseTests
 {
     [Fact(DisplayName = "A HttpStatusCode can start building a HttpResponseMessage")]

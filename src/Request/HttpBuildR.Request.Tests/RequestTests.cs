@@ -2,8 +2,6 @@ using System.Net;
 
 namespace HttpBuildR.Request.Tests;
 
-using Req = HttpMethod;
-
 public static class RequestTests
 {
     [Fact(DisplayName = "A HttpMethod can start building a HttpRequestMessage with a string uri")]

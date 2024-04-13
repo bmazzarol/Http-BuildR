@@ -5,13 +5,5 @@
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
     </PropertyGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\HttpBuildR.Response\HttpBuildR.Response.csproj"/>
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Docfx.ResultSnippets" />
-    </ItemGroup>
     
 </Project>
