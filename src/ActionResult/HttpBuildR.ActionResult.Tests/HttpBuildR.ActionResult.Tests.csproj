@@ -6,8 +6,4 @@
         <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
     </PropertyGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\HttpBuildR.ActionResult\HttpBuildR.ActionResult.csproj"/>
-    </ItemGroup>
-    
 </Project>
