@@ -1,0 +1,7 @@
+﻿<?xml version="1.0"?>
+<Project>
+    <ItemGroup Condition="'$(Language)' == 'C#' AND ('$(ImplicitUsings)' == 'true' or '$(ImplicitUsings)' == 'enable')">
+        <Using Include="HttpBuildR"/>
+        <Using Include="System.Net.Http.HttpMethod" Alias="Req" />
+    </ItemGroup>
+</Project>

@@ -16,6 +16,10 @@ using HttpBuildR;
 using Resp = HttpStatusCode;
 ```
 
+If you're using
+[implicit usings](https://learn.microsoft.com/en-gb/dotnet/core/project-sdk/overview#implicit-using-directives)
+the above is not necessary.
+
 ## Creating a Response
 
 You can create a new <xref:System.Net.Http.HttpResponseMessage> using
