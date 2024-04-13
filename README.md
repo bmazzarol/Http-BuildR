@@ -67,8 +67,8 @@ using Req = HttpMethod;
 ```
 
 > [!NOTE]
-> If you're using 
-> [implicit usings](https://learn.microsoft.com/en-gb/dotnet/core/project-sdk/overview#implicit-using-directives) 
+> If you're using
+> [implicit usings](https://learn.microsoft.com/en-gb/dotnet/core/project-sdk/overview#implicit-using-directives)
 > the above is not necessary.
 
 Click through to the links bellow for further details.
