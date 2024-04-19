@@ -5,7 +5,8 @@
 
 # HTTP BuildR
 
-[:running: **_Getting Started_**](https://bmazzarol.github.io/Http-BuildR/articles/getting-started.html) |
+[:running: **_Getting Started_**](https://bmazzarol.github.io/Http-BuildR/articles/request/request-overview.html)
+|
 [:books: **_Documentation_**](https://bmazzarol.github.io/Http-BuildR)
 
 [![Nuget](https://img.shields.io/nuget/v/HttpBuildR.Request)](https://www.nuget.org/packages/HttpBuildR.Request/)
