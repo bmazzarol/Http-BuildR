@@ -4,6 +4,8 @@ updates:
     directory: /
     schedule:
       interval: monthly
+    ignore:
+      - dependency-name: "System.Text.Json"
     groups:
       all:
         patterns:
