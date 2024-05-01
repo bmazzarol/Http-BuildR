@@ -2,7 +2,7 @@
   "name": "http-buildr",
   "version": "1.0.0",
   "devDependencies": {
-    "@commitlint/cli": "^19.2.2",
+    "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
     "markdownlint-cli2": "^0.13.0"
   }
