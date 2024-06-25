@@ -4,21 +4,19 @@ using System.Xml;
 
 namespace HttpBuildR.Request.Tests;
 
-public static class RequestContentTests
+using Scenario = TestBuilder<ArrangeActAssertSyntax>.Acted<HttpRequestMessage, HttpContent>;
+
+public sealed class RequestContentTests
 {
-    private static Scenario.Acted<HttpRequestMessage, HttpContent> ArrangeAndAct(
-        Func<HttpRequestMessage, HttpRequestMessage> fn
-    ) =>
+    private static Scenario Arrange(Func<HttpRequestMessage, HttpRequestMessage> fn) =>
         new HttpRequestMessage()
-            .ArrangeData()
+            .Arrange()
             .Act(fn)
             .And((_, req) => req.Content ?? throw new InvalidOperationException());
 
     [Fact(DisplayName = "Json content can be added to a request")]
-    public static async Task Case1() =>
-        await ArrangeAndAct(x =>
-                x.WithJsonContent(new { A = 1, B = "2" }, JsonSerializerOptions.Default)
-            )
+    public Task Case1() =>
+        Arrange(x => x.WithJsonContent(new { A = 1, B = "2" }, JsonSerializerOptions.Default))
             .Assert(async content =>
             {
                 content.Headers.ContentType!.MediaType.Should().Be("application/json");
@@ -27,8 +25,8 @@ public static class RequestContentTests
             });
 
     [Fact(DisplayName = "Json content can be added to a request without options")]
-    public static async Task Case2() =>
-        await ArrangeAndAct(x => x.WithJsonContent(new { A = 1, B = "2" }))
+    public Task Case2() =>
+        Arrange(x => x.WithJsonContent(new { A = 1, B = "2" }))
             .Assert(async content =>
             {
                 content.Headers.ContentType!.MediaType.Should().Be("application/json");
@@ -43,8 +41,8 @@ public static class RequestContentTests
     }
 
     [Fact(DisplayName = "Xml content can be added to a request")]
-    public static async Task Case3() =>
-        await ArrangeAndAct(x =>
+    public Task Case3() =>
+        Arrange(x =>
                 x.WithXmlContent(
                     new Person { Name = "John", Age = 36 },
                     new XmlWriterSettings { Indent = false }
@@ -62,8 +60,8 @@ public static class RequestContentTests
             });
 
     [Fact(DisplayName = "Xml content can be added and the writer customized")]
-    public static async Task Case4() =>
-        await ArrangeAndAct(x =>
+    public Task Case4() =>
+        Arrange(x =>
                 x.WithXmlContent(new Person { Name = "John", Age = 36 }, modifyWriterFunc: w => w)
             )
             .Assert(async content =>
@@ -78,8 +76,8 @@ public static class RequestContentTests
             });
 
     [Fact(DisplayName = "Text content can be added to a request")]
-    public static async Task Case5() =>
-        await ArrangeAndAct(x => x.WithTextContent("<div>some text</div>", "text/html"))
+    public Task Case5() =>
+        Arrange(x => x.WithTextContent("<div>some text</div>", "text/html"))
             .Assert(async content =>
             {
                 content.Headers.ContentType!.MediaType.Should().Be(MediaTypeNames.Text.Html);
@@ -88,8 +86,8 @@ public static class RequestContentTests
             });
 
     [Fact(DisplayName = "Text content can be added to a request without media type")]
-    public static async Task Case6() =>
-        await ArrangeAndAct(x => x.WithTextContent("hello world"))
+    public Task Case6() =>
+        Arrange(x => x.WithTextContent("hello world"))
             .Assert(async content =>
             {
                 content.Headers.ContentType!.MediaType.Should().Be(MediaTypeNames.Text.Plain);
@@ -98,8 +96,8 @@ public static class RequestContentTests
             });
 
     [Fact(DisplayName = "Form url encoded content can be added to a request")]
-    public static async Task Case7() =>
-        await ArrangeAndAct(x =>
+    public Task Case7() =>
+        Arrange(x =>
                 x.WithFormUrlContent(
                     new Dictionary<string, string>(StringComparer.Ordinal)
                     {
@@ -118,8 +116,8 @@ public static class RequestContentTests
             });
 
     [Fact(DisplayName = "Form url encoded content can be added to a request")]
-    public static async Task Case7b() =>
-        await ArrangeAndAct(x =>
+    public Task Case7B() =>
+        Arrange(x =>
                 x.WithFormUrlContent(KeyValuePair.Create("A", "1"), KeyValuePair.Create("B", "2"))
             )
             .Assert(async content =>
@@ -132,8 +130,8 @@ public static class RequestContentTests
             });
 
     [Fact(DisplayName = "Json content can be added to a request using a source generator")]
-    public static async Task Case8() =>
-        await ArrangeAndAct(x =>
+    public Task Case8() =>
+        Arrange(x =>
                 x.WithJsonContent(
                     new Widget("Test", 123.50),
                     ExampleJsonSourceGenerator.Default.Widget

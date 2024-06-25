@@ -2,10 +2,10 @@ using System.Net;
 
 namespace HttpBuildR.Request.Tests;
 
-public static class RequestTests
+public sealed class RequestTests
 {
     [Fact(DisplayName = "A HttpMethod can start building a HttpRequestMessage with a string uri")]
-    public static void Case1() =>
+    public void Case1() =>
         Req
             .Get.To("Http://some-host")
             .Should()
@@ -19,7 +19,7 @@ public static class RequestTests
             );
 
     [Fact(DisplayName = "A HttpMethod can start building a HttpRequestMessage with a Uri uri")]
-    public static void Case2() =>
+    public void Case2() =>
         Req
             .Get.To(new Uri("Http://some-host"))
             .Should()
@@ -35,7 +35,7 @@ public static class RequestTests
     [Fact(
         DisplayName = "A HttpMethod can start building a HttpRequestMessage with a string uri, at version 1.1"
     )]
-    public static void Case3() =>
+    public void Case3() =>
         Req
             .Get.To("Http://some-host", HttpVersion.Version11)
             .Should()
@@ -51,7 +51,7 @@ public static class RequestTests
     [Fact(
         DisplayName = "A HttpMethod can start building a HttpRequestMessage with a Uri uri, at version 1.1"
     )]
-    public static void Case4() =>
+    public void Case4() =>
         Req
             .Get.To(new Uri("Http://some-host"), HttpVersion.Version11)
             .Should()
@@ -65,15 +65,18 @@ public static class RequestTests
             );
 
     [Fact(DisplayName = "2 builders can be run one after the other, with independent results")]
-    public static async Task Case5()
-    {
-        var req1 = Req
+    public Task Case5() =>
+        Req
             .Get.To(new Uri("Http://some-host"))
             .WithHeader("a", "1")
-            .WithTextContent("test");
-        var req2 = (await req1.Clone()).WithHeader("b", "2");
-
-        req1.Headers.Should().HaveCount(1);
-        req2.Headers.Should().HaveCount(2);
-    }
+            .WithTextContent("test")
+            .Arrange()
+            .Act(async req => (await req.Clone()).WithHeader("b", "2"))
+            .Assert(
+                (req1, req2) =>
+                {
+                    req1.Headers.Should().HaveCount(1);
+                    req2.Headers.Should().HaveCount(2);
+                }
+            );
 }

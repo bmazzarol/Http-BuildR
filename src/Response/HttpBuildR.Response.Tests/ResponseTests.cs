@@ -2,10 +2,10 @@ using System.Net;
 
 namespace HttpBuildR.Response.Tests;
 
-public static class ResponseTests
+public sealed class ResponseTests
 {
     [Fact(DisplayName = "A HttpStatusCode can start building a HttpResponseMessage")]
-    public static void Case1() =>
+    public void Case1() =>
         Resp
             .OK.Result()
             .Should()
@@ -14,7 +14,7 @@ public static class ResponseTests
     [Fact(
         DisplayName = "A HttpStatusCode can start building a HttpResponseMessage with a reason phrase, at version 1.1"
     )]
-    public static void Case2() =>
+    public void Case2() =>
         Resp
             .Accepted.Result("some reason phrase", new HttpRequestMessage(), HttpVersion.Version11)
             .Should()
@@ -28,12 +28,18 @@ public static class ResponseTests
             );
 
     [Fact(DisplayName = "2 builders can be run one after the other, with independent results")]
-    public static async Task Case3()
-    {
-        var req1 = Resp.OK.Result().WithHeader("a", "1").WithTextContent("test");
-        var req2 = (await req1.Clone()).WithHeader("b", "2");
-
-        req1.Headers.Should().HaveCount(1);
-        req2.Headers.Should().HaveCount(2);
-    }
+    public Task Case3() =>
+        Resp
+            .OK.Result()
+            .WithHeader("a", "1")
+            .WithTextContent("test")
+            .Arrange()
+            .Act(async req => (await req.Clone()).WithHeader("b", "2"))
+            .Assert(
+                (req1, req2) =>
+                {
+                    req1.Headers.Should().HaveCount(1);
+                    req2.Headers.Should().HaveCount(2);
+                }
+            );
 }
