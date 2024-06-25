@@ -2,17 +2,17 @@
 
 namespace HttpBuildR.Response.Tests;
 
-public static class ResponseHeadersTests
+public sealed class ResponseHeadersTests
 {
     [Fact(DisplayName = "Custom header can be set with a single value")]
-    public static void Case1() =>
+    public void Case1() =>
         new HttpResponseMessage()
             .WithHeader("a", "1")
             .Headers.Should()
             .Contain(x => x.Key == "a" && x.Value.Count() == 1 && x.Value.First() == "1");
 
     [Fact(DisplayName = "Custom header can be set with multiple values")]
-    public static void Case2() =>
+    public void Case2() =>
         new HttpResponseMessage()
             .WithHeader("a", "1", "2", "3")
             .Headers.Should()
@@ -25,7 +25,7 @@ public static class ResponseHeadersTests
             );
 
     [Fact(DisplayName = "Cache control header can be set")]
-    public static void Case3() =>
+    public void Case3() =>
         new HttpResponseMessage()
             .WithCacheControl(
                 new CacheControlHeaderValue { MaxAge = TimeSpan.FromSeconds(20), NoStore = true }
@@ -34,63 +34,63 @@ public static class ResponseHeadersTests
             .BeEquivalentTo(new { MaxAge = TimeSpan.FromSeconds(20), NoStore = true });
 
     [Fact(DisplayName = "Connection close header can be set")]
-    public static void Case4() =>
+    public void Case4() =>
         new HttpResponseMessage()
             .WithConnectionClose(true)
             .Headers.ConnectionClose.Should()
             .BeTrue();
 
     [Fact(DisplayName = "Date header can be set")]
-    public static void Case5() =>
+    public void Case5() =>
         new HttpResponseMessage()
             .WithDate(DateTimeOffset.UtcNow)
             .Headers.Date.Should()
             .BeCloseTo(DateTimeOffset.Now, TimeSpan.FromSeconds(1));
 
     [Fact(DisplayName = "Transfer-Encoding header can be set")]
-    public static void Case6() =>
+    public void Case6() =>
         new HttpResponseMessage()
-            .WithTransferEncodingChunked(true)
+            .WithTransferEncodingChunked(value: true)
             .Headers.TransferEncodingChunked.Should()
             .BeTrue();
 
     [Fact(DisplayName = "Age header can be set")]
-    public static void Case7() =>
+    public void Case7() =>
         new HttpResponseMessage()
             .WithAge(TimeSpan.FromDays(1))
             .Headers.Age.Should()
             .Be(TimeSpan.FromDays(1));
 
     [Fact(DisplayName = "ETag header can be set")]
-    public static void Case8() =>
+    public void Case8() =>
         new HttpResponseMessage()
             .WithETag(EntityTagHeaderValue.Any)
             .Headers.ETag.Should()
             .Be(EntityTagHeaderValue.Any);
 
     [Fact(DisplayName = "Location header can be set")]
-    public static void Case9() =>
+    public void Case9() =>
         new HttpResponseMessage()
             .WithLocation("https://some-host")
             .Headers.Location.Should()
             .Be(new Uri("https://some-host"));
 
     [Fact(DisplayName = "RetryAfter header can be set")]
-    public static void Case10() =>
+    public void Case10() =>
         new HttpResponseMessage()
             .WithRetryAfter(TimeSpan.FromMinutes(1))
             .Headers.RetryAfter!.Delta.Should()
             .Be(TimeSpan.FromMinutes(1));
 
     [Fact(DisplayName = "RetryAfter header can be set using a date time")]
-    public static void Case11() =>
+    public void Case11() =>
         new HttpResponseMessage()
             .WithRetryAfter(DateTimeOffset.UtcNow)
             .Headers.RetryAfter!.Date.Should()
             .BeCloseTo(DateTimeOffset.UtcNow, TimeSpan.FromSeconds(1));
 
     [Fact(DisplayName = "Headers can be modified using an action")]
-    public static void Case19() =>
+    public void Case19() =>
         new HttpResponseMessage()
             .WithHeaderModifications(h =>
             {

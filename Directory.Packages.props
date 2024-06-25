@@ -13,7 +13,7 @@
   </ItemGroup>
   <!-- Test packages -->
   <ItemGroup>
-    <PackageVersion Include="BunsenBurner" Version="6.2.4" />
+    <PackageVersion Include="BunsenBurner" Version="7.0.0" />
     <PackageVersion Include="Docfx.ResultSnippets" Version="2.0.0" />
     <PackageVersion Include="FluentAssertions" Version="6.12.0" />
     <PackageVersion Include="Meziantou.Xunit.ParallelTestFramework" Version="2.2.0" />
