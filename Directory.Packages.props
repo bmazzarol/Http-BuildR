@@ -16,10 +16,10 @@
     <PackageVersion Include="BunsenBurner" Version="7.0.0" />
     <PackageVersion Include="Docfx.ResultSnippets" Version="2.0.0" />
     <PackageVersion Include="FluentAssertions" Version="6.12.0" />
-    <PackageVersion Include="Meziantou.Xunit.ParallelTestFramework" Version="2.2.0" />
+    <PackageVersion Include="Meziantou.Xunit.ParallelTestFramework" Version="2.3.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
-    <PackageVersion Include="xunit" Version="2.8.1" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.1">
+    <PackageVersion Include="xunit" Version="2.9.0" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
@@ -30,7 +30,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </GlobalPackageReference>
-    <GlobalPackageReference Include="Meziantou.Analyzer" Version="2.0.159">
+    <GlobalPackageReference Include="Meziantou.Analyzer" Version="2.0.163">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </GlobalPackageReference>
@@ -38,11 +38,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </GlobalPackageReference>
-    <GlobalPackageReference Include="SonarAnalyzer.CSharp" Version="9.28.0.94264">
+    <GlobalPackageReference Include="SonarAnalyzer.CSharp" Version="9.30.0.95878">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </GlobalPackageReference>
-    <GlobalPackageReference Include="FluentAssertions.Analyzers" Version="0.32.0">
+    <GlobalPackageReference Include="FluentAssertions.Analyzers" Version="0.33.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </GlobalPackageReference>
