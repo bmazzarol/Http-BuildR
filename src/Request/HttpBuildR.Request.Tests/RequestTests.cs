@@ -14,7 +14,7 @@ public sealed class RequestTests
                 {
                     Method = Req.Get,
                     RequestUri = new Uri("Http://some-host"),
-                    Version = HttpVersion.Version20
+                    Version = HttpVersion.Version20,
                 }
             );
 
@@ -28,7 +28,7 @@ public sealed class RequestTests
                 {
                     Method = Req.Get,
                     RequestUri = new Uri("Http://some-host"),
-                    Version = HttpVersion.Version20
+                    Version = HttpVersion.Version20,
                 }
             );
 
@@ -44,7 +44,7 @@ public sealed class RequestTests
                 {
                     Method = Req.Get,
                     RequestUri = new Uri("Http://some-host"),
-                    Version = HttpVersion.Version11
+                    Version = HttpVersion.Version11,
                 }
             );
 
@@ -60,7 +60,7 @@ public sealed class RequestTests
                 {
                     Method = Req.Get,
                     RequestUri = new Uri("Http://some-host"),
-                    Version = HttpVersion.Version11
+                    Version = HttpVersion.Version11,
                 }
             );
 
