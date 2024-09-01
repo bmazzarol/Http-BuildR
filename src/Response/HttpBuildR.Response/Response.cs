@@ -28,7 +28,7 @@ public static partial class Response
         {
             ReasonPhrase = reasonPhrase,
             RequestMessage = request,
-            Version = version ?? V2
+            Version = version ?? V2,
         };
 
     /// <summary>
@@ -43,7 +43,7 @@ public static partial class Response
             new(response.StatusCode)
             {
                 Version = response.Version,
-                ReasonPhrase = response.ReasonPhrase
+                ReasonPhrase = response.ReasonPhrase,
             };
 
         var ms = new MemoryStream();

@@ -150,7 +150,7 @@ public sealed class RequestHeadersTests
                 {
                     KeyValuePair.Create("a", new[] { "1" }),
                     KeyValuePair.Create("b", new[] { "2" }),
-                    KeyValuePair.Create("c", new[] { "3" })
+                    KeyValuePair.Create("c", new[] { "3" }),
                 }
             );
 }

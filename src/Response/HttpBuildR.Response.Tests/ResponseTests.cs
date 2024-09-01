@@ -23,7 +23,7 @@ public sealed class ResponseTests
                 {
                     StatusCode = Resp.Accepted,
                     ReasonPhrase = "some reason phrase",
-                    Version = HttpVersion.Version11
+                    Version = HttpVersion.Version11,
                 }
             );
 

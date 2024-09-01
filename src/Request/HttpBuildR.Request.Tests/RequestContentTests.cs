@@ -102,7 +102,7 @@ public sealed class RequestContentTests
                     new Dictionary<string, string>(StringComparer.Ordinal)
                     {
                         ["A"] = "1",
-                        ["B"] = "2"
+                        ["B"] = "2",
                     }
                 )
             )

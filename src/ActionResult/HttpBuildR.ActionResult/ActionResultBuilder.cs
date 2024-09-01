@@ -105,7 +105,7 @@ public static class ActionResultBuilder
                 Title = title,
                 Detail = detail,
                 Status = (int)response.StatusCode,
-                Instance = instance
+                Instance = instance,
             },
             options
         );
