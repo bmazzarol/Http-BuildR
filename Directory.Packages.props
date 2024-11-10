@@ -8,7 +8,7 @@
   </PropertyGroup>
   <!-- Project packages -->
   <ItemGroup>
-    <PackageVersion Include="System.Text.Json" Version="6.0.0" />
+    <PackageVersion Include="System.Text.Json" Version="[6.0.10,)" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
   </ItemGroup>
   <!-- Test packages -->
