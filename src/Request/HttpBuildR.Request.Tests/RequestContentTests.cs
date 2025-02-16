@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Xml;
 
-namespace HttpBuildR.Request.Tests;
+namespace HttpBuildR.Tests;
 
 using Scenario = TestBuilder<ArrangeActAssertSyntax>.Acted<HttpRequestMessage, HttpContent>;
 
@@ -19,9 +19,9 @@ public sealed class RequestContentTests
         Arrange(x => x.WithJsonContent(new { A = 1, B = "2" }, JsonSerializerOptions.Default))
             .Assert(async content =>
             {
-                content.Headers.ContentType!.MediaType.Should().Be("application/json");
-                var result = await content.ReadAsStringAsync();
-                result.Should().BeEquivalentTo(@"{""A"":1,""B"":""2""}");
+                Assert.Equal("application/json", content.Headers.ContentType!.MediaType);
+                var result = await content.ReadAsStringAsync(TestContext.Current.CancellationToken);
+                Assert.Equal(@"{""A"":1,""B"":""2""}", result);
             });
 
     [Fact(DisplayName = "Json content can be added to a request without options")]
@@ -29,9 +29,9 @@ public sealed class RequestContentTests
         Arrange(x => x.WithJsonContent(new { A = 1, B = "2" }))
             .Assert(async content =>
             {
-                content.Headers.ContentType!.MediaType.Should().Be("application/json");
-                var result = await content.ReadAsStringAsync();
-                result.Should().BeEquivalentTo(@"{""A"":1,""B"":""2""}");
+                Assert.Equal("application/json", content.Headers.ContentType!.MediaType);
+                var result = await content.ReadAsStringAsync(TestContext.Current.CancellationToken);
+                Assert.Equal(@"{""A"":1,""B"":""2""}", result);
             });
 
     public class Person
@@ -50,13 +50,12 @@ public sealed class RequestContentTests
             )
             .Assert(async content =>
             {
-                content.Headers.ContentType!.MediaType.Should().Be(MediaTypeNames.Text.Xml);
-                var result = await content.ReadAsStringAsync();
-                result
-                    .Should()
-                    .BeEquivalentTo(
-                        @"<?xml version=""1.0"" encoding=""utf-8""?><Person xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema""><Name>John</Name><Age>36</Age></Person>"
-                    );
+                Assert.Equal(MediaTypeNames.Text.Xml, content.Headers.ContentType!.MediaType);
+                var result = await content.ReadAsStringAsync(TestContext.Current.CancellationToken);
+                Assert.Equal(
+                    """<?xml version="1.0" encoding="utf-8"?><Person xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Name>John</Name><Age>36</Age></Person>""",
+                    result
+                );
             });
 
     [Fact(DisplayName = "Xml content can be added and the writer customized")]
@@ -66,13 +65,12 @@ public sealed class RequestContentTests
             )
             .Assert(async content =>
             {
-                content.Headers.ContentType!.MediaType.Should().Be(MediaTypeNames.Text.Xml);
-                var result = await content.ReadAsStringAsync();
-                result
-                    .Should()
-                    .BeEquivalentTo(
-                        @"<?xml version=""1.0"" encoding=""utf-8""?><Person xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema""><Name>John</Name><Age>36</Age></Person>"
-                    );
+                Assert.Equal(MediaTypeNames.Text.Xml, content.Headers.ContentType!.MediaType);
+                var result = await content.ReadAsStringAsync(TestContext.Current.CancellationToken);
+                Assert.Equal(
+                    """<?xml version="1.0" encoding="utf-8"?><Person xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Name>John</Name><Age>36</Age></Person>""",
+                    result
+                );
             });
 
     [Fact(DisplayName = "Text content can be added to a request")]
@@ -80,9 +78,9 @@ public sealed class RequestContentTests
         Arrange(x => x.WithTextContent("<div>some text</div>", "text/html"))
             .Assert(async content =>
             {
-                content.Headers.ContentType!.MediaType.Should().Be(MediaTypeNames.Text.Html);
-                var result = await content.ReadAsStringAsync();
-                result.Should().BeEquivalentTo("<div>some text</div>");
+                Assert.Equal("text/html", content.Headers.ContentType!.MediaType);
+                var result = await content.ReadAsStringAsync(TestContext.Current.CancellationToken);
+                Assert.Equal("<div>some text</div>", result);
             });
 
     [Fact(DisplayName = "Text content can be added to a request without media type")]
@@ -90,9 +88,9 @@ public sealed class RequestContentTests
         Arrange(x => x.WithTextContent("hello world"))
             .Assert(async content =>
             {
-                content.Headers.ContentType!.MediaType.Should().Be(MediaTypeNames.Text.Plain);
-                var result = await content.ReadAsStringAsync();
-                result.Should().BeEquivalentTo("hello world");
+                Assert.Equal("text/plain", content.Headers.ContentType!.MediaType);
+                var result = await content.ReadAsStringAsync(TestContext.Current.CancellationToken);
+                Assert.Equal("hello world", result);
             });
 
     [Fact(DisplayName = "Form url encoded content can be added to a request")]
@@ -108,11 +106,12 @@ public sealed class RequestContentTests
             )
             .Assert(async content =>
             {
-                content
-                    .Headers.ContentType!.MediaType.Should()
-                    .Be("application/x-www-form-urlencoded");
-                var result = await content.ReadAsStringAsync();
-                result.Should().BeEquivalentTo("A=1&B=2");
+                Assert.Equal(
+                    "application/x-www-form-urlencoded",
+                    content.Headers.ContentType!.MediaType
+                );
+                var result = await content.ReadAsStringAsync(TestContext.Current.CancellationToken);
+                Assert.Equal("A=1&B=2", result);
             });
 
     [Fact(DisplayName = "Form url encoded content can be added to a request")]
@@ -122,11 +121,12 @@ public sealed class RequestContentTests
             )
             .Assert(async content =>
             {
-                content
-                    .Headers.ContentType!.MediaType.Should()
-                    .Be("application/x-www-form-urlencoded");
-                var result = await content.ReadAsStringAsync();
-                result.Should().BeEquivalentTo("A=1&B=2");
+                Assert.Equal(
+                    "application/x-www-form-urlencoded",
+                    content.Headers.ContentType!.MediaType
+                );
+                var result = await content.ReadAsStringAsync(TestContext.Current.CancellationToken);
+                Assert.Equal("A=1&B=2", result);
             });
 
     [Fact(DisplayName = "Json content can be added to a request using a source generator")]
@@ -139,8 +139,8 @@ public sealed class RequestContentTests
             )
             .Assert(async content =>
             {
-                content.Headers.ContentType!.MediaType.Should().Be("application/json");
-                var result = await content.ReadAsStringAsync();
-                result.Should().BeEquivalentTo(@"{""Name"":""Test"",""Cost"":123.5}");
+                Assert.Equal("application/json", content.Headers.ContentType!.MediaType);
+                var result = await content.ReadAsStringAsync(TestContext.Current.CancellationToken);
+                Assert.Equal("""{"Name":"Test","Cost":123.5}""", result);
             });
 }

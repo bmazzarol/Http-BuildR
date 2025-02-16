@@ -1,17 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <Import Project="$([MSBuild]::GetPathOfFileAbove('Common.Release.targets', '$(MSBuildThisFileDirectory)'))"/>
+    <Import Project="$([MSBuild]::GetPathOfFileAbove('Common.Release.props', '$(MSBuildThisFileDirectory)'))"/>
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <PackageId>HttpBuildR.Response</PackageId>
         <Title>Http BuildR Response</Title>
         <Description>Simple response builder functions on top of System.Net.Http!</Description>
         <PackageTags>C#, Functional, Fluent, Builder, System.Net.Http, Response, HttpResponseMessage</PackageTags>
-        <ProjectGuid>d4e22a46-f4cd-400e-85bb-f849038bb67b</ProjectGuid>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="System.Text.Json"/>
+        <PackageReference Include="System.Text.Json" VersionOverride="[6.0.10,)"/>
     </ItemGroup>
 </Project>

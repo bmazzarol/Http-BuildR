@@ -17,7 +17,6 @@ public static partial class Response
     /// <param name="request">request message the generated the response</param>
     /// <param name="version">http version, default is 2.0</param>
     /// <returns>response message</returns>
-    [Pure]
     public static HttpResponseMessage Result(
         this HttpStatusCode code,
         string? reasonPhrase = null,
@@ -36,15 +35,13 @@ public static partial class Response
     /// </summary>
     /// <param name="response">existing <see cref="HttpResponseMessage"/></param>
     /// <returns>clone of the <see cref="HttpResponseMessage"/></returns>
-    [Pure]
     public static async ValueTask<HttpResponseMessage> Clone(this HttpResponseMessage response)
     {
-        HttpResponseMessage clone =
-            new(response.StatusCode)
-            {
-                Version = response.Version,
-                ReasonPhrase = response.ReasonPhrase,
-            };
+        HttpResponseMessage clone = new(response.StatusCode)
+        {
+            Version = response.Version,
+            ReasonPhrase = response.ReasonPhrase,
+        };
 
         var ms = new MemoryStream();
         if (response.Content != null)

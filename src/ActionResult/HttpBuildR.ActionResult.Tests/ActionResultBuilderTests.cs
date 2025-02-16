@@ -1,4 +1,6 @@
+using System.Net;
 using System.Text.Json;
+using BunsenBurner;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
@@ -6,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Routing;
 
-namespace HttpBuildR.ActionResult.Tests;
+namespace HttpBuildR.Tests;
 
 public sealed class ActionResultBuilderTests
 {
@@ -23,7 +25,11 @@ public sealed class ActionResultBuilderTests
     }
 
     [Fact(DisplayName = "A T can be converted to an OK response")]
-    public void Case1() => ActionResultBuilder.Ok("this is a test").Should().NotBeNull();
+    public void Case1()
+    {
+        var result = ActionResultBuilder.Ok("this is a test");
+        Assert.NotNull(result);
+    }
 
     [Fact(DisplayName = "A T can be converted to an OK response and cookie")]
     public Task Case2() =>
@@ -31,15 +37,19 @@ public sealed class ActionResultBuilderTests
             .Ok("this is a test", Cookie.New("a", "c"))
             .Arrange()
             .Act(ConvertToResponse)
-            .Assert(r => r.StatusCode.Should().Be((int)Resp.OK))
-            .And(r => r.Headers.Should().ContainKey("Set-Cookie").And.ContainValue("a=c; path=/"))
+            .Assert(r => Assert.Equal((int)HttpStatusCode.OK, r.StatusCode))
+            .And(r => Assert.Equal("a=c; path=/", r.Headers.SetCookie))
             .And(async r =>
-                (await new StreamReader(r.Body).ReadToEndAsync()).Should().Be("\"this is a test\"")
-            );
+            {
+                var body = await new StreamReader(r.Body).ReadToEndAsync(
+                    TestContext.Current.CancellationToken
+                );
+                Assert.Equal("\"this is a test\"", body);
+            });
 
     [Fact(DisplayName = "A response can be converted to an action response")]
     public Task Case3() =>
-        Resp
+        HttpStatusCode
             .BadRequest.Result()
             .WithProblemDetails(
                 "a",
@@ -51,26 +61,29 @@ public sealed class ActionResultBuilderTests
             .ToActionResult<string>(Cookie.New("a", "b"))
             .Arrange()
             .Act(ConvertToResponse)
-            .Assert(r => r.StatusCode.Should().Be((int)Resp.BadRequest))
-            .And(r => r.Headers.Should().ContainKey("Set-Cookie").And.ContainValue("a=b; path=/"))
+            .Assert(r => Assert.Equal((int)HttpStatusCode.BadRequest, r.StatusCode))
+            .And(r => Assert.Equal("a=b; path=/", r.Headers.SetCookie))
             .And(async r =>
-                (await new StreamReader(r.Body).ReadToEndAsync())
-                    .Should()
-                    .Be(
-                        "{\"type\":\"a\",\"title\":\"a\",\"status\":400,\"detail\":\"a\",\"instance\":\"A\"}"
-                    )
-            );
+            {
+                var body = await new StreamReader(r.Body).ReadToEndAsync(
+                    TestContext.Current.CancellationToken
+                );
+                Assert.Equal(
+                    "{\"type\":\"a\",\"title\":\"a\",\"status\":400,\"detail\":\"a\",\"instance\":\"A\"}",
+                    body
+                );
+            });
 
     [Fact(DisplayName = "A response can be converted to an action response with no content")]
     public Task Case4() =>
-        Resp
+        HttpStatusCode
             .NotAcceptable.Result()
             .WithHeader("a", "b")
             .ToActionResult<string>()
             .Arrange()
             .Act(ConvertToResponse)
-            .Assert(r => r.StatusCode.Should().Be((int)Resp.NotAcceptable))
-            .And(r => r.Headers.Should().ContainKey("a").And.ContainValue("b"))
-            .And(r => r.ContentType.Should().BeNullOrEmpty())
-            .And(r => r.ContentLength.Should().Be(0L));
+            .Assert(r => Assert.Equal((int)HttpStatusCode.NotAcceptable, r.StatusCode))
+            .And(r => Assert.Equal("b", r.Headers["a"]))
+            .And(r => Assert.Null(r.ContentType))
+            .And(r => Assert.Equal(0L, r.ContentLength));
 }

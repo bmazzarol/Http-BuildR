@@ -16,7 +16,6 @@ public static partial class Request
     /// <param name="uri">uri</param>
     /// <param name="version">http version, default is 2.0</param>
     /// <returns>request message</returns>
-    [Pure]
     public static HttpRequestMessage To(
         this HttpMethod method,
         string uri,
@@ -31,7 +30,6 @@ public static partial class Request
     /// <param name="uri">uri</param>
     /// <param name="version">http version, default is 2.0</param>
     /// <returns>request message</returns>
-    [Pure]
     public static HttpRequestMessage To(
         this HttpMethod method,
         Uri uri,
@@ -43,11 +41,12 @@ public static partial class Request
     /// </summary>
     /// <param name="request">existing <see cref="HttpRequestMessage"/></param>
     /// <returns>clone of the <see cref="HttpRequestMessage"/></returns>
-    [Pure]
     public static async ValueTask<HttpRequestMessage> Clone(this HttpRequestMessage request)
     {
-        HttpRequestMessage clone =
-            new(request.Method, request.RequestUri) { Version = request.Version };
+        HttpRequestMessage clone = new(request.Method, request.RequestUri)
+        {
+            Version = request.Version,
+        };
 
         var ms = new MemoryStream();
         if (request.Content != null)
