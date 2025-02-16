@@ -11,12 +11,14 @@ namespace HttpBuildR.Response.Tests.Examples
 
             HttpResponseMessage response = new HttpResponseMessage();
             response = response.WithContent(new StringContent("content"));
-            string result = await response.Content.ReadAsStringAsync();
-            result.Should().Be("content");
-            response
-                .Content.Headers.ContentType.ToString()
-                .Should()
-                .Be("text/plain; charset=utf-8");
+            string result = await response.Content.ReadAsStringAsync(
+                TestContext.Current.CancellationToken
+            );
+            Assert.Equal("content", result);
+            Assert.Equal(
+                "text/plain; charset=utf-8",
+                response.Content.Headers.ContentType!.ToString()
+            );
 
             #endregion
         }
@@ -28,12 +30,14 @@ namespace HttpBuildR.Response.Tests.Examples
 
             HttpResponseMessage response = new HttpResponseMessage();
             response = response.WithJsonContent(new { Name = "Ben", Age = "Unknown" });
-            string result = await response.Content.ReadAsStringAsync();
-            result.Should().Be("{\"Name\":\"Ben\",\"Age\":\"Unknown\"}");
-            response
-                .Content.Headers.ContentType.ToString()
-                .Should()
-                .Be("application/json; charset=utf-8");
+            string result = await response.Content.ReadAsStringAsync(
+                TestContext.Current.CancellationToken
+            );
+            Assert.Equal("{\"Name\":\"Ben\",\"Age\":\"Unknown\"}", result);
+            Assert.Equal(
+                "application/json; charset=utf-8",
+                response.Content.Headers.ContentType!.ToString()
+            );
 
             #endregion
         }
@@ -43,7 +47,7 @@ namespace HttpBuildR.Response.Tests.Examples
         [XmlRoot("Widget")]
         public class Widget
         {
-            public string Name { get; set; }
+            public string? Name { get; set; }
             public int PartNumber { get; set; }
         }
 
@@ -52,17 +56,21 @@ namespace HttpBuildR.Response.Tests.Examples
         {
             HttpResponseMessage response = new HttpResponseMessage();
             response = response.WithXmlContent(new Widget { Name = "Doohickey", PartNumber = 10 });
-            string result = await response.Content.ReadAsStringAsync();
-            result
-                .Should()
-                .Be(
-                    "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-                        + "<Widget xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">"
-                        + "<Name>Doohickey</Name>"
-                        + "<PartNumber>10</PartNumber>"
-                        + "</Widget>"
-                );
-            response.Content.Headers.ContentType!.ToString().Should().Be("text/xml; charset=utf-8");
+            string result = await response.Content.ReadAsStringAsync(
+                TestContext.Current.CancellationToken
+            );
+            Assert.Equal(
+                "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                    + "<Widget xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">"
+                    + "<Name>Doohickey</Name>"
+                    + "<PartNumber>10</PartNumber>"
+                    + "</Widget>",
+                result
+            );
+            Assert.Equal(
+                "text/xml; charset=utf-8",
+                response.Content.Headers.ContentType!.ToString()
+            );
         }
 
         #endregion
@@ -74,12 +82,14 @@ namespace HttpBuildR.Response.Tests.Examples
 
             HttpResponseMessage response = new HttpResponseMessage();
             response = response.WithTextContent("content");
-            string result = await response.Content.ReadAsStringAsync();
-            result.Should().Be("content");
-            response
-                .Content.Headers.ContentType.ToString()
-                .Should()
-                .Be("text/plain; charset=utf-8");
+            string result = await response.Content.ReadAsStringAsync(
+                TestContext.Current.CancellationToken
+            );
+            Assert.Equal("content", result);
+            Assert.Equal(
+                "text/plain; charset=utf-8",
+                response.Content.Headers.ContentType!.ToString()
+            );
 
             #endregion
         }
@@ -93,12 +103,14 @@ namespace HttpBuildR.Response.Tests.Examples
             response = response.WithFormUrlContent(
                 new KeyValuePair<string, string>("key", "value")
             );
-            string result = await response.Content!.ReadAsStringAsync();
-            result.Should().Be("key=value");
-            response
-                .Content.Headers.ContentType!.ToString()
-                .Should()
-                .Be("application/x-www-form-urlencoded");
+            string result = await response.Content.ReadAsStringAsync(
+                TestContext.Current.CancellationToken
+            );
+            Assert.Equal("key=value", result);
+            Assert.Equal(
+                "application/x-www-form-urlencoded",
+                response.Content.Headers.ContentType!.ToString()
+            );
 
             #endregion
         }

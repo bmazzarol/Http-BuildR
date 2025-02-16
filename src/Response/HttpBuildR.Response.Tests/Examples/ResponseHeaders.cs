@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Headers;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Net.Http.Headers;
 using Docfx.ResultSnippets;
 
 namespace HttpBuildR.Response.Tests.Examples;
@@ -22,7 +23,7 @@ public class ResponseHeadersTests
 
         #endregion
 
-        response.Should().NotBeNull();
+        Assert.NotNull(response);
         SaveHeadersAsMdTable(response).SaveResults();
     }
 
@@ -36,7 +37,7 @@ public class ResponseHeadersTests
 
         #endregion
 
-        response.Should().NotBeNull();
+        Assert.NotNull(response);
         SaveHeadersAsMdTable(response).SaveResults();
     }
 
@@ -50,11 +51,12 @@ public class ResponseHeadersTests
 
         #endregion
 
-        response.Should().NotBeNull();
+        Assert.NotNull(response);
         SaveHeadersAsMdTable(response).SaveResults();
     }
 
     [Fact]
+    [SuppressMessage("Minor Code Smell", "S1075:URIs should not be hardcoded")]
     public void TestWithLocationMethod()
     {
         #region WithLocationMethod
@@ -64,7 +66,7 @@ public class ResponseHeadersTests
 
         #endregion
 
-        response.Should().NotBeNull();
+        Assert.NotNull(response);
         SaveHeadersAsMdTable(response).SaveResults();
     }
 
@@ -80,7 +82,7 @@ public class ResponseHeadersTests
 
         #endregion
 
-        response.Should().NotBeNull();
+        Assert.NotNull(response);
         SaveHeadersAsMdTable(response).SaveResults();
     }
 
@@ -96,7 +98,7 @@ public class ResponseHeadersTests
 
         #endregion
 
-        response.Should().NotBeNull();
+        Assert.NotNull(response);
         SaveHeadersAsMdTable(response).SaveResults();
     }
 
@@ -110,7 +112,7 @@ public class ResponseHeadersTests
 
         #endregion
 
-        response.Should().NotBeNull();
+        Assert.NotNull(response);
         SaveHeadersAsMdTable(response).SaveResults();
     }
 
@@ -124,7 +126,7 @@ public class ResponseHeadersTests
 
         #endregion
 
-        response.Should().NotBeNull();
+        Assert.NotNull(response);
         SaveHeadersAsMdTable(response).SaveResults();
     }
 
@@ -138,7 +140,7 @@ public class ResponseHeadersTests
 
         #endregion
 
-        response.Should().NotBeNull();
+        Assert.NotNull(response);
         SaveHeadersAsMdTable(response).SaveResults();
     }
 }

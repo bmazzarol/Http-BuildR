@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace HttpBuildR.Request.Tests.Examples;
+namespace HttpBuildR.Tests.Examples;
 
 public class RequestContentTests
 {
@@ -11,9 +11,12 @@ public class RequestContentTests
 
         HttpRequestMessage request = new HttpRequestMessage();
         request = request.WithContent(new StringContent("content"));
-        string result = await request.Content!.ReadAsStringAsync();
-        result.Should().Be("content");
-        request.Content.Headers.ContentType!.ToString().Should().Be("text/plain; charset=utf-8");
+        string result = await request.Content!.ReadAsStringAsync(
+            TestContext.Current.CancellationToken
+        );
+
+        Assert.Equal("content", result);
+        Assert.Equal("text/plain; charset=utf-8", request.Content.Headers.ContentType!.ToString());
 
         #endregion
     }
@@ -25,12 +28,15 @@ public class RequestContentTests
 
         HttpRequestMessage request = new HttpRequestMessage();
         request = request.WithJsonContent(new { Name = "Ben", Age = "Unknown" });
-        string result = await request.Content!.ReadAsStringAsync();
-        result.Should().Be("{\"Name\":\"Ben\",\"Age\":\"Unknown\"}");
-        request
-            .Content.Headers.ContentType!.ToString()
-            .Should()
-            .Be("application/json; charset=utf-8");
+        string result = await request.Content!.ReadAsStringAsync(
+            TestContext.Current.CancellationToken
+        );
+
+        Assert.Equal("{\"Name\":\"Ben\",\"Age\":\"Unknown\"}", result);
+        Assert.Equal(
+            "application/json; charset=utf-8",
+            request.Content.Headers.ContentType!.ToString()
+        );
 
         #endregion
     }
@@ -40,7 +46,7 @@ public class RequestContentTests
     [XmlRoot("Widget")]
     public class Widget
     {
-        public string Name { get; set; }
+        public required string Name { get; set; }
         public int PartNumber { get; set; }
     }
 
@@ -49,17 +55,19 @@ public class RequestContentTests
     {
         HttpRequestMessage request = new HttpRequestMessage();
         request = request.WithXmlContent(new Widget { Name = "Doohickey", PartNumber = 10 });
-        string result = await request.Content!.ReadAsStringAsync();
-        result
-            .Should()
-            .Be(
-                "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-                    + "<Widget xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">"
-                    + "<Name>Doohickey</Name>"
-                    + "<PartNumber>10</PartNumber>"
-                    + "</Widget>"
-            );
-        request.Content.Headers.ContentType!.ToString().Should().Be("text/xml; charset=utf-8");
+        string result = await request.Content!.ReadAsStringAsync(
+            TestContext.Current.CancellationToken
+        );
+
+        Assert.Equal(
+            "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                + "<Widget xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">"
+                + "<Name>Doohickey</Name>"
+                + "<PartNumber>10</PartNumber>"
+                + "</Widget>",
+            result
+        );
+        Assert.Equal("text/xml; charset=utf-8", request.Content.Headers.ContentType!.ToString());
     }
 
     #endregion
@@ -71,9 +79,12 @@ public class RequestContentTests
 
         HttpRequestMessage request = new HttpRequestMessage();
         request = request.WithTextContent("content");
-        string result = await request.Content!.ReadAsStringAsync();
-        result.Should().Be("content");
-        request.Content.Headers.ContentType!.ToString().Should().Be("text/plain; charset=utf-8");
+        string result = await request.Content!.ReadAsStringAsync(
+            TestContext.Current.CancellationToken
+        );
+
+        Assert.Equal("content", result);
+        Assert.Equal("text/plain; charset=utf-8", request.Content.Headers.ContentType!.ToString());
 
         #endregion
     }
@@ -85,13 +96,15 @@ public class RequestContentTests
 
         HttpRequestMessage request = new HttpRequestMessage();
         request = request.WithFormUrlContent(new KeyValuePair<string, string>("key", "value"));
-        string result = await request.Content!.ReadAsStringAsync();
-        result.Should().Be("key=value");
-        request
-            .Content.Headers.ContentType!.ToString()
-            .Should()
-            .Be("application/x-www-form-urlencoded");
+        string result = await request.Content!.ReadAsStringAsync(
+            TestContext.Current.CancellationToken
+        );
 
+        Assert.Equal("key=value", result);
+        Assert.Equal(
+            "application/x-www-form-urlencoded",
+            request.Content.Headers.ContentType!.ToString()
+        );
         #endregion
     }
 }

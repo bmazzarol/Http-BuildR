@@ -1,7 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using Docfx.ResultSnippets;
 
-namespace HttpBuildR.Request.Tests.Examples;
+namespace HttpBuildR.Tests.Examples;
 
 public class RequestHeadersTests
 {
@@ -22,7 +22,7 @@ public class RequestHeadersTests
 
         #endregion
 
-        request.Should().NotBeNull();
+        Assert.NotNull(request);
         SaveHeadersAsMdTable(request).SaveResults();
     }
 
@@ -36,7 +36,7 @@ public class RequestHeadersTests
 
         #endregion
 
-        request.Should().NotBeNull();
+        Assert.NotNull(request);
         SaveHeadersAsMdTable(request).SaveResults();
     }
 
@@ -50,7 +50,7 @@ public class RequestHeadersTests
 
         #endregion
 
-        request.Should().NotBeNull();
+        Assert.NotNull(request);
         SaveHeadersAsMdTable(request).SaveResults();
     }
 
@@ -64,7 +64,7 @@ public class RequestHeadersTests
 
         #endregion
 
-        request.Should().NotBeNull();
+        Assert.NotNull(request);
         SaveHeadersAsMdTable(request).SaveResults();
     }
 
@@ -78,7 +78,7 @@ public class RequestHeadersTests
 
         #endregion
 
-        request.Should().NotBeNull();
+        Assert.NotNull(request);
         SaveHeadersAsMdTable(request).SaveResults();
     }
 
@@ -92,7 +92,7 @@ public class RequestHeadersTests
 
         #endregion
 
-        request.Should().NotBeNull();
+        Assert.NotNull(request);
         SaveHeadersAsMdTable(request).SaveResults();
     }
 
@@ -106,7 +106,7 @@ public class RequestHeadersTests
 
         #endregion
 
-        request.Should().NotBeNull();
+        Assert.NotNull(request);
         SaveHeadersAsMdTable(request).SaveResults();
     }
 
@@ -120,7 +120,7 @@ public class RequestHeadersTests
 
         #endregion
 
-        request.Should().NotBeNull();
+        Assert.NotNull(request);
         SaveHeadersAsMdTable(request).SaveResults();
     }
 
@@ -134,7 +134,7 @@ public class RequestHeadersTests
 
         #endregion
 
-        request.Should().NotBeNull();
+        Assert.NotNull(request);
         SaveHeadersAsMdTable(request).SaveResults();
     }
 
@@ -150,7 +150,7 @@ public class RequestHeadersTests
 
         #endregion
 
-        request.Should().NotBeNull();
+        Assert.NotNull(request);
         SaveHeadersAsMdTable(request).SaveResults();
     }
 
@@ -164,7 +164,7 @@ public class RequestHeadersTests
 
         #endregion
 
-        request.Should().NotBeNull();
+        Assert.NotNull(request);
         SaveHeadersAsMdTable(request).SaveResults();
     }
 
@@ -180,7 +180,7 @@ public class RequestHeadersTests
 
         #endregion
 
-        request.Should().NotBeNull();
+        Assert.NotNull(request);
         SaveHeadersAsMdTable(request).SaveResults();
     }
 
@@ -194,7 +194,7 @@ public class RequestHeadersTests
 
         #endregion
 
-        request.Should().NotBeNull();
+        Assert.NotNull(request);
         SaveHeadersAsMdTable(request).SaveResults();
     }
 
@@ -208,7 +208,7 @@ public class RequestHeadersTests
 
         #endregion
 
-        request.Should().NotBeNull();
+        Assert.NotNull(request);
         SaveHeadersAsMdTable(request).SaveResults();
     }
 
@@ -222,7 +222,7 @@ public class RequestHeadersTests
 
         #endregion
 
-        request.Should().NotBeNull();
+        Assert.NotNull(request);
         SaveHeadersAsMdTable(request).SaveResults();
     }
 
@@ -236,7 +236,7 @@ public class RequestHeadersTests
 
         #endregion
 
-        request.Should().NotBeNull();
+        Assert.NotNull(request);
         SaveHeadersAsMdTable(request).SaveResults();
     }
 }

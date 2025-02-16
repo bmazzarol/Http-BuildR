@@ -5,23 +5,18 @@
      -->
 
     <PropertyGroup>
-        <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-        <IsPackable>false</IsPackable>
+        <TargetFramework>net8.0</TargetFramework>
         <SonarQubeExclude>true</SonarQubeExclude>
-        <ImplicitUsings>enable</ImplicitUsings>
         <ProjectName>$(AssemblyName.Replace('.Tests', ''))</ProjectName>
+        <OutputType>Exe</OutputType>
     </PropertyGroup>
 
     <Import Project="$(MSBuildProjectDirectory)\..\$(ProjectName)\build\$(ProjectName).props"
             Condition="Exists('$(MSBuildProjectDirectory)\..\$(ProjectName)\build\$(ProjectName).props')"/>
 
     <ItemGroup>
-        <PackageReference Include="BunsenBurner"/>
-        <PackageReference Include="Docfx.ResultSnippets" />
-        <PackageReference Include="FluentAssertions"/>
-        <PackageReference Include="Meziantou.Xunit.ParallelTestFramework"/>
         <PackageReference Include="Microsoft.NET.Test.Sdk"/>
-        <PackageReference Include="xunit"/>
+        <PackageReference Include="xunit.v3"/>
         <PackageReference Include="xunit.runner.visualstudio">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -36,4 +31,7 @@
         <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <Using Include="Xunit" />
+    </ItemGroup>
 </Project>

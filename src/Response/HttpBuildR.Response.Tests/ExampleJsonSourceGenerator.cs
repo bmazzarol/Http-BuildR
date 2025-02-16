@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace HttpBuildR.Response.Tests;
+namespace HttpBuildR.Tests;
 
 public sealed record Widget(string Name, double Cost);
 

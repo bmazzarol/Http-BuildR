@@ -45,7 +45,6 @@ public static class ActionResultBuilder
     /// <param name="cookies">optional cookies</param>
     /// <typeparam name="T">some T</typeparam>
     /// <returns>action result of T</returns>
-    [Pure]
     public static ActionResult<T> Ok<T>(T result, params Cookie[] cookies)
         where T : notnull =>
         cookies.Length == 0
@@ -59,7 +58,6 @@ public static class ActionResultBuilder
     /// <param name="cookies">optional cookies</param>
     /// <typeparam name="T">some T</typeparam>
     /// <returns>action result of T</returns>
-    [Pure]
     public static ActionResult<T> ToActionResult<T>(
         this HttpResponseMessage response,
         params Cookie[] cookies
@@ -72,7 +70,6 @@ public static class ActionResultBuilder
     /// <param name="details">problem details</param>
     /// <param name="options">optional <see cref="JsonSerializerOptions"/></param>
     /// <returns>response</returns>
-    [Pure]
     public static HttpResponseMessage WithProblemDetails(
         this HttpResponseMessage response,
         ProblemDetails details,
@@ -89,7 +86,6 @@ public static class ActionResultBuilder
     /// <param name="instance">A URI reference that identifies the specific occurrence of the problem</param>
     /// <param name="options">optional <see cref="JsonSerializerOptions"/></param>
     /// <returns>response</returns>
-    [Pure]
     public static HttpResponseMessage WithProblemDetails(
         this HttpResponseMessage response,
         string? type,

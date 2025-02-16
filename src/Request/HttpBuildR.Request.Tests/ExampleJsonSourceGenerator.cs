@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace HttpBuildR.Request.Tests;
+namespace HttpBuildR.Tests;
 
 public sealed record Widget(string Name, double Cost);
 
 [JsonSerializable(typeof(Widget))]
-public partial class ExampleJsonSourceGenerator : JsonSerializerContext { }
+public partial class ExampleJsonSourceGenerator : JsonSerializerContext;

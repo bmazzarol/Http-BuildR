@@ -6,8 +6,6 @@
 
     <PropertyGroup>
         <Authors>Ben Mazzarol</Authors>
-        <PackageProjectUrl>https://bmazzarol.github.io/Http-BuildR</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/bmazzarol/Http-BuildR</RepositoryUrl>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <Copyright>Copyright (c) Ben Mazzarol. All rights reserved.</Copyright>
@@ -20,14 +18,12 @@
         <IsPackable>True</IsPackable>
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageIcon>construction-icon.png</PackageIcon>
         <LangVersion>latest</LangVersion>
         <OutputType>library</OutputType>
     </PropertyGroup>
 
     <ItemGroup>
         <None Include="README.md" Pack="true" PackagePath="\" />
-        <None Include="..\..\..\construction-icon.png" Pack="true" PackagePath="\" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
     </ItemGroup>
 

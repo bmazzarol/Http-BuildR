@@ -1,9 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    
-    <Import Project="$([MSBuild]::GetPathOfFileAbove('Common.Test.Xunit.targets', '$(MSBuildThisFileDirectory)'))"/>
+
+    <Import Project="$([MSBuild]::GetPathOfFileAbove('Common.Test.props', '$(MSBuildThisFileDirectory)'))"/>
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <RootNamespace>HttpBuildR.Tests</RootNamespace>
     </PropertyGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="BunsenBurner" Condition="$(BuiltInMonoRepo) != 'true'"/>
+        <ProjectReference Include="..\..\..\..\Bunsen-Burner\BunsenBurner\BunsenBurner.csproj" Condition="$(BuiltInMonoRepo) == 'true'"/>
+        <PackageReference Include="Docfx.ResultSnippets" Condition="$(BuiltInMonoRepo) != 'true'"/>
+        <ProjectReference Include="..\..\..\..\docfx.result-snippets\Docfx.ResultSnippets\Docfx.ResultSnippets.csproj" Condition="$(BuiltInMonoRepo) == 'true'" />
+    </ItemGroup>
 
+    <ItemGroup>
+        <Using Include="BunsenBurner"/>
+    </ItemGroup>
 </Project>

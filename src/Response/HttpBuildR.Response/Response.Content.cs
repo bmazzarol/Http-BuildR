@@ -16,7 +16,6 @@ public static partial class Response
     /// <param name="response">response</param>
     /// <param name="content">response content</param>
     /// <returns>response</returns>
-    [Pure]
     public static HttpResponseMessage WithContent(
         this HttpResponseMessage response,
         HttpContent content
