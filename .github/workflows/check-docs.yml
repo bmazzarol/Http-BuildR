@@ -2,7 +2,7 @@ name: Check the Docfx site
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   check-docs:
