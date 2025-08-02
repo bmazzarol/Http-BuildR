@@ -1,20 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    
-    <Import Project="$([MSBuild]::GetPathOfFileAbove('Common.Release.props', '$(MSBuildThisFileDirectory)'))"/>
-    
-    <PropertyGroup>
-        <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
-        <Title>Http BuildR ActionResult</Title>
-        <Description>Simple respones builder functions on top of ActionResult!</Description>
-        <PackageTags>C#, Functional, Fluent, Builder, Response, ActionResult</PackageTags>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\..\Response\HttpBuildR.Response\HttpBuildR.Response.csproj"/>
-    </ItemGroup>
-
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Common.Release.props', '$(MSBuildThisFileDirectory)'))" />
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+    <Title>Http BuildR ActionResult</Title>
+    <Description>Simple respones builder functions on top of ActionResult!</Description>
+    <PackageTags>C#, Functional, Fluent, Builder, Response, ActionResult</PackageTags>
+  </PropertyGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Response\HttpBuildR.Response\HttpBuildR.Response.csproj" />
+  </ItemGroup>
 </Project>

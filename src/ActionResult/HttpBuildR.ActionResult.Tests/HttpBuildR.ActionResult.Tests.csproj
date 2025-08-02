@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-    <Import Project="$([MSBuild]::GetPathOfFileAbove('Common.Test.props', '$(MSBuildThisFileDirectory)'))"/>
-
-    <ItemGroup>
-        <PackageReference Include="BunsenBurner" Condition="$(BuiltInMonoRepo) != 'true'"/>
-        <ProjectReference Include="..\..\..\..\Bunsen-Burner\BunsenBurner\BunsenBurner.csproj" Condition="$(BuiltInMonoRepo) == 'true'"/>
-    </ItemGroup>
-    
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Common.Test.props', '$(MSBuildThisFileDirectory)'))" />
+  <ItemGroup>
+    <PackageReference Include="BunsenBurner" Condition="$(BuiltInMonoRepo) != 'true'" />
+    <ProjectReference
+      Include="..\..\..\..\Bunsen-Burner\BunsenBurner\BunsenBurner.csproj"
+      Condition="$(BuiltInMonoRepo) == 'true'"
+    />
+  </ItemGroup>
 </Project>

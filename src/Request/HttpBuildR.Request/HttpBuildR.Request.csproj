@@ -1,15 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-    <Import Project="$([MSBuild]::GetPathOfFileAbove('Common.Release.props', '$(MSBuildThisFileDirectory)'))"/>
-
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <Title>Http BuildR Request</Title>
-        <Description>Simple request builder functions on top of System.Net.Http!</Description>
-        <PackageTags>C#, Functional, Fluent, Builder, System.Net.Http, Request, HttpRequestMessage</PackageTags>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="System.Text.Json" VersionOverride="[6.0.10,)"/>
-    </ItemGroup>
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Common.Release.props', '$(MSBuildThisFileDirectory)'))" />
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Title>Http BuildR Request</Title>
+    <Description>Simple request builder functions on top of System.Net.Http!</Description>
+    <PackageTags>C#, Functional, Fluent, Builder, System.Net.Http, Request, HttpRequestMessage</PackageTags>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" VersionOverride="[6.0.10,)" />
+  </ItemGroup>
 </Project>
