@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/Docs/">
+    <Project Path="src/Docs/HttpBuildR.Docs/HttpBuildR.Docs.csproj" />
+  </Folder>
+  <Folder Name="/Request/">
+    <Project Path="src/Request/HttpBuildR.Request.Tests/HttpBuildR.Request.Tests.csproj" />
+    <Project Path="src/Request/HttpBuildR.Request/HttpBuildR.Request.csproj" />
+  </Folder>
+  <Folder Name="/Response/">
+    <Project Path="src/Response/HttpBuildR.Response.Tests/HttpBuildR.Response.Tests.csproj" />
+    <Project Path="src/Response/HttpBuildR.Response/HttpBuildR.Response.csproj" />
+  </Folder>
+</Solution>
