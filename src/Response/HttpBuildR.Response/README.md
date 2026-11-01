@@ -1,6 +1,6 @@
-![Http BuildR](https://raw.githubusercontent.com/bmazzarol/Http-BuildR/main/construction-icon-small.png)
+![Http BuildR Response](https://raw.githubusercontent.com/bmazzarol/Http-BuildR/main/construction-icon-small.png)
 
-# Http BuildR
+# Http BuildR Response
 
 **Requests and responses, standard library only.**
 
@@ -12,7 +12,7 @@ Extension methods that build a HttpResponseMessage out of a chain, using nothing
 dotnet add package HttpBuildR.Response
 ```
 
-[Getting started](https://bmazzarol.github.io/Http-BuildR/articles/request/request-overview.html) - [Full documentation](https://bmazzarol.github.io/Http-BuildR/)
+[Getting started](articles/response/response-overview.html) - [Full documentation](https://bmazzarol.github.io/Http-BuildR/)
 
 ## Building a response
 
