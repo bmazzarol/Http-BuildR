@@ -12,7 +12,7 @@ Extension methods that build an HttpRequestMessage out of a chain, using nothing
 dotnet add package HttpBuildR.Request
 ```
 
-[Getting started](articles/request/request-overview.html) - [Full documentation](https://bmazzarol.github.io/Http-BuildR/)
+[Getting started](https://bmazzarol.github.io/Http-BuildR/articles/request/request-overview.html) - [Full documentation](https://bmazzarol.github.io/Http-BuildR/)
 
 ## Building a request
 

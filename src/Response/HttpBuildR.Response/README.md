@@ -12,7 +12,7 @@ Extension methods that build a HttpResponseMessage out of a chain, using nothing
 dotnet add package HttpBuildR.Response
 ```
 
-[Getting started](articles/response/response-overview.html) - [Full documentation](https://bmazzarol.github.io/Http-BuildR/)
+[Getting started](https://bmazzarol.github.io/Http-BuildR/articles/response/response-overview.html) - [Full documentation](https://bmazzarol.github.io/Http-BuildR/)
 
 ## Building a response
 
