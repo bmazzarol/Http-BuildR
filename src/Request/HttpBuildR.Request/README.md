@@ -1,24 +1,27 @@
-# Http BuildR Request
+![Http BuildR](https://raw.githubusercontent.com/bmazzarol/Http-BuildR/main/construction-icon-small.png)
+
+# Http BuildR
+
+**Requests and responses, standard library only.**
+
+Extension methods that build an HttpRequestMessage out of a chain, using nothing but System.Net.Http.
 
 [![Nuget](https://img.shields.io/nuget/v/HttpBuildR.Request)](https://www.nuget.org/packages/HttpBuildR.Request/)
-
-Extension methods that build an `HttpRequestMessage` out of a chain, using
-nothing but `System.Net.Http`.
 
 ```shell
 dotnet add package HttpBuildR.Request
 ```
 
-```c#
+[Getting started](https://bmazzarol.github.io/Http-BuildR/articles/request/request-overview.html) - [Full documentation](https://bmazzarol.github.io/Http-BuildR/)
+
+## Building a request
+
+```csharp
 using HttpBuildR;
 
 // alias the method so the chain reads like a sentence
 using Req = HttpMethod;
-```
 
-## Building a request
-
-```c#
 HttpRequestMessage request =
     Req.Post
         .To("http://some-url/some-part")
@@ -36,9 +39,9 @@ helpers cover the standard headers plus arbitrary ones.
 
 ## What it does not do
 
-* It does not send the request
-* It does not wrap the request in a client or a retry policy
-* `Clone` is the only async method; everything else is synchronous
+- It does not send the request
+- It does not wrap the request in a client or a retry policy
+- `Clone` is the only async method; everything else is synchronous
 
 ## Examples
 
