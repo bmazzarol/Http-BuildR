@@ -16,13 +16,13 @@ using HttpBuildR;
 using Req = HttpMethod;
 ```
 
-If you're using 
-[implicit usings](https://learn.microsoft.com/en-gb/dotnet/core/project-sdk/overview#implicit-using-directives) 
+If you're using
+[implicit usings](https://learn.microsoft.com/en-gb/dotnet/core/project-sdk/overview#implicit-using-directives)
 the above is not necessary.
 
 ## Creating a Request
 
-You can create a new <xref:System.Net.Http.HttpRequestMessage> using the 
+You can create a new <xref:System.Net.Http.HttpRequestMessage> using the
 <xref:HttpBuildR.Request.To*>
 method:
 

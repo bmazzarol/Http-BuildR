@@ -3,7 +3,7 @@
 HttpBuildR provides a set of methods to modify the headers of
 an <xref:System.Net.Http.HttpRequestMessage> object in a fluent manner.
 
-### WithHeader Method
+## WithHeader Method
 
 The <xref:HttpBuildR.Request.WithHeader*> method adds a header to the request.
 
@@ -13,7 +13,7 @@ Usage:
 
 [!INCLUDE[TestWithHeaderMethod](../../../../Request/HttpBuildR.Request.Tests/Examples/__examples__/RequestHeaders.TestWithHeaderMethod.md)]
 
-### WithAuthorization Method
+## WithAuthorization Method
 
 The <xref:HttpBuildR.Request.WithAuthorization*> method adds an authentication header.
 
@@ -23,7 +23,7 @@ Usage:
 
 [!INCLUDE[TestWithAuthorizationMethod](../../../../Request/HttpBuildR.Request.Tests/Examples/__examples__/RequestHeaders.TestWithAuthorizationMethod.md)]
 
-### WithProxyAuthorization Method
+## WithProxyAuthorization Method
 
 The <xref:HttpBuildR.Request.WithProxyAuthorization*> method adds a Proxy-Authorization header.
 
@@ -33,7 +33,7 @@ Usage:
 
 [!INCLUDE[TestWithProxyAuthorizationMethod](../../../../Request/HttpBuildR.Request.Tests/Examples/__examples__/RequestHeaders.TestWithProxyAuthorizationMethod.md)]
 
-### WithBearerToken Method
+## WithBearerToken Method
 
 The <xref:HttpBuildR.Request.WithBearerToken*> method adds a Bearer authentication token header.
 
@@ -43,7 +43,7 @@ Usage:
 
 [!INCLUDE[TestWithBearerTokenMethod](../../../../Request/HttpBuildR.Request.Tests/Examples/__examples__/RequestHeaders.TestWithBearerTokenMethod.md)]
 
-### WithBasicToken Method
+## WithBasicToken Method
 
 The <xref:HttpBuildR.Request.WithBasicToken*> method adds a Basic authentication token header.
 
@@ -53,7 +53,7 @@ Usage:
 
 [!INCLUDE[TestWithBasicTokenMethod](../../../../Request/HttpBuildR.Request.Tests/Examples/__examples__/RequestHeaders.TestWithBasicTokenMethod.md)]
 
-### WithCacheControl Method
+## WithCacheControl Method
 
 The <xref:HttpBuildR.Request.WithCacheControl*> method adds a cache control header.
 
@@ -63,7 +63,7 @@ Usage:
 
 [!INCLUDE[TestWithCacheControlMethod](../../../../Request/HttpBuildR.Request.Tests/Examples/__examples__/RequestHeaders.TestWithCacheControlMethod.md)]
 
-### WithConnectionClose Method
+## WithConnectionClose Method
 
 The <xref:HttpBuildR.Request.WithConnectionClose*> method adds a connection closed header.
 
@@ -73,7 +73,7 @@ Usage:
 
 [!INCLUDE[TestWithConnectionCloseMethod](../../../../Request/HttpBuildR.Request.Tests/Examples/__examples__/RequestHeaders.TestWithConnectionCloseMethod.md)]
 
-### WithDate Method
+## WithDate Method
 
 The <xref:HttpBuildR.Request.WithDate*> method adds a date header.
 
@@ -83,7 +83,7 @@ Usage:
 
 [!INCLUDE[TestWithDateMethod](../../../../Request/HttpBuildR.Request.Tests/Examples/__examples__/RequestHeaders.TestWithDateMethod.md)]
 
-### WithAccept Method
+## WithAccept Method
 
 The <xref:HttpBuildR.Request.WithAccept*> method adds to the accept content type header.
 
@@ -93,7 +93,7 @@ Usage:
 
 [!INCLUDE[TestWithAcceptMethod](../../../../Request/HttpBuildR.Request.Tests/Examples/__examples__/RequestHeaders.TestWithAcceptMethod.md)]
 
-### WithIfModifiedSince Method
+## WithIfModifiedSince Method
 
 The <xref:HttpBuildR.Request.WithIfModifiedSince*> method adds a If-Modified-Since header.
 
@@ -103,7 +103,7 @@ Usage:
 
 [!INCLUDE[TestWithIfModifiedSinceMethod](../../../../Request/HttpBuildR.Request.Tests/Examples/__examples__/RequestHeaders.TestWithIfModifiedSinceMethod.md)]
 
-### WithIfRange Method
+## WithIfRange Method
 
 The <xref:HttpBuildR.Request.WithIfRange*> method adds a If-Range header.
 
@@ -113,7 +113,7 @@ Usage:
 
 [!INCLUDE[TestWithIfRangeMethod](../../../../Request/HttpBuildR.Request.Tests/Examples/__examples__/RequestHeaders.TestWithIfRangeMethod.md)]
 
-### WithIfUnmodifiedSince Method
+## WithIfUnmodifiedSince Method
 
 The <xref:HttpBuildR.Request.WithIfUnmodifiedSince*> method adds a If-Unmodified-Since header.
 
@@ -123,7 +123,7 @@ Usage:
 
 [!INCLUDE[TestWithIfUnmodifiedSinceMethod](../../../../Request/HttpBuildR.Request.Tests/Examples/__examples__/RequestHeaders.TestWithIfUnmodifiedSinceMethod.md)]
 
-### WithMaxForwards Method
+## WithMaxForwards Method
 
 The <xref:HttpBuildR.Request.WithMaxForwards*> method adds a Max-Forwards header.
 
@@ -133,7 +133,7 @@ Usage:
 
 [!INCLUDE[TestWithMaxForwardsMethod](../../../../Request/HttpBuildR.Request.Tests/Examples/__examples__/RequestHeaders.TestWithMaxForwardsMethod.md)]
 
-### WithRange Method
+## WithRange Method
 
 The <xref:HttpBuildR.Request.WithRange*> method adds a Range header.
 
@@ -143,7 +143,7 @@ Usage:
 
 [!INCLUDE[TestWithRangeMethod](../../../../Request/HttpBuildR.Request.Tests/Examples/__examples__/RequestHeaders.TestWithRangeMethod.md)]
 
-### WithReferrer Method
+## WithReferrer Method
 
 The <xref:HttpBuildR.Request.WithReferrer*> method adds a Referer header.
 
@@ -153,7 +153,7 @@ Usage:
 
 [!INCLUDE[TestWithReferrerMethod](../../../../Request/HttpBuildR.Request.Tests/Examples/__examples__/RequestHeaders.TestWithReferrerMethod.md)]
 
-### WithTransferEncodingChunked Method
+## WithTransferEncodingChunked Method
 
 The <xref:HttpBuildR.Request.WithTransferEncodingChunked*> method adds a Transfer-Encoding header.
 
