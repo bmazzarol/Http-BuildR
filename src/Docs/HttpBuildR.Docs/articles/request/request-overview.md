@@ -1,70 +1,83 @@
-﻿# Getting Started with HttpBuildR Request
+# Request Overview
 
-HttpBuildR Request is a fluent API for building and working
-with <xref:System.Net.Http.HttpRequestMessage> objects. This guide will help you
-get started with using HttpBuildR in your projects.
+`HttpBuildR.Request` is a set of extension methods that build a
+<xref:System.Net.Http.HttpRequestMessage>. Nothing is wrapped, the result is the
+core type.
 
-## Installation
+```shell
+dotnet add package HttpBuildR.Request
+```
 
-To use this library, simply include `HttpBuildR.Request.dll` in your project or
-grab
-it from [NuGet](https://www.nuget.org/packages/HttpBuildR.Request/), and add
-this to the top of each `.cs` file that needs it:
-
-```C#
+```c#
 using HttpBuildR;
 using Req = HttpMethod;
 ```
 
-If you're using
+With
 [implicit usings](https://learn.microsoft.com/en-gb/dotnet/core/project-sdk/overview#implicit-using-directives)
-the above is not necessary.
+the `using HttpBuildR;` line is not needed.
 
-## Creating a Request
+## Start with a method and a url
 
-You can create a new <xref:System.Net.Http.HttpRequestMessage> using the
-<xref:HttpBuildR.Request.To*>
-method:
+<xref:HttpBuildR.Request.To*> takes a string or a `Uri`, and an optional http
+version:
 
-```csharp
+```c#
 HttpRequestMessage request = HttpMethod.Get.To("https://example.com");
 ```
 
-This creates a new GET request to `https://example.com`.
-
-## Modifying Headers
-
-HttpBuildR provides a set of methods to modify the headers of
-an <xref:System.Net.Http.HttpRequestMessage>. For more information, see
-the [Request Headers](request-headers.md) guide.
-
-Here's an example of how you can add a header to a request:
-
-```csharp
-request = request.WithHeader("headerName", "headerValue");
+```text
+GET https://example.com/ HTTP/2.0
 ```
 
-## Modifying Content
+## Add headers
 
-HttpBuildR also provides methods to modify the content of
-an <xref:System.Net.Http.HttpRequestMessage>. For more information, see
-the [Request Content](request-content.md) guide.
+<xref:HttpBuildR.Request.WithHeader*> takes any header. The typed helpers in the
+[headers guide](request-headers.md) cover the standard ones.
 
-Here's an example of how you can add JSON content to a request:
-
-```csharp
-request = request.WithJsonContent(new { Name = "Ben", Age = "Unknown" });
+```c#
+request = request.WithHeader("X-Request-Id", "abc-123");
 ```
 
-## Sending the Request
+```text
+GET https://example.com/ HTTP/2.0
+X-Request-ID: abc-123
+```
 
-Once you've built your request, you can send it using an `HttpClient`:
+Headers are normalised by `System.Net.Http`, so `X-Request-Id` comes back as
+`X-Request-ID`.
 
-```csharp
-HttpClient client = new HttpClient();
+## Add content
+
+Content helpers replace any existing content:
+
+```c#
+request = HttpMethod.Post.To("https://example.com/widgets")
+    .WithJsonContent(new { Name = "Ben", Age = 36 });
+```
+
+```text
+POST https://example.com/widgets HTTP/2.0
+Content-Type: application/json; charset=utf-8
+
+{"Name":"Ben","Age":36}
+```
+
+Text, xml, form url encoded and raw stream content are all available, see the
+[content guide](request-content.md).
+
+## Send it
+
+The builder stops at the request. Sending is still the caller's job:
+
+```c#
+using HttpClient client = new HttpClient();
 HttpResponseMessage response = await client.SendAsync(request);
 ```
 
-This sends the request and returns the response.
+## See also
 
-That's it! You're now ready to start using HttpBuildR in your projects.
+* [Request Headers](request-headers.md) - every header helper
+* [Request Content](request-content.md) - every content helper
+* [Response Overview](../response/response-overview.md) - the same pattern for
+  responses

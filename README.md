@@ -10,82 +10,57 @@ A fluent builder for HttpRequestMessage and HttpResponseMessage built on System.
 
 [:running: **_Getting Started_**](https://bmazzarol.github.io/Http-BuildR/articles/request/request-overview.html) | [:books: **_Documentation_**](https://bmazzarol.github.io/Http-BuildR/)
 
-## Features
+## What it does
 
-Simple request response builders in C# without all the fancy frameworks.
+The builders are extension methods on the types in `System.Net.Http`, so a
+request or response stays a plain `HttpRequestMessage` or
+`HttpResponseMessage`.
 
-* Just System.Net.Http
-* Zero dependencies
-* Easy to use and understand
-* No additional allocations
-* Does only what it says on the tin, builds requests and responses :hammer:
+* No dependencies beyond `System.Net.Http`
+* No wrapper types and no extra allocations
+* Headers, content and version set in one chain
 
 ```c#
 using HttpBuildR;
 
-// its helpful to alias this for readability
+// alias the method so the chain reads like a sentence
 using Req = HttpMethod;
 
-...
-
-HttpRequestMessage request = 
-  // start with the Http method
-  Req.Post
-     // now we can say where the request is made to
-     // any thing that is a string or Uri will work
-     // plays nice with the flurl Url builder!
-     .To("http://some-url/some-part")
-     // add some headers
-     .WithBearerToken(token)
-     .WithAccept("application/json")
-     .WithHeader("x-custom-header", "a","b","c")
-     // with some content, they are all supported!
-     .WithJsonContent(new {Name = "John", Age = 36});
-// now you can send it!!!
-...
+HttpRequestMessage request =
+    Req.Post
+        .To("http://some-url/some-part")
+        .WithBearerToken(token)
+        .WithAccept("application/json")
+        .WithHeader("x-custom-header", "a", "b", "c")
+        .WithJsonContent(new { Name = "John", Age = 36 });
 ```
 
-## Getting Started
+The chain builds a request. Sending it is still up to the caller.
 
-To use this library, simply include `HttpBuildR.Request.dll` in your project or
-grab
-it from [NuGet](https://www.nuget.org/packages/HttpBuildR.Request/), and add
-this to the top of each `.cs` file that needs it:
+## Packages
 
-```C#
-using HttpBuildR;
-using Req = HttpMethod;
-```
+| Package | Builds | NuGet |
+| --- | --- | --- |
+| HttpBuildR.Request | `HttpRequestMessage` | [nuget](https://www.nuget.org/packages/HttpBuildR.Request/) |
+| HttpBuildR.Response | `HttpResponseMessage` | [nuget](https://www.nuget.org/packages/HttpBuildR.Response/) |
+| HttpBuildR.ActionResult | `HttpResponseMessage` from an action result | [nuget](https://www.nuget.org/packages/HttpBuildR.ActionResult/) |
 
-> [!NOTE]
-> If you're using
-> [implicit usings](https://learn.microsoft.com/en-gb/dotnet/core/project-sdk/overview#implicit-using-directives)
-> the above is not necessary.
+## Documentation
 
-Click through to the links bellow for further details.
-<!-- markdownlint-disable MD013 -->
+* [Request overview](https://bmazzarol.github.io/Http-BuildR/articles/request/request-overview.html)
+* [Request headers](https://bmazzarol.github.io/Http-BuildR/articles/request/request-headers.html)
+* [Request content](https://bmazzarol.github.io/Http-BuildR/articles/request/request-content.html)
+* [Response overview](https://bmazzarol.github.io/Http-BuildR/articles/response/response-overview.html)
 
-| Library                                                              | Description                                                                    | Nu-Get                                                                                                                      |
-|----------------------------------------------------------------------|--------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
-| [Request](./src/Request/HttpBuildR.Request/README.md)                | Simple request builder functions on top of System.Net.Http!                    | [![Nuget](https://img.shields.io/nuget/v/HttpBuildR.Request)](https://www.nuget.org/packages/HttpBuildR.Request/)           |
-| [Response](./src/Response/HttpBuildR.Response/README.md)             | Simple response builder functions on top of System.Net.Http!                   | [![Nuget](https://img.shields.io/nuget/v/HttpBuildR.Response)](https://www.nuget.org/packages/HttpBuildR.Response/)         |
-| [ActionResult](./src/ActionResult/HttpBuildR.ActionResult/README.md) | Simple ActionResult builder functions, building on-top of HttpBuildR.Response! | [![Nuget](https://img.shields.io/nuget/v/HttpBuildR.ActionResult)](https://www.nuget.org/packages/HttpBuildR.ActionResult/) |
+The test projects in `src/Request/HttpBuildR.Request.Tests` and
+`src/Response/HttpBuildR.Response.Tests` cover every builder, and are the
+closest thing to a reference for edge cases.
 
-<!-- markdownlint-enable MD013 -->
+## Why another one?
 
-## Why?
-
-There are a ton of http client libraries out there, but nothing (that I liked)
-that was just simple extensions to the core System.Net.Http classes.
-
-I want the request and response building code to be,
-
-* Declarative, it needs to flow and read as well as possible
-* Simple, usage should be trivial and leaning curve as flat as possible
-* Complete, anything you can do with the core class can be done in a fluent
-  declarative style
-
-For more details/information have a look the test projects or create an issue.
+Most http libraries wrap `System.Net.Http` in a client of their own. This one
+keeps the core types and only replaces the setup code with a chain, so anything
+that already accepts an `HttpRequestMessage` keeps working.
 
 ## Attributions
 

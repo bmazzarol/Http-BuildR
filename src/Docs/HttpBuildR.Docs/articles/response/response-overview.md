@@ -1,64 +1,73 @@
-﻿# Getting Started with HttpBuildR Response
+# Response Overview
 
-HttpBuildR Response is a fluent API for building and working
-with <xref:System.Net.Http.HttpResponseMessage> objects. This guide will help
-you get started with using HttpBuildR in your projects.
+`HttpBuildR.Response` is a set of extension methods that build a
+<xref:System.Net.Http.HttpResponseMessage>. The usual place for this is a test
+that needs an expected response.
 
-## Installation
+```shell
+dotnet add package HttpBuildR.Response
+```
 
-To use this library, simply include `HttpBuildR.Response.dll` in your project or
-grab
-it from [NuGet](https://www.nuget.org/packages/HttpBuildR.Response/), and add
-this to the top of each `.cs` file that needs it:
-
-```C#
+```c#
 using HttpBuildR;
 using Resp = HttpStatusCode;
 ```
 
-If you're using
+With
 [implicit usings](https://learn.microsoft.com/en-gb/dotnet/core/project-sdk/overview#implicit-using-directives)
-the above is not necessary.
+the `using HttpBuildR;` line is not needed.
 
-## Creating a Response
+## Start with a status code
 
-You can create a new <xref:System.Net.Http.HttpResponseMessage> using
-the <xref:HttpBuildR.Response.Result*> method:
+<xref:HttpBuildR.Response.Result*> takes an optional reason phrase, the request
+the response answers, and an http version:
 
-```csharp
-HttpResponseMessage response = HttpStatusCode.OK.Result();
+```c#
+HttpResponseMessage response = HttpStatusCode.Created.Result();
 ```
 
-This creates a new response with the status code `OK`.
-
-And with <xref:System.Net.HttpStatusCode> aliased as `Resp`:
-
-```csharp
-HttpResponseMessage response = Resp.OK.Result();
+```text
+HTTP/2.0 Created Created
 ```
 
-## Modifying Headers
+The reason phrase defaults to the name of the status code.
 
-HttpBuildR provides a set of methods to modify the headers of
-an <xref:System.Net.Http.HttpResponseMessage>. For more information, see
-the [Response Headers](response-headers.md) guide.
+## Add headers
 
-Here's an example of how you can add a header to a response:
+<xref:HttpBuildR.Response.WithHeader*> takes any header. The typed helpers in the
+[headers guide](response-headers.md) cover the standard ones.
 
-```csharp
-response = response.WithHeader("headerName", "headerValue");
+```c#
+response = response.WithHeader("X-Request-Id", "abc-123");
 ```
 
-## Modifying Content
-
-HttpBuildR also provides methods to modify the content of
-an <xref:System.Net.Http.HttpResponseMessage>. For more information, see
-the [Response Content](response-content.md) guide.
-
-Here's an example of how you can add JSON content to a response:
-
-```csharp
-response = response.WithJsonContent(new { Name = "Ben", Age = "Unknown" });
+```text
+HTTP/2.0 Created Created
+X-Request-ID: abc-123
 ```
 
-That's it! You're now ready to start using HttpBuildR in your projects.
+## Add content
+
+Content helpers replace any existing content:
+
+```c#
+response = response.WithJsonContent(new { Name = "Ben", Age = 36 });
+```
+
+```text
+HTTP/2.0 Created Created
+X-Request-ID: abc-123
+Content-Type: application/json; charset=utf-8
+
+{"Name":"Ben","Age":36}
+```
+
+Text, xml, form url encoded and raw stream content are all available, see the
+[content guide](response-content.md).
+
+## See also
+
+* [Response Headers](response-headers.md) - every header helper
+* [Response Content](response-content.md) - every content helper
+* [Request Overview](../request/request-overview.md) - the same pattern for
+  requests

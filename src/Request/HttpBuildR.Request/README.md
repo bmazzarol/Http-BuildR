@@ -1,51 +1,45 @@
-<!-- markdownlint-disable MD013 -->
-
-# ![HTTP BuildR Request](https://raw.githubusercontent.com/bmazzarol/Http-BuildR/main/construction-icon-small.png) HTTP BuildR Request
-
-<!-- markdownlint-enable MD013 -->
+# Http BuildR Request
 
 [![Nuget](https://img.shields.io/nuget/v/HttpBuildR.Request)](https://www.nuget.org/packages/HttpBuildR.Request/)
 
-Http BuildR Request is a simple set of C# functions for building requests using
-only System.Net.Http!
+Extension methods that build an `HttpRequestMessage` out of a chain, using
+nothing but `System.Net.Http`.
 
-## Getting Started
-
-To use this library, simply include `HttpBuildR.Request.dll` in your project or
-grab
-it from [NuGet](https://www.nuget.org/packages/HttpBuildR.Request/), and add
-this to the top of each `.cs` file that needs it:
-
-```C#
-using HttpBuildR;
-using Req = HttpMethod;
+```shell
+dotnet add package HttpBuildR.Request
 ```
-
-Then get building!,
 
 ```c#
 using HttpBuildR;
 
-// its helpful to alias this for readability
+// alias the method so the chain reads like a sentence
 using Req = HttpMethod;
-
-...
-
-HttpRequestMessage request = 
-  // start with the Http method
-  Req.Post
-     // now we can say where the request is made to
-     // any thing that is a string or Uri will work
-     // plays nice with the flurl Url builder!
-     .To("http://some-url/some-part") 
-     // add some headers
-     .WithBearerToken(token)
-     .WithAccept("application/json")
-     .WithHeader("x-custom-header", "a","b","c")
-     // with some content, they are all supported!
-     .WithJsonContent(new {Name = "John", Age = 36});
-// now you can send it!!!
-...
 ```
 
-For more details/information have a look the test project or create an issue.
+## Building a request
+
+```c#
+HttpRequestMessage request =
+    Req.Post
+        .To("http://some-url/some-part")
+        .WithBearerToken(token)
+        .WithAccept("application/json")
+        .WithHeader("x-custom-header", "a", "b", "c")
+        .WithJsonContent(new { Name = "John", Age = 36 });
+```
+
+`To` starts the request, every `With*` returns a new `HttpRequestMessage`, and
+the result is a plain `HttpRequestMessage` that any `HttpClient` can send.
+
+Content helpers cover json, xml, text, form url encoded and raw streams. Header
+helpers cover the standard headers plus arbitrary ones.
+
+## What it does not do
+
+* It does not send the request
+* It does not wrap the request in a client or a retry policy
+* `Clone` is the only async method; everything else is synchronous
+
+## Examples
+
+The test project in `HttpBuildR.Request.Tests` exercises every builder.
