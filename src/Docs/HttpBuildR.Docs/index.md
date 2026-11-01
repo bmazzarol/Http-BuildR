@@ -2,9 +2,9 @@
 
 ![Http BuildR](images/construction-icon.png)
 
-**Requests and responses, without the framework.**
+**Requests and responses, standard library only.**
 
-A fluent builder for HttpRequestMessage and HttpResponseMessage built on System.Net.Http alone, with no dependencies and no extra allocations.
+A fluent builder for HttpRequestMessage and HttpResponseMessage built on System.Net.Http alone, with no dependencies and no wrapper types.
 
 ```shell
 dotnet add package HttpBuildR.Request
