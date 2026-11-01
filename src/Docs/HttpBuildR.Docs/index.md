@@ -1,25 +1,14 @@
-<!-- markdownlint-disable MD033 MD041 -->
-<div align="center">
+# Http BuildR
 
-<img src="images/construction-icon.png" alt="HTTP BuildR" width="150px"/>
+![Http BuildR](images/construction-icon.png)
 
-# HTTP BuildR
+**Requests and responses, without the framework.**
 
----
+A fluent builder for HttpRequestMessage and HttpResponseMessage built on System.Net.Http alone, with no dependencies and no extra allocations.
 
-[![Nuget](https://img.shields.io/nuget/v/HttpBuildR.Request)](https://www.nuget.org/packages/HttpBuildR.Request/)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=bmazzarol_Http-BuildR&metric=coverage)](https://sonarcloud.io/summary/new_code?id=bmazzarol_Http-BuildR)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bmazzarol_Http-BuildR&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bmazzarol_Http-BuildR)
-[![CD Build](https://github.com/bmazzarol/Http-BuildR/actions/workflows/cd-build.yml/badge.svg)](https://github.com/bmazzarol/Http-BuildR/actions/workflows/cd-build.yml)
-[![Check Markdown](https://github.com/bmazzarol/Http-BuildR/actions/workflows/check-markdown.yml/badge.svg)](https://github.com/bmazzarol/Http-BuildR/actions/workflows/check-markdown.yml)
-
-Simple C# functions for building :hammer: requests and responses using only the
-core System.Net.Http!
-
----
-
-</div>
-<!-- markdownlint-enable MD033 MD041 -->
+```shell
+dotnet add package HttpBuildR.Request
+```
 
 ## Why?
 
